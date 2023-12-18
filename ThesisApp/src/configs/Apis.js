@@ -5,14 +5,15 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 // const SERVER = "http://192.168.1.134";
 // const DJANGO_SERVER = "http://192.168.1.134:8000"
 
-const SERVER_URL = 'http://192.168.1.11:8000';
-const SERVER = "http://192.168.1.11";
+const SERVER_URL = 'http://192.168.1.12:8000';
+const SERVER = "http://192.168.1.12";
 
 export const endpoints = {
     'login': `${SERVER_URL}/o/token/`,//quyền đn
     "current-user": `${SERVER_URL}/get-user-by-token/`,//user đăng nhập
-    "users": `${SERVER_URL}/users/`,
+    "user": (id) => `${SERVER_URL}/users/${id}`,
     "criteria": `${SERVER_URL}/criteria/`,//tiêu chí
+    "list-thesis": `${SERVER_URL}/thesis/`,
 }
 
 let token;

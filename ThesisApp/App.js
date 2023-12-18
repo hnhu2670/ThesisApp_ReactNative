@@ -11,6 +11,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Login from './src/login/Login';
 import Main from './src/component/home/Main'
 import Criteria from './src/component/criteria/Criteria';
+import Profile from './src/component/user/Profile';
 export const MyUserContext = createContext();
 
 const Stack = createNativeStackNavigator();
@@ -20,8 +21,9 @@ function App() {
     <MyUserContext.Provider value={[user, dispatch]}>
       <NavigationContainer>
         <Stack.Navigator initialRouteName='Login'>
-          <Stack.Screen name='Main' component={Main} options={{ headerShown: true }} />
+          <Stack.Screen name='ThesiApp' component={Main} options={{ headerShown: true }} />
           <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} />
+          <Stack.Screen name='Profile' component={Profile} />
         </Stack.Navigator>
       </NavigationContainer>
     </MyUserContext.Provider>

@@ -1,9 +1,14 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { Text } from 'react-native'
+import ListThesis from './ListThesis'
+import AddThesis from './AddThesis'
 
 const Thesis = () => {
     return (
-        <Text>Thesis</Text>
+        <Fragment>
+            <ListThesis />
+            <AddThesis />
+        </Fragment>
     )
 }
 

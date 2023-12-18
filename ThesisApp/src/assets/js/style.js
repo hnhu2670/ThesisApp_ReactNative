@@ -11,12 +11,10 @@ const styles = StyleSheet.create({
 
     },
     container: {
-        alignItems: 'center',
-        marginTop: '20%',
-        marginBottom: "10%",
+        // alignItems: 'center',
+        paddingTop: '15%',
+        // paddingBottom: "10%",
         // backgroundColor: "#2d665f",
-        height: "100%"
-
         // paddingTop: "30%",
     }
     ,
