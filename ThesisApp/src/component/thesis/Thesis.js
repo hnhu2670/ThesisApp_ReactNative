@@ -6,7 +6,7 @@ import AddThesis from './AddThesis'
 const Thesis = () => {
     return (
         <Fragment>
-            <ListThesis />
+            {/* <ListThesis /> */}
             <AddThesis />
         </Fragment>
     )

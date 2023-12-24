@@ -10,8 +10,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import Login from './src/login/Login';
 import Main from './src/component/home/Main'
-import Criteria from './src/component/criteria/Criteria';
 import Profile from './src/component/user/Profile';
+import ChangePassword from './src/component/user/ChangePassword';
+import Update from './src/component/user/Update';
+
 export const MyUserContext = createContext();
 
 const Stack = createNativeStackNavigator();
@@ -24,6 +26,8 @@ function App() {
           <Stack.Screen name='ThesiApp' component={Main} options={{ headerShown: true }} />
           <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} />
           <Stack.Screen name='Profile' component={Profile} />
+          <Stack.Screen name='Cập nhật thông tin' component={Update} />
+          <Stack.Screen name='Đổi mật khẩu' component={ChangePassword} />
         </Stack.Navigator>
       </NavigationContainer>
     </MyUserContext.Provider>

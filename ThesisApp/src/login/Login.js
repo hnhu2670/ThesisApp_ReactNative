@@ -18,8 +18,8 @@ const Login = ({ navigation }) => {
     const loginUser = async () => {
 
         // let form = new FormData()
-        const SERVER_URL = 'http://192.168.1.9:8000';
-        const TOKEN_ENDPOINT = '/o/token/';
+        // const SERVER_URL = 'http://192.168.1.9:8000';
+        // const TOKEN_ENDPOINT = '/o/token/';
 
         // Tạo form data để gửi trong yêu cầu
         const formData = new FormData();
@@ -33,7 +33,7 @@ const Login = ({ navigation }) => {
                 return;
             }
 
-            let response = await authApi().post(endpoints['login'], formData, {
+            let response = await axios.post(endpoints['login'], formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
@@ -45,21 +45,21 @@ const Login = ({ navigation }) => {
             await AsyncStorage.setItem('token', response.data.access_token);
 
             // console.log(formData)
-            let data = await authApi().get(endpoints['current-user'], {
+            let { data } = await axios.get(endpoints['current-user'], {
                 headers: {
                     'Authorization': "Bearer " + response.data.access_token,
                 },
             });
             // lưu thông tin user đăng nhập
             await AsyncStorage.setItem('user', JSON.stringify(data));
-            //console.log(data.data)
+            console.log(data.data.avatar)
             dispatch({
                 "type": "login",
                 "payload": data.data
             });
             if (response.status === 200) {
                 console.log('Đăng nhập thành công');
-                console.log(data.data)
+                // console.log(data.data)
                 navigation.navigate('ThesiApp');
                 setUsername('');
                 setPassword('');
