@@ -14,13 +14,7 @@ const Login = ({ navigation }) => {
     const [error, setError] = useState('');
     const [user, dispatch] = useContext(MyUserContext);
 
-    // const [token, setAccessToken] = useState('')
     const loginUser = async () => {
-
-        // let form = new FormData()
-        // const SERVER_URL = 'http://192.168.1.9:8000';
-        // const TOKEN_ENDPOINT = '/o/token/';
-
         // Tạo form data để gửi trong yêu cầu
         const formData = new FormData();
         formData.append('username', username);

@@ -10,7 +10,7 @@ const GetTeacher = () => {
     const [value, setValue] = useState(null);
     const getTeacher = async () => {
         try {
-            const res = await axios.get("http://192.168.1.5:8000/get-users/?role=lecturer")
+            const res = await axios.get(endpoints['get-user-role'] + '?role=lecturer')
             console.log("hàm get user:", res.data.length);
             const result = await res.data;
             setTeacher(result);

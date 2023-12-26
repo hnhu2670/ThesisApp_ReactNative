@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { Image, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import GetStudent from './GetStudent'
 import GetTeacher from './GetTeacher'
 import login from '../../login/style'
@@ -16,9 +16,9 @@ const AddThesis = () => {
                 />
             </View>
             <View style={{ height: "60%" }}>
-                <View style={styles.text_input}>
+                <View style={[styles.text_input]}>
                     <TextInput
-                        style={login.input}
+                        style={[login.input, { height: 60, fontSize: 16, textAlign: "center" }]}
                         placeholder='Tên khóa luận'
 
                     // onChangeText={text => setUsername(text)}
@@ -44,6 +44,7 @@ const AddThesis = () => {
             </View>
 
         </View>
+
 
 
     )

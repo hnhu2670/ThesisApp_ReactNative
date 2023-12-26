@@ -4,17 +4,16 @@ import login from '../../login/style'
 import { MyUserContext } from '../../../App';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { authApi, authApiToken, endpoints } from '../../configs/Apis';
+import { authApiToken, endpoints } from '../../configs/Apis';
 
 const Update = ({ navigation }) => {
-    var token = '7g6NUbn6Z7nehFSoRXfDlumjzCHY7s'
 
-    const [user, dispatch] = useContext(MyUserContext);
+    const [current_user, dispatch] = useContext(MyUserContext);
     const [myuser, setMyUser] = useState({
-        "first_name": user.first_name,
-        "last_name": user.last_name,
-        "email": user.email,
-        "phone": user.phone
+        "first_name": current_user.first_name,
+        "last_name": current_user.last_name,
+        "email": current_user.email,
+        "phone": current_user.phone
     })
     // console.log("thông tin user: ", myuser)
     const change = (value, field) => {
@@ -32,17 +31,18 @@ const Update = ({ navigation }) => {
                     form.append(field, myuser[field]);
                     console.log(myuser[field])
                 }
-                const response = await authApiToken(token).patch(endpoints["update-user"](user.id), form, {
+                const response = await authApiToken().patch(endpoints["update-user"](current_user.id), form, {
                     headers: {
                         "Content-Type": "multipart/form-data"
                     }
                 })
                 console.log(response.status);
                 // console.log('usserupdate', response.data);
+                // lưu lại thông tin user vào AsyncStorage
                 await AsyncStorage.setItem('user', JSON.stringify(response.data));
 
                 dispatch({ type: 'login', payload: response.data });
-                navigation.navigate('Profile');
+                alert("Cập nhật thành công")
             } catch (err) {
                 console.log("lỗi", err);
             }
@@ -57,7 +57,7 @@ const Update = ({ navigation }) => {
                 < TextInput
                     style={login.input}
                     placeholder='Tên đăng nhập'
-                    value={user.username}
+                    value={current_user.username}
                     editable={false}
 
                 />
@@ -78,6 +78,15 @@ const Update = ({ navigation }) => {
                     value={myuser.last_name}
                     onChangeText={text => change(text, "last_name")} />
             </View>
+            {/* < View style={login.text_input} >
+                <Text style={[login.text]}> Tên </Text>
+                <TextInput
+                    style={login.input}
+                    placeholder='Ngày sinh'
+                    value={current_user.}
+                    // onChangeText={text => change(text, "last_name")} 
+                    />
+            </View> */}
             < View style={login.text_input} >
                 <Text style={[login.text]}> Điện thoại </Text>
                 < TextInput
@@ -98,15 +107,26 @@ const Update = ({ navigation }) => {
 
                 />
             </View>
+            <View style={[login.text_input, { flexDirection: "row" }]} >
+                < View style={{ width: '50%' }}>
+                    <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+                        <Text style={login.button}
 
-            < View style={login.text_input} >
-                <TouchableOpacity>
-                    <Text style={login.button}
-                        onPress={updateUser}
-                    > CẬP NHẬT </Text>
-                </TouchableOpacity>
+                        > RỜI KHỎI</Text>
+                    </TouchableOpacity>
+
+                </View>
+                < View style={{ width: '50%' }}>
+                    <TouchableOpacity>
+                        <Text style={login.button}
+                            onPress={updateUser}
+                        > CẬP NHẬT </Text>
+                    </TouchableOpacity>
+
+                </View>
 
             </View>
+
         </View>
 
     )

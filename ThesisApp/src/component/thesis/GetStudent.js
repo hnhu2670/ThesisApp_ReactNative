@@ -4,6 +4,8 @@ import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { Dropdown, MultiSelect } from 'react-native-element-dropdown';
 import styles from "./style"
 import { AntDesign } from '@expo/vector-icons';
+import { endpoints } from '../../configs/Apis';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const GetStudent = () => {
     const [student, setStudent] = useState([])
@@ -11,7 +13,8 @@ const GetStudent = () => {
 
     const getStudent = async () => {
         try {
-            const res = await axios.get("http:// 10.17.49.55:8000/get-users/?role=student")
+            // const res = await axios.get("http://192.168.1.5:8000/get-users/?role=student")
+            const res = await axios.get(endpoints['get-user-role'] + '?role=student')
             console.log("hàm get user:", res.data.length);
             const result = await res.data;
             setStudent(result);
@@ -30,8 +33,6 @@ const GetStudent = () => {
 
     const deleteItem = (itemToDelete) => {
         const updatedSelectedItems = selected.filter(item => item !== itemToDelete);
-        // setSelected(updatedSelectedItems);
-        // selected = updatedSelectedItems;
         console.log("đây là gì:", updatedSelectedItems)
 
     };
@@ -43,6 +44,7 @@ const GetStudent = () => {
 
     return (
         <View style={styles.container}>
+
             <MultiSelect
                 style={styles.dropdown}
                 placeholderStyle={styles.placeholderStyle}

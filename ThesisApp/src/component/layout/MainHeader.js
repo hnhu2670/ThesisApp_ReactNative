@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { MyUserContext } from '../../../App';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import axios from 'axios';
-import { endpoints } from '../../configs/Apis';
+import { authApi, authApiToken, endpoints } from '../../configs/Apis';
 
 
 const MainHeader = ({ navigation }) => {
@@ -16,12 +16,11 @@ const MainHeader = ({ navigation }) => {
 
     const getUser = async () => {
         try {
-            const res = await axios.get(`http://192.168.1.5:8000/get-users/${current_user.id}/`)
+            const res = await authApiToken().get(endpoints['get-user'](current_user.id))
             console.log(res.data.avatar);
             if (res.status === 200) {
                 const result = await res.data;
                 setUserInfor(result);
-                // console.log("ảnh", current_user.data.avatar)
                 console.log(res.data)
 
             } else {
