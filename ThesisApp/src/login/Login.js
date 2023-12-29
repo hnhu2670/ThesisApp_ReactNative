@@ -20,6 +20,8 @@ const Login = ({ navigation }) => {
         formData.append('username', username);
         formData.append('password', password);
 
+
+
         try {
             if (!username || !password) {
                 setError('Tên đăng nhập và tài khoản không được trống');
@@ -105,6 +107,8 @@ const Login = ({ navigation }) => {
                         placeholder='Mật khẩu'
                         secureTextEntry
                         value={password}
+
+                        // value={'123456'}
                         onChangeText={text => setPassword(text)}
 
                     />

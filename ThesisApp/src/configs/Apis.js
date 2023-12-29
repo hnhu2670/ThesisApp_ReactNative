@@ -1,8 +1,8 @@
 import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const SERVER_URL = 'http://192.168.1.13:8000';
-const SERVER = "http://192.168.1.13";
+const SERVER_URL = 'http://192.168.1.6:8000';
+const SERVER = "http://192.168.1.6";
 
 // const SERVER_URL = 'http://10.17.49.55:8000';
 // const SERVER = "http://10.17.49.55";
@@ -15,7 +15,9 @@ export const endpoints = {
     "get-user-role": `${SERVER_URL}/get-users/`,//get user by id
     "update-user": (id) => `${SERVER_URL}/update-user/${id}/`,//update profile
     "criteria": `${SERVER_URL}/get-criteria/`,//tiêu chí
-    "list-thesis": `${SERVER_URL}/get-thesis/`,//ds khóa luận
+    "list-thesis": `${SERVER_URL}/get-thesis/`,//ds khóa luận,
+    "list-committes": `${SERVER_URL}/get-committee/`,//ds khóa luận,
+    "edit-committes": (id) => `${SERVER_URL}/get-committee/${id}/`,//edit khoa luận
 }
 
 let token;
@@ -39,7 +41,7 @@ export const authApiToken = () => {
     return axios.create({
         baseURL: SERVER,
         headers: {
-            "Authorization": 'Bearer 4skvVOvkkPcUNoGzeRqAGfg6YWx0rc'
+            "Authorization": 'Bearer cPinfYv640L8AUF16PsOGGTkyMvQJZ'
         }
     })
 }

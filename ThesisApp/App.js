@@ -13,6 +13,9 @@ import Main from './src/component/home/Main'
 import Profile from './src/component/user/Profile';
 import ChangePassword from './src/component/user/ChangePassword';
 import Update from './src/component/user/Update';
+import DetailCom from './src/component/committee/DetailCom';
+import ListCom from './src/component/committee/ListCom';
+import AddCom from './src/component/committee/AddCom';
 
 export const MyUserContext = createContext();
 
@@ -28,6 +31,10 @@ function App() {
           <Stack.Screen name='Profile' component={Profile} />
           <Stack.Screen name='Cập nhật thông tin' component={Update} />
           <Stack.Screen name='Đổi mật khẩu' component={ChangePassword} />
+          <Stack.Screen name='Chi tiết' component={DetailCom} />
+          <Stack.Screen name='Danh sách hội đồng' component={ListCom} />
+          <Stack.Screen name='Thêm hội đồng' component={AddCom} />
+
         </Stack.Navigator>
       </NavigationContainer>
     </MyUserContext.Provider>

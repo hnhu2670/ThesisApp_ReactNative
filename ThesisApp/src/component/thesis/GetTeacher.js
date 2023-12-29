@@ -1,61 +1,59 @@
 import { AntDesign } from '@expo/vector-icons';
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 import styles from "./style"
+import { authApiToken, endpoints } from '../../configs/Apis';
 
 const GetTeacher = () => {
-    const [teacher, setTeacher] = useState([])
-    const [value, setValue] = useState(null);
-    const getTeacher = async () => {
+    const [teachers, setTeachers] = useState([]);
+    const [selectedTeacher, setSelectedTeacher] = useState(null);
+
+    const getTeachers = async () => {
         try {
-            const res = await axios.get(endpoints['get-user-role'] + '?role=lecturer')
-            console.log("hàm get user:", res.data.length);
-            const result = await res.data;
-            setTeacher(result);
+            const { data } = await authApiToken().get(endpoints['get-user-role'] + '?role=lecturer');
+            setTeachers(data);
         } catch (error) {
-            console.log("lỗi đây nè", error)
+            console.log("Lỗi:", error);
         }
-    }
+    };
+
     const renderItem = item => {
-        console.log(item, value)
         return (
             <View style={styles.item}>
-                <Text style={styles.textItem}>{item.username}</Text>
-                {item.username === value && (
-                    <AntDesign
-                        style={styles.icon}
-                        name="checkcircleo" size={24} color="black" />
+                <Text style={styles.textItem}>{`${item.first_name} ${item.last_name}`}</Text>
+                {`${item.first_name} ${item.last_name}` === selectedTeacher && (
+                    <AntDesign style={styles.icon} name="checkcircleo" size={24} color="black" />
                 )}
             </View>
         );
     };
+
     useEffect(() => {
-        getTeacher()
-    }, [])
+        getTeachers();
+    }, []);
+
     return (
         <Dropdown
             style={styles.dropdown}
             placeholderStyle={styles.placeholderStyle}
             selectedTextStyle={styles.selectedTextStyle}
-            inputSearchStyle={styles.inputSearchStyle}//định dạng ô tìm kiếm
-            iconStyle={styles.iconStyle}//định dạng icon
-            search //ô tìm kiếm
+            inputSearchStyle={styles.inputSearchStyle}
+            iconStyle={styles.iconStyle}
+            search
             maxHeight={300}
-            labelField="username" //tên hiển thị
-            valueField="id"
-            data={teacher} //dữ liệu hiển thị
+            labelField="label"
+            data={teachers.map((teacher) => ({
+                label: `${teacher.first_name} ${teacher.last_name}`,
+            }))}
             placeholder="Giảng viên hướng dẫn"
             searchPlaceholder="Tìm tên giảng viên..."
-            value={teacher} //giá trị hiển thị
-            // lấy giá trị của ô được chọn gán lên trên
-            onChange={item => {
-                setValue(item.username);
-            }}
+            value={selectedTeacher}
+            onChange={(item) => setSelectedTeacher(`${item.first_name} ${item.last_name}`)}
             renderItem={renderItem}
         />
-    )
-}
+    );
+};
 
-export default GetTeacher
+export default GetTeacher;

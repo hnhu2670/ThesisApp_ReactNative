@@ -25,26 +25,6 @@ const Profile = ({ navigation }) => {
 
     return (
         <View >
-            {/* <View
-                style={{
-                    width: "100%", justifyContent: 'center', alignItems: 'center',
-                }}>
-                <View style={profile.name}>
-                    <Image
-                        style={profile.container}
-                        source={{ uri: current_user.avatar }}
-                    />
-                </View>
-                <View style={profile.name}>
-                    <Text style={[styles.font, { fontSize: 25 }]}>
-                        {current_user.first_name} {current_user.last_name}
-                    </Text>
-                    <Text style={profile.text}>
-                        Chức vụ: {current_user.role}
-                    </Text>
-                </View>
-
-            </View> */}
             <ChangeAvatar />
 
             <View>
