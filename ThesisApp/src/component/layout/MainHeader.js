@@ -3,6 +3,7 @@ import { MyUserContext } from '../../../App';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import axios from 'axios';
 import { authApi, authApiToken, endpoints } from '../../configs/Apis';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const MainHeader = ({ navigation }) => {
@@ -15,13 +16,15 @@ const MainHeader = ({ navigation }) => {
     };
 
     const getUser = async () => {
+        const token = await AsyncStorage.getItem('token')
+        console.log("token", token)
         try {
-            const res = await authApiToken().get(endpoints['get-user'](current_user.id))
-            // console.log(res.data.avatar);
+            const res = await authApiToken(token).get(endpoints['get-user'](current_user.id))
+            console.log(res.data.avatar);
             if (res.status === 200) {
                 const result = await res.data;
                 setUserInfor(result);
-                // console.log(res.data)
+                console.log(res.data)
 
             } else {
                 console.log(Error)
@@ -40,7 +43,7 @@ const MainHeader = ({ navigation }) => {
                 <View>
                     <Image
                         style={header.avatar}
-                        source={{ uri: userInfor?.avatar }}
+                        source={{ uri: current_user?.avatar_url }}
                     />
                 </View>
                 <View >

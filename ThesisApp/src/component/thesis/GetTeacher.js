@@ -5,14 +5,17 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 import styles from "./style"
 import { authApiToken, endpoints } from '../../configs/Apis';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const GetTeacher = () => {
     const [teachers, setTeachers] = useState([]);
     const [selectedTeacher, setSelectedTeacher] = useState(null);
 
     const getTeachers = async () => {
+        const token = await AsyncStorage.getItem('token')
+
         try {
-            const { data } = await authApiToken().get(endpoints['get-user-role'] + '?role=lecturer');
+            const { data } = await authApiToken(token).get(endpoints['get-user-role'] + '?role=lecturer');
             setTeachers(data);
         } catch (error) {
             console.log("Lỗi:", error);
@@ -49,7 +52,7 @@ const GetTeacher = () => {
             }))}
             placeholder="Giảng viên hướng dẫn"
             searchPlaceholder="Tìm tên giảng viên..."
-            value={selectedTeacher}
+            value={selectedTeacher} //hien len sau khi chon
             onChange={(item) => setSelectedTeacher(`${item.first_name} ${item.last_name}`)}
             renderItem={renderItem}
         />

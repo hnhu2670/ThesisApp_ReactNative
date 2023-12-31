@@ -7,13 +7,16 @@ import { AntDesign } from '@expo/vector-icons';
 import { authApiToken, endpoints } from '../../configs/Apis';
 import { ScrollView } from 'react-native-gesture-handler';
 import { MultipleSelectList } from 'react-native-dropdown-select-list';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const GetStudent = () => {
     const [students, setStudent] = useState([])
     const [selected, setSelected] = useState([]);
     const getStudent = async () => {
+        const token = await AsyncStorage.getItem('token')
+        console.log("token", token)
         try {
-            const { data } = await authApiToken().get(endpoints['get-user-role'] + '?role=student')
+            const { data } = await authApiToken(token).get(endpoints['get-user-role'] + '?role=student')
             const result = await data;
             // console.log("result", result)
 

@@ -4,8 +4,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const SERVER_URL = 'http://192.168.1.6:8000';
 const SERVER = "http://192.168.1.6";
 
-// const SERVER_URL = 'http://10.17.49.55:8000';
-// const SERVER = "http://10.17.49.55";
+// const SERVER_URL = 'http://10.17.48.116:8000';
+// const SERVER = "http://10.17.48.116";
 
 
 export const endpoints = {
@@ -18,6 +18,7 @@ export const endpoints = {
     "list-thesis": `${SERVER_URL}/get-thesis/`,//ds khóa luận,
     "list-committes": `${SERVER_URL}/get-committee/`,//ds khóa luận,
     "edit-committes": (id) => `${SERVER_URL}/get-committee/${id}/`,//edit khoa luận
+    "check-old-password": `${SERVER_URL}/check-old-password/`,//kiem tra pass cu
 }
 
 let token;
@@ -28,20 +29,11 @@ const getToken = async () => {
 
 getToken();
 
-export const authApi = (token) => {
+export const authApiToken = (token) => {
     return axios.create({
         baseURL: SERVER,
         headers: {
-            "Authorization": token
-        }
-    })
-}
-
-export const authApiToken = () => {
-    return axios.create({
-        baseURL: SERVER,
-        headers: {
-            "Authorization": 'Bearer cPinfYv640L8AUF16PsOGGTkyMvQJZ'
+            "Authorization": 'Bearer' + ' ' + token
         }
     })
 }

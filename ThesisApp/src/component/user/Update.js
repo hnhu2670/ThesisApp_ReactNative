@@ -24,14 +24,17 @@ const Update = ({ navigation }) => {
     };
 
     const updateUser = () => {
+
         const process = async () => {
+            const token = await AsyncStorage.getItem('token')
+            console.log("token", token)
             try {
                 let form = new FormData();
                 for (let field in myuser) {
                     form.append(field, myuser[field]);
                     console.log(myuser[field])
                 }
-                const response = await authApiToken().patch(endpoints["update-user"](current_user.id), form, {
+                const response = await authApiToken(token).patch(endpoints["update-user"](current_user.id), form, {
                     headers: {
                         "Content-Type": "multipart/form-data"
                     }
@@ -50,6 +53,9 @@ const Update = ({ navigation }) => {
         }
         process()
     }
+    // useEffect(() => {
+    //     updateUser()
+    // }, [])
     return (
         <View>
             <View style={login.text_input} >

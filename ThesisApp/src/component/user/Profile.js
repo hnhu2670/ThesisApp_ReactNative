@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { MyUserContext } from '../../../App';
 import styles from '../../assets/js/style';
@@ -7,6 +7,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AntDesign } from '@expo/vector-icons';
 import profile from './style';
 import ChangeAvatar from './ChangeAvatar';
+import { Button } from 'react-native';
+import * as ImagePicker from 'expo-image-picker';
 
 
 const Profile = ({ navigation }) => {
@@ -22,7 +24,9 @@ const Profile = ({ navigation }) => {
     const change = () => {
         navigation.navigate("Đổi mật khẩu")
     }
-
+    useEffect(() => {
+        console.log("url avatar", current_user.avatar)
+    }, [])
     return (
         <View >
             <ChangeAvatar />
