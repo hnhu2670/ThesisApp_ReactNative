@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Text, View } from 'react-native'
 import { endpoints } from '../../configs/Apis'
+import Score from '../score/Score'
 
 
 const Criteria = () => {
@@ -23,7 +24,7 @@ const Criteria = () => {
     return (
         <View>
 
-            <Text>criteria</Text>
+            {/* <Text>criteria</Text>
             {criteria.length < 1 ? (
                 <Text>Chưa có dữ liệu</Text>
             ) : (
@@ -31,6 +32,10 @@ const Criteria = () => {
                     <Text key={c.id}>Tiêu chí chấm điểm: {c.name}</Text>
                 )
             )}
+            <Text>tên khóaluaanj</Text>
+            <Text>DS sinh viên của khóa luận đó để nhập điểm</Text> */}
+
+            <Score />
         </View>
 
     )

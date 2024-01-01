@@ -84,7 +84,7 @@ const ChangePassword = ({ navigation }) => {
             alert("Đăng nhập lại sau 3s")
             setTimeout(() => {
                 navigation.navigate("Login");
-            }, 3000); // Thời gian chờ 5 giây (5000 milliseconds)
+            }, 3000); // Thời gian chờ 3 giây 
         } catch (error) {
             console.log('Lỗi khi thay đổi mật khẩu:', error);
         }

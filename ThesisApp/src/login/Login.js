@@ -124,7 +124,7 @@ const Login = ({ navigation }) => {
                 </View>
 
                 <View style={[login.text_input, login.link]}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => { navigation.navigate("Quên mật khẩu") }}>
                         <Text style={[login.text, login.text_link]}>Quên mật khẩu</Text>
                     </TouchableOpacity>
                 </View>

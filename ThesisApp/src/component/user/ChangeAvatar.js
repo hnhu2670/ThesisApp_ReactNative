@@ -53,10 +53,10 @@ const ChangeAvatar = ({ navigation }) => {
                     },
                 }
             );
-            // console.log('Upload success:', res.data);
-            // alert("Cập nhật avatar thành công")
-            // tự load lại trang
-            // window.location.href = window.location.href;
+            await AsyncStorage.setItem('user', JSON.stringify(res.data));
+
+            dispatch({ type: 'login', payload: res.data });
+
         } catch (error) {
             console.error('Upload error:', error);
         }

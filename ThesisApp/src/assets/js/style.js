@@ -25,7 +25,8 @@ const styles = StyleSheet.create({
 
     },
     font: {
-        color: "#2d665f"
+        color: "#2d665f",
+        // #d5e7e9
     },
     button: {
         backgroundColor: "red",

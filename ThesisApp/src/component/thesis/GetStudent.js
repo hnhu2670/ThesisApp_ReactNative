@@ -9,9 +9,19 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { MultipleSelectList } from 'react-native-dropdown-select-list';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const GetStudent = () => {
+const GetStudent = (props) => {
     const [students, setStudent] = useState([])
     const [selected, setSelected] = useState([]);
+
+    const sendIdStudent = (id) => {
+
+        console.log("Danh sách data", id);
+        // setSelected(item.id); // Lưu giá trị id vào selectedTeacher
+        // console.log(".................", item.id)
+        console.log('22222')
+        props.getIdStudents(id)
+        console.log('22222')
+    }
     const getStudent = async () => {
         const token = await AsyncStorage.getItem('token')
         console.log("token", token)
@@ -28,30 +38,29 @@ const GetStudent = () => {
     }
     const chageMultipleSelect = (values) => {
         setSelected(values);
+        console.log('ngộ ha', selected)
+
+        // sendIdStudent(values)
+        // console.log(selected)
     };
     useEffect(() => {
         getStudent()
-        console.log(selected);
-
+        // console.log(selected);
+        // sendIdStudent(item)
     }, [])
 
     return (
         <View style={styles.container}>
             <MultipleSelectList
-                // luu giá trị được chọn
-                setSelected={(val) => {
-                    setSelected(val)
-                    console.log(selected);
-                }}
+                setSelected={chageMultipleSelect}
                 data={students.map((student) => ({
-                    value: ` ${student.first_name} ${student.last_name}`,
-                    label: ` ${student.first_name} ${student.last_name}`,
+                    key: `${student.id}`,
+                    value: `${student.first_name} ${student.last_name}`, // Hiển thị nhãn
                 }))}
-                save={['last_name', 'first_name']}
+                onSelect={() => sendIdStudent(selected)} //set id ở đây
+                save='key'
                 label='Danh sách sinh viên'
-            >
-            </MultipleSelectList>
-
+            />
         </View>
     );
 };

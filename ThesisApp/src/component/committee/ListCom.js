@@ -66,21 +66,6 @@ const hoidong = StyleSheet.create({
     container: {
         margin: 10,
     },
-    // headers: {
-    //     flexDirection: 'row',
-    //     height: 50,
-    //     width: "100%",
-    //     padding: 10
-    // },
-    // heading: {
-    //     flex: 1,
-    //     textAlign: "center",
-    //     justifyContent: "space-around",
-    //     backgroundColor: "green",
-    //     padding: 10,
-    //     height: "auto",
-
-    // },
     row: {
         flexDirection: "row",
         width: "100%",
