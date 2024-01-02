@@ -26,7 +26,8 @@ const DetailCom = ({ route }) => {
         <View>
             <Text>{detai.name}</Text>
             <View style={login.bottom}>
-                <View style={login.text_input}>
+                <Text>CHi tiết</Text>
+                {/* <View style={login.text_input}>
                     <Text style={[login.text]}>Số lượng thành viên</Text>
                     <TextInput
                         style={login.input}
@@ -76,7 +77,7 @@ const DetailCom = ({ route }) => {
 
                 </View>
 
-
+    */}
             </View>
         </View>
     )

@@ -6,9 +6,9 @@ import MainHeader from '../layout/MainHeader';
 
 const Home = ({ navigation }) => {
     return (
-        <Fragment>
+        <View>
             <MainHeader navigation={navigation} />
-        </Fragment>
+        </View>
 
     );
 };

@@ -9,6 +9,7 @@ const Main = () => {
     return (
         <Fragment>
             {/* <MainHeader /> */}
+            {/* <Headers /> */}
             <MenuBottomTab />
         </Fragment>
 

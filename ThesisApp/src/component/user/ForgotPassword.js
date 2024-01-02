@@ -30,15 +30,15 @@ const ForgotPassword = ({ navigation }) => {
         }
     }
     return (
-        <View>
+        <View style={forget.container}>
             <View style={forget.top}>
-                <View >
+                <View style={forget.image}>
                     <Image
                         style={forget.img}
-                        source={{ uri: 'https://res.cloudinary.com/dhdca9ibd/image/upload/v1704125502/qsvhr2rmalbfsgeeaf9u.png' }} />
+                        source={{ uri: 'https://res.cloudinary.com/dhdca9ibd/image/upload/v1704124298/vd4jbc4sgxilkc9btchp.png' }} />
                 </View>
-                <Text style={{ fontFamily: "Dancing Script" }}>Thesis App</Text>
-                <Text>Quên mật khẩu ??</Text>
+                <Text style={forget.text}>Quên mật khẩu ??</Text>
+                <Text style={forget.mini_text}>Nhập emali của bạn để nhận thông tin đăng nhập mới !!!</Text>
             </View>
             <View style={forget.bottom}>
                 <View style={login.text_input}>
@@ -61,8 +61,13 @@ const ForgotPassword = ({ navigation }) => {
 
                 </View>
                 <View style={login.text_input}>
-                    <TouchableOpacity>
-                        <Text>Quay lại trang đăng nhập</Text>
+                    <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+                        <Text
+                            style={{
+                                color: 'red', fontSize: 15, marginLeft: -25, textAlign: 'center', textDecorationLine: 'underline', fontStyle: 'italic'
+                            }}>
+                            Quay lại trang đăng nhập
+                        </Text>
                     </TouchableOpacity>
 
                 </View>
@@ -72,25 +77,55 @@ const ForgotPassword = ({ navigation }) => {
     )
 }
 const forget = StyleSheet.create({
-    // image: {
-    //     width: "100%",
-    //     height: "100%",
-    //     backgroundColor: "light"
-    // },
-    // img: {
-    //     width: "60%",
-    //     height: "60%",
-    //     paddingHorizontal: 30,
-    //     paddingVertical: 30,
-    //     // backgroundColor: "red"
+    container: {
+        marginTop: '20%'
+    },
+    image: {
+        width: 200,
+        height: 200,
+        backgroundColor: "#2d665f",
+        borderRadius: 150,
+        borderWidth: 2,
+        borderColor: "white",
+        justifyContent: "center",
+        alignItems: "center",
+        marginBottom: 20,
+        marginHorizontal: "25%",
+    },
+    img: {
+        width: 140,
+        height: 120,
+        // padding: 10,
+        justifyContent: "center",
+        // alignItems: "center"
+    },
+    text: {
+        color: '#2d665f',
+        textAlign: 'center',
+        fontSize: 30
+    },
+    mini_text: {
+        justifyContent: "center",
+        width: '85%',
+        marginTop: 10,
+        marginLeft: '8%',
+        color: '#2d665f',
+        textAlign: 'center',
+        fontSize: 12,
 
-    // },
+    },
     top: {
-        height: '45%',
-        backgroundColor: "lightblue"
+        justifyContent: 'center',
+        height: "45%",
+        width: "100%",
+        marginBottom: 20,
+        borderBottomWidth: 1,
+        borderBottomColor: '#2d665f',
+        borderStyle: 'dotted'
     },
     bottom: {
-        height: '50%'
+        height: '50%',
+        marginTop: 10
     }
 })
 export default ForgotPassword

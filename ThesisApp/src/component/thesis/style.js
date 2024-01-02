@@ -1,7 +1,22 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
-    // container: { padding: 16 },
+    container: {
+        // padding: 16
+        borderWidth: 1,
+        borderColor: 'lightgray',
+        marginVertical: '10%',
+        marginHorizontal: 15,
+        paddingVertical: 20,
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.15,
+        shadowRadius: 3.84,
+        elevation: 1,
+    },
     dropdown: {
         // marginTop: 10,
         marginRight: 30,
@@ -74,6 +89,10 @@ const styles = StyleSheet.create({
         marginTop: 10,
         marginLeft: 30,
         // width: "%"
+    },
+    select: {
+        width: '90%',
+        backgroundColor: "red"
     }
 });
 export default styles

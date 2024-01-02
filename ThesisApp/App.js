@@ -46,7 +46,7 @@ function App() {
             <Stack.Screen name='Chi tiết' component={DetailCom} />
             <Stack.Screen name='Danh sách hội đồng' component={ListCom} />
             <Stack.Screen name='Thêm hội đồng' component={AddCom} />
-            <Stack.Screen name='Quên mật khẩu' component={ForgotPassword} />
+            <Stack.Screen name='Quên mật khẩu' component={ForgotPassword} options={{ headerShown: false }} />
             <Stack.Screen name='Thêm khóa luận' component={AddThesis} />
             <Stack.Screen name='Cập nhật khóa luận' component={UpdateThesis} />
             <Stack.Screen name='Danh sách khóa luận' component={ListThesis} />

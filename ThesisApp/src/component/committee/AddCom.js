@@ -29,62 +29,7 @@ const AddCom = () => {
         <View>
             <View>
                 <ScrollView style={{ height: "85%" }}>
-                    <View style={login.text_input}>
-                        <Text style={[login.text]}>Tên hội đồng bảo vệ</Text>
-                        <TextInput
-                            style={login.input}
-                            placeholder='Tên hội đồng bảo vệ'
-                        />
-                    </View>
-                    <View style={login.text_input}>
-                        <Text style={[login.text]}>Thành viên 1</Text>
-                        <TextInput
-                            style={login.input}
-                            placeholder='Thành viên 1'
-                        // value={input.member}
-                        // onChangeText={text => handleMemberChange(text, index)}
-                        />
-                        <Text style={[login.text, { marginTop: 10 }]}>Chức vụ</Text>
-                        <TextInput
-                            style={login.input}
-                            placeholder='Chức vụ'
-                        // value={input.position}
-                        // onChangeText={text => handlePositionChange(text, index)}
-                        />
-                    </View>
-                    <View style={login.text_input}>
-                        <Text style={[login.text, { marginTop: 10 }]}>Chức vụ</Text>
-                        <TextInput
-                            style={login.input}
-                            placeholder='Thành viên 2'
-                        // value={input.member}
-                        // onChangeText={text => handleMemberChange(text, index)}
-                        />
-                        <Text style={[login.text, { marginTop: 10 }]}>Chức vụ</Text>
-                        <TextInput
-                            style={login.input}
-                            placeholder='Chức vụ'
-                        // value={input.position}
-                        // onChangeText={text => handlePositionChange(text, index)}
-                        />
-                    </View>
-                    <View style={login.text_input}>
-                        <Text style={[login.text]}>Thành viên 3</Text>
-                        <TextInput
-                            style={login.input}
-                            placeholder='Thành viên 3'
-                        // value={input.member}
-                        // onChangeText={text => handleMemberChange(text, index)}
-                        />
-                        <Text style={[login.text, { marginTop: 10 }]}>Chức vụ</Text>
-                        <TextInput
-                            style={login.input}
-                            placeholder='Chức vụ'
-                        // value={input.position}
-                        // onChangeText={text => handlePositionChange(text, index)}
-                        />
-                    </View>
-                    {textInputs.map((input, index) => (
+                    {textInputs.slice(0, 5).map((input, index) => (
                         <View style={login.text_input} key={index + 3}>
                             <Text style={[login.text]}>Thành viên {index + 1}</Text>
                             <TextInput
@@ -102,7 +47,6 @@ const AddCom = () => {
                             />
                         </View>
                     ))}
-
                     <View style={[login.text_input]}>
                         <TouchableOpacity onPress={addTextInput}
                             style={[{ flexDirection: "row" }]}>

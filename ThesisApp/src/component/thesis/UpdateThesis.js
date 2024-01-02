@@ -84,7 +84,7 @@ const UpdateThesis = ({ route }) => {
             const { data } = await axios.get(endpoints["get-thesis"](id))
             setInfor(data)
 
-            const res = await authApiToken(token).get("http://172.16.17.198:8000/get-users/?role=lecturer");
+            const res = await authApiToken(token).get(endpoints['get-user-role'] + '?role=lecturer');
             setTeachers(res);
             listgv = res.data
 
@@ -113,7 +113,7 @@ const UpdateThesis = ({ route }) => {
         try {
             const { data } = await axios.get(endpoints["get-thesis"](id))
 
-            const res = await authApiToken(token).get("http://172.16.17.198:8000/get-users/?role=lecturer");
+            const res = await authApiToken(token).get(endpoints['get-user-role'] + '?role=lecturer');
             setTeachers(res);
 
             listgv = res.data
@@ -156,7 +156,7 @@ const UpdateThesis = ({ route }) => {
         console.log("form data", formData)
 
         try {
-            const { data } = await authApiToken(token).patch(`http://172.16.17.198:8000/update-thesis/${id}/`, formData,
+            const { data } = await authApiToken(token).patch(endpoints['update-thesis'](id), formData,
                 {
                     headers: {
                         "Content-Type": "multipart/form-data"
@@ -164,6 +164,7 @@ const UpdateThesis = ({ route }) => {
                 }
             )
             console.log(data)
+
         } catch (error) {
             console.log("lỗi rồi nhe bạn ơi", error)
         }
@@ -189,31 +190,35 @@ const UpdateThesis = ({ route }) => {
         getInfor()
     }, [])
     return (
-        <View >
-            <Text>{id}</Text>
+        <View style={styles.container}>
             <View style={styles.text_input}>
-                <Text>
-                    Danh sách sinh viên đã thực hiện khóa luận:
+                <Text style={login.text}>Danh sách sinh viên hiện tại </Text>
+                <Text style={{ marginLeft: 20, marginBottom: 0 }}>
                     {listStudents.length > 0 ? <>
                         {
                             listStudents.map(s => {
-                                return (<Text>
-                                    {s.user.first_name + " " + s.user.last_name}
-                                </Text>)
+                                return (<>
+                                    <Text key={s.user.id} style={{ color: 'gray', fontStyle: 'italic', fontSize: 15 }}>
+                                        {s.user.first_name + " " + s.user.last_name}{'\n'}
+                                    </Text>
+                                </>
+                                )
                             })}
                     </> : <>
                         RỖNG
                     </>}
-
-
                 </Text>
             </View>
             <View style={styles.text_input}>
+                <Text style={login.text}>Danh sách sinh viên </Text>
+
                 <GetStudent getIdStudents={getIdStudent}
                     setSelected={chageMultipleSelect}
                 />
             </View>
             <View style={styles.text_input}>
+                <Text style={login.text}>Giảng viên hướng dẫn 1 </Text>
+
                 <Dropdown
                     style={styles.dropdown}
                     placeholderStyle={styles.placeholderStyle}
@@ -235,6 +240,8 @@ const UpdateThesis = ({ route }) => {
                 />
             </View>
             <View style={styles.text_input}>
+                <Text style={login.text}>Giảng viên hướng dẫn 2 </Text>
+
                 <Dropdown
                     style={styles.dropdown}
                     placeholderStyle={styles.placeholderStyle}
@@ -257,6 +264,8 @@ const UpdateThesis = ({ route }) => {
             </View>
 
             <View style={styles.text_input}>
+                <Text style={login.text}>Danh sách hội đồng </Text>
+
                 <Dropdown
                     style={styles.dropdown}
                     placeholderStyle={styles.placeholderStyle}
@@ -281,7 +290,7 @@ const UpdateThesis = ({ route }) => {
             <View style={[styles.text_input]}>
                 <TouchableOpacity onPress={change}>
                     <Text style={login.button}
-                    >THÊM KHÓA LUẬN MỚI</Text>
+                    >CẬP NHẬT KHÓA LUẬN</Text>
                 </TouchableOpacity>
 
             </View>
