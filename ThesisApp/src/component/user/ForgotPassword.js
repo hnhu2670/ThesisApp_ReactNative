@@ -32,12 +32,12 @@ const ForgotPassword = ({ navigation }) => {
     return (
         <View>
             <View style={forget.top}>
-                <View style={forget.image}>
+                <View >
                     <Image
                         style={forget.img}
                         source={{ uri: 'https://res.cloudinary.com/dhdca9ibd/image/upload/v1704125502/qsvhr2rmalbfsgeeaf9u.png' }} />
                 </View>
-                <Text>Thesis App</Text>
+                <Text style={{ fontFamily: "Dancing Script" }}>Thesis App</Text>
                 <Text>Quên mật khẩu ??</Text>
             </View>
             <View style={forget.bottom}>
@@ -72,21 +72,22 @@ const ForgotPassword = ({ navigation }) => {
     )
 }
 const forget = StyleSheet.create({
-    image: {
-        width: "100%",
-        height: 250,
-    },
-    img: {
-        width: 200,
-        height: 200,
-        paddingHorizontal: 20,
-        paddingVertical: 10,
+    // image: {
+    //     width: "100%",
+    //     height: "100%",
+    //     backgroundColor: "light"
+    // },
+    // img: {
+    //     width: "60%",
+    //     height: "60%",
+    //     paddingHorizontal: 30,
+    //     paddingVertical: 30,
+    //     // backgroundColor: "red"
 
-
-    },
+    // },
     top: {
         height: '45%',
-        // backgroundColor: "#2d665f"
+        backgroundColor: "lightblue"
     },
     bottom: {
         height: '50%'

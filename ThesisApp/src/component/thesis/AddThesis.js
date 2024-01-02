@@ -50,24 +50,29 @@ const AddThesis = () => {
         formData.append("committee", comm)
         formData.append("sinhvien", student)
         formData.append("giangvien1", teacher1)
-        formData.append("giangvien2", "")
+        formData.append("giangvien2", teacher2)
         formData.append("name", thesis)
 
         console.log("dữ liệu:---------", formData)
-        try {
-            const { data } = await authApiToken(token).post(endpoints["add-thesis"], formData, {
-                headers: {
-                    "Content-Type": "multipart/form-data"
-                }
-            })
+        if (thesis) {
+            try {
+                const { data } = await authApiToken(token).post(endpoints["add-thesis"], formData, {
+                    headers: {
+                        "Content-Type": "multipart/form-data"
+                    }
+                })
 
-            console.log("data-----------", data)
-        } catch (error) {
-            console.log("lỗi..............", error.request.responseText)
-            err = error.request.responseText
-            e = JSON.parse(err)
-            alert(e.error)
+                console.log("data-----------", data)
+            } catch (error) {
+                console.log("lỗi..............", error.request.responseText)
+                err = error.request.responseText
+                e = JSON.parse(err)
+                alert(e.error)
+            }
         }
+        else { alert("tên khóa luận không được rỗng") }
+
+
     }
 
     return (

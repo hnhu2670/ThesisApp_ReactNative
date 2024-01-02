@@ -56,7 +56,7 @@ const Login = ({ navigation }) => {
             if (response.status === 200) {
                 console.log('Đăng nhập thành công');
                 // console.log(data.data)
-                navigation.navigate('ThesiApp');
+                navigation.navigate('ThesisApp');
                 setUsername('');
                 setPassword('');
             } else {

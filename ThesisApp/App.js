@@ -32,7 +32,13 @@ function App() {
       <MyThesisContext.Provider value={[data, setData]}>
         <NavigationContainer>
           <Stack.Navigator initialRouteName='Login'>
-            <Stack.Screen name='ThesiApp' component={Main} options={{ headerShown: true }} />
+            <Stack.Screen name='ThesisApp' component={Main}
+              options={{
+                title: 'ThesisApp',
+                headerShown: true,
+                headerLeft: null
+              }}
+            />
             <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} />
             <Stack.Screen name='Profile' component={Profile} />
             <Stack.Screen name='Cập nhật thông tin' component={Update} />

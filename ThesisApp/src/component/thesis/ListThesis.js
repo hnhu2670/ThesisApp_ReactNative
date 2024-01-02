@@ -30,16 +30,19 @@ const ListThesis = ({ navigation }) => {
                             <Text style={list_thesis.text}>{item.id}</Text>
                         </View>
 
-                        <TouchableOpacity onPress={() => goToDetail(item.id)}>
-                            <View style={list_thesis.right}>
+                        <View style={{ width: "80%" }}>
+                            <TouchableOpacity onPress={() => goToDetail(item.id)}>
+                                <View style={list_thesis.right}>
 
-                                <Text style={list_thesis.name}>{item.name}</Text>
-                                <Text style={list_thesis.edit}>
-                                    <AntDesign color="#2d665f" name="right" size={20} />
-                                </Text>
+                                    <Text style={list_thesis.name}>{item.name}</Text>
+                                    <Text style={list_thesis.edit}>
+                                        <AntDesign color="#2d665f" name="right" size={20} />
+                                    </Text>
 
-                            </View>
-                        </TouchableOpacity>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+
 
                     </View>
                 </View>
@@ -77,7 +80,7 @@ const list_thesis = StyleSheet.create({
     },
     right: {
         flexDirection: "row",
-        width: "80%",
+        width: "100%",
         height: 80,
         borderWidth: 1,
         borderColor: "#2d665f",
