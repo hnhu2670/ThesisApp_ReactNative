@@ -32,14 +32,14 @@ const Update = ({ navigation }) => {
                 let form = new FormData();
                 for (let field in myuser) {
                     form.append(field, myuser[field]);
-                    console.log(myuser[field])
+                    // console.log(myuser[field])
                 }
                 const response = await authApiToken(token).patch(endpoints["update-user"](current_user.id), form, {
                     headers: {
                         "Content-Type": "multipart/form-data"
                     }
                 })
-                console.log(response.status);
+                // console.log(response.status);
                 // console.log('usserupdate', response.data);
                 // lưu lại thông tin user vào AsyncStorage
                 await AsyncStorage.setItem('user', JSON.stringify(response.data));

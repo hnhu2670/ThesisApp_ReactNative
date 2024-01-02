@@ -4,7 +4,7 @@ import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native
 import { endpoints } from '../../configs/Apis'
 import { AntDesign } from '@expo/vector-icons'
 
-const ListThesis = () => {
+const ListThesis = ({ navigation }) => {
     const [list, setList] = useState('')
 
     const getListThesis = async () => {
@@ -19,35 +19,28 @@ const ListThesis = () => {
         }
     }
     const goToDetail = (id) => {
-        navigation.navigate("Chi tiết", { id })
+        navigation.navigate("Cập nhật khóa luận", { id })
     }
-    const renderItem = () => {
+    const renderItem = ({ item }) => {
         return (
             <>
-                {list.length < 1 ? (
-                    <Text>Chưa có dữ liệu</Text>
-                ) : (
-                    list.map(c =>
-
-                        <View key={c.id} style={list_thesis.coll}>
-                            <View style={list_thesis.row}>
-                                <View style={list_thesis.left}>
-                                    <Text style={list_thesis.text}>{c.id}</Text>
-                                </View>
-
-                                <View style={list_thesis.right}>
-                                    <Text style={list_thesis.name}>{c.name}</Text>
-                                    <TouchableOpacity onPress={() => goToDetail(c.id)}>
-                                        <Text style={list_thesis.edit}>
-                                            <AntDesign color="#2d665f" name="right" size={20} />
-                                        </Text>
-                                    </TouchableOpacity>
-                                </View>
-
-                            </View>
+                <View key={item.id} style={list_thesis.coll}>
+                    <View style={list_thesis.row}>
+                        <View style={list_thesis.left}>
+                            <Text style={list_thesis.text}>{item.id}</Text>
                         </View>
-                    )
-                )}
+
+                        <View style={list_thesis.right}>
+                            <Text style={list_thesis.name}>{item.name}</Text>
+                            <TouchableOpacity onPress={() => goToDetail(item.id)}>
+                                <Text style={list_thesis.edit}>
+                                    <AntDesign color="#2d665f" name="right" size={20} />
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
+
+                    </View>
+                </View>
             </>
         );
     }
@@ -56,13 +49,17 @@ const ListThesis = () => {
     }, []);
     return (
         <View style={list_thesis.container}>
-            <FlatList
+            {list.length < 1 ? (
+                <Text>Chưa có dữ liệu</Text>
+            ) : (<FlatList
                 data={list}
-                keyExtractor={(item) => { item.id.toString() }}
+                keyExtractor={(item) => item.id.toString()}
                 renderItem={renderItem}
             />
+            )}
         </View>
     )
+
 }
 const list_thesis = StyleSheet.create({
     container: {
@@ -109,37 +106,6 @@ const list_thesis = StyleSheet.create({
     edit: {
         textAlign: "right",
         justifyContent: "center",
-        // padding: 10,
     }
-    // cell: {
-    //     height: "auto",
-    //     padding: 10,
-    //     textAlign: "left",
-    //     fontSize: 16,
-    // },
-    // first: {
-    //     backgroundColor: "#2d665f",
-    //     color: "#ffff",
-    //     textAlign: "center",
-    //     // justifyContent: "center",
-    //     borderRadius: 50,
-    //     // marginLeft: 10,
-    //     marginRight: 10,
-    //     marginTop: -25,
-    //     height: 40,
-    //     width: 40,
-    //     fontSize: 15,
-
-    // },
-    // second: {
-    //     backgroundColor: "#2d665f",
-    //     color: "#FFFF",
-    //     height: 70,
-    //     textAlignVertical: "center",
-    //     alignItems: "center",
-    //     padding: 10,
-    //     paddingLeft: 20
-    // },
-
 })
 export default ListThesis

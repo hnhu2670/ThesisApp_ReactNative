@@ -25,7 +25,7 @@ const Profile = ({ navigation }) => {
         navigation.navigate("Đổi mật khẩu")
     }
     useEffect(() => {
-        console.log("url avatar", current_user.avatar)
+        // console.log("url avatar", current_user.avatar)
     }, [])
     return (
         <View >

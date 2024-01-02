@@ -14,7 +14,7 @@ const GetTeacher = (props) => {
 
     const sendIdTeacher = (item) => {
 
-        console.log("Danh sách data", item.id);
+        // console.log("Danh sách data", item.id);
         setSelectedTeacher(item.id); // Lưu giá trị id vào selectedTeacher
         // console.log(".................", item.id)
         props.getTecher(item.id)
@@ -26,7 +26,7 @@ const GetTeacher = (props) => {
         try {
             const { data } = await authApiToken(token).get(endpoints['get-user-role'] + '?role=lecturer');
             setTeachers(data);
-            console.log(data[0])
+            // console.log(data[0])
 
         } catch (error) {
             console.log("Lỗi:", error);

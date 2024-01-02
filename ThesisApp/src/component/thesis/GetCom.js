@@ -11,20 +11,16 @@ const GetCom = (props) => {
     const [selectedCommittee, setSelectedCommittee] = useState('');
 
     const sendIdCommittee = (item) => {
-        console.log("Danh sách data", item.id);
         setSelectedCommittee(item.id); // Lưu giá trị id vào selectedTeacher
-        console.log(".................", item.id)
         props.getTecher(item.id)
     }
 
     const getCommittee = async () => {
-        // const token = await AsyncStorage.getItem('token')
         try {
-            const { data } = await axios.get("http://172.16.17.198:8000/get-committee/");
-            console.log("dataaaaaaa", data[1].name)
+            const { data } = await axios.get(endpoints["list-committes"]);
             setCommittee(data)
         } catch (error) {
-            console.log("Lỗi:", error);
+            console.log("Lỗi trang getcom:", error);
         }
     };
     const renderItem = (item) => {

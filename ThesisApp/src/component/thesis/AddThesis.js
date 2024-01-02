@@ -1,3 +1,4 @@
+// update theo id
 import React, { useState } from 'react'
 import { Image, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import GetStudent from './GetStudent'
@@ -17,6 +18,7 @@ const AddThesis = () => {
     const getIdStudent = (data) => {
         var id_student = ''
         data.map(s => {
+            // id_student = id_student + ',' + s
             console.log(s)
             if (id_student == '') {
                 id_student = id_student + s
@@ -58,9 +60,13 @@ const AddThesis = () => {
                     "Content-Type": "multipart/form-data"
                 }
             })
+
             console.log("data-----------", data)
         } catch (error) {
-            console.log("lỗi..............", error)
+            console.log("lỗi..............", error.request.responseText)
+            err = error.request.responseText
+            e = JSON.parse(err)
+            alert(e.error)
         }
     }
 

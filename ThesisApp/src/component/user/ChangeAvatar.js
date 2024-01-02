@@ -26,7 +26,7 @@ const ChangeAvatar = ({ navigation }) => {
             return;
         }
         const localUri = result.assets[0].uri;
-        console.log('Đường dẫn:', localUri);
+        // console.log('Đường dẫn:', localUri);
         setImage(localUri);
 
         const filename = localUri.split('/').pop();

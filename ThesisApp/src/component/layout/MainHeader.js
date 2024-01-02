@@ -20,11 +20,11 @@ const MainHeader = ({ navigation }) => {
         console.log("token", token)
         try {
             const res = await authApiToken(token).get(endpoints['get-user'](current_user.id))
-            console.log(res.data.avatar);
+            // console.log(res.data.avatar);
             if (res.status === 200) {
                 const result = await res.data;
                 setUserInfor(result);
-                console.log(res.data)
+                // console.log(res.data)
 
             } else {
                 console.log(Error)

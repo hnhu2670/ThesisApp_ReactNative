@@ -14,50 +14,44 @@ const ListCom = ({ navigation }) => {
             // console.log("ds hội đồng", data.length);
             setCommittees(data);
         } catch (error) {
-            console.log("Lỗi rồi", error);
+            console.log("Lỗi rồi trang listcom", error.message);
         }
     };
 
     const goToDetail = (id) => {
         navigation.navigate("Chi tiết", { id })
     }
-    const renderItem = () => {
+    const renderData = ({ item }) => {
         return (
-            <>
-                {committees.length < 1 ? (
-                    <Text>Chưa có dữ liệu</Text>
-                ) : (
-                    committees.map(c =>
-
-                        <View key={c.id} style={hoidong.coll}>
-                            <View style={hoidong.row}>
-                                <Text style={[hoidong.cell, hoidong.first, { width: "15%" }]}>{c.id}</Text>
-                                <Text style={[hoidong.cell, { width: '65%' }]}>{c.name}</Text>
-                                <TouchableOpacity onPress={() => goToDetail(c.id)}
-                                    style={[hoidong.cell, hoidong.edit, { width: '15%' }]}>
-                                    <Text >
-                                        <AntDesign color="gray" name="edit" size={25} />
-                                    </Text>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                    )
-                )}
-            </>
+            <View key={item.id} style={hoidong.coll}>
+                <View style={hoidong.row}>
+                    <Text style={[hoidong.cell, hoidong.first, { width: "15%" }]}>{item.id}</Text>
+                    <Text style={[hoidong.cell, { width: '65%' }]}>{item.name}</Text>
+                    <TouchableOpacity onPress={() => goToDetail(item.id)} style={[hoidong.cell, hoidong.edit, { width: '15%' }]}>
+                        <Text>
+                            <AntDesign color="gray" name="edit" size={25} />
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
         );
-    }
+    };
+
     useEffect(() => {
         getCommittees();
-        // renderItem()
     }, []);
 
     return (
         <View style={hoidong.container}>
-            <FlatList
-                data={committees}
-                keyExtractor={(item) => { item.id.toString() }}
-                renderItem={renderItem}
-            />
+            {committees.length < 1 ? (
+                <Text>Chưa có dữ liệu</Text>
+            ) : (
+                <FlatList
+                    data={committees}
+                    keyExtractor={(item) => item.id.toString()}
+                    renderItem={renderData}
+                />
+            )}
         </View>
     );
 };

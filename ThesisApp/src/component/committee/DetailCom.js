@@ -10,13 +10,13 @@ const DetailCom = ({ route }) => {
     const getDetail = async () => {
         try {
             const { data } = await axios.get(endpoints['edit-committes'](id))
-            console.log("detail", data)
+            // console.log("detail", data)
             setDetail(data)
         } catch (error) {
             console.log("lỗi nè", error)
         }
         const { data } = await axios.get(endpoints['edit-committes'](id))
-        console.log("detail", data)
+        // console.log("detail", data)
         setDetail(data)
     }
     useEffect(() => {
