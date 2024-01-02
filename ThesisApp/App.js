@@ -16,8 +16,10 @@ import Update from './src/component/user/Update';
 import DetailCom from './src/component/committee/DetailCom';
 import ListCom from './src/component/committee/ListCom';
 import AddCom from './src/component/committee/AddCom';
-import Criteria from './src/component/criteria/Criteria';
-import ForgetPassword from './src/component/user/ForgetPassword';
+import AddThesis from './src/component/thesis/AddThesis';
+import UpdateThesis from './src/component/thesis/UpdateThesis';
+import ListThesis from './src/component/thesis/ListThesis';
+import ForgotPassword from './src/component/user/ForgotPassword';
 
 export const MyUserContext = createContext();
 export const MyThesisContext = createContext();
@@ -38,7 +40,10 @@ function App() {
             <Stack.Screen name='Chi tiết' component={DetailCom} />
             <Stack.Screen name='Danh sách hội đồng' component={ListCom} />
             <Stack.Screen name='Thêm hội đồng' component={AddCom} />
-            <Stack.Screen name='Quên mật khẩu' component={ForgetPassword} />
+            <Stack.Screen name='Quên mật khẩu' component={ForgotPassword} />
+            <Stack.Screen name='Thêm khóa luận' component={AddThesis} />
+            <Stack.Screen name='Cập nhật khóa luận' component={UpdateThesis} />
+            <Stack.Screen name='Danh sách khóa luận' component={ListThesis} />
             {/* <Stack.Screen name='Hoi dong' component={Criteria} /> */}
 
           </Stack.Navigator>

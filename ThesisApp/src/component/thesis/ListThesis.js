@@ -30,14 +30,16 @@ const ListThesis = ({ navigation }) => {
                             <Text style={list_thesis.text}>{item.id}</Text>
                         </View>
 
-                        <View style={list_thesis.right}>
-                            <Text style={list_thesis.name}>{item.name}</Text>
-                            <TouchableOpacity onPress={() => goToDetail(item.id)}>
+                        <TouchableOpacity onPress={() => goToDetail(item.id)}>
+                            <View style={list_thesis.right}>
+
+                                <Text style={list_thesis.name}>{item.name}</Text>
                                 <Text style={list_thesis.edit}>
                                     <AntDesign color="#2d665f" name="right" size={20} />
                                 </Text>
-                            </TouchableOpacity>
-                        </View>
+
+                            </View>
+                        </TouchableOpacity>
 
                     </View>
                 </View>

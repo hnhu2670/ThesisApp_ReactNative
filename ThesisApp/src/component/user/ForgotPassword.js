@@ -74,8 +74,7 @@ const ForgotPassword = ({ navigation }) => {
 const forget = StyleSheet.create({
     image: {
         width: "100%",
-        height: "100%",
-        backgroundColor: "red"
+        height: 250,
     },
     img: {
         width: 200,
