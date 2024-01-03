@@ -29,6 +29,8 @@ export const endpoints = {
     "forgot-password": `${SERVER_URL}/forgot-password/`,
 
     "add-all-member": `${SERVER_URL}/add-all-member/`, //add thành viên hội đồng  
+    "get-member": `${SERVER_URL}/get-member-of-committee/`,//edit hội đồng
+    "update-committes": (id) => `${SERVER_URL}/update-committee-and-member/${id}/`
 
 }
 

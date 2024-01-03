@@ -216,26 +216,6 @@ const AddCom = ({ navigation }) => {
                         }}
                     />
                 </View>
-                {/* {textInputs.slice(0, 2).map((input, index) => (
-                        <View style={login.text_input} key={index + 2}>
-                            <Text style={[login.text]}>Thành viên {index + 1}</Text>
-                            <TextInput
-                                style={[login.input]}
-                                placeholder={`Thành viên ${index + 1}`}
-                                value={input.member}
-                                onChangeText={text => handleMemberChange(text, index)}
-                            />
-                        </View>
-                    ))} */}
-                {/* <View style={[login.text_input]}>
-                        <TouchableOpacity onPress={addTextInput}
-                            style={[{ flexDirection: "row" }]}>
-                            <Text style={[login.text]}>Thêm thành viên</Text>
-                            <AntDesign
-                                style={comm.plus}
-                                name='plus' size={20} />
-                        </TouchableOpacity>
-                    </View> */}
             </ScrollView>
 
             <View style={[login.text_input, { marginBottom: 20 }]}>

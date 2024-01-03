@@ -19,7 +19,7 @@ const ListCom = ({ navigation }) => {
     };
 
     const goToDetail = (id) => {
-        navigation.navigate("Chi tiết", { id })
+        navigation.navigate("Cập nhật hội đồng", { id })
     }
     const renderData = ({ item }) => {
         return (

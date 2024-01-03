@@ -20,6 +20,7 @@ import AddThesis from './src/component/thesis/AddThesis';
 import UpdateThesis from './src/component/thesis/UpdateThesis';
 import ListThesis from './src/component/thesis/ListThesis';
 import ForgotPassword from './src/component/user/ForgotPassword';
+import UpdateComm from './src/component/committee/UpdateComm';
 
 export const MyUserContext = createContext();
 export const MyThesisContext = createContext();
@@ -43,7 +44,7 @@ function App() {
             <Stack.Screen name='Profile' component={Profile} />
             <Stack.Screen name='Cập nhật thông tin' component={Update} />
             <Stack.Screen name='Đổi mật khẩu' component={ChangePassword} />
-            <Stack.Screen name='Chi tiết' component={DetailCom} />
+            <Stack.Screen name='Cập nhật hội đồng' component={UpdateComm} />
             <Stack.Screen name='Danh sách hội đồng' component={ListCom} />
             <Stack.Screen name='Thêm hội đồng' component={AddCom} />
             <Stack.Screen name='Quên mật khẩu' component={ForgotPassword} options={{ headerShown: false }} />
