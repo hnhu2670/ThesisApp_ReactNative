@@ -80,8 +80,6 @@ const AddThesis = () => {
 
         }
         else { alert("tên khóa luận không được rỗng") }
-
-
     }
 
     return (

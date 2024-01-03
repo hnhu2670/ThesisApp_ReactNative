@@ -46,19 +46,21 @@ const Login = ({ navigation }) => {
                     'Authorization': "Bearer " + response.data.access_token,
                 },
             });
-            // lưu thông tin user đăng nhập
-            await AsyncStorage.setItem('user', JSON.stringify(data));
-            console.log(data.data.avatar)
-            dispatch({
-                "type": "login",
-                "payload": data.data
-            });
+
             if (response.status === 200) {
+                alert('Đăng nhập thành công')
                 console.log('Đăng nhập thành công');
                 // console.log(data.data)
                 navigation.navigate('ThesisApp');
-                setUsername('');
-                setPassword('');
+                // setUsername('');
+                // setPassword('');
+                // lưu thông tin user đăng nhập
+                await AsyncStorage.setItem('user', JSON.stringify(data));
+                console.log(data.data.avatar)
+                dispatch({
+                    "type": "login",
+                    "payload": data.data
+                });
             } else {
                 console.log('Đăng nhập thất bại');
             }

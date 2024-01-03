@@ -15,28 +15,29 @@ const MainHeader = ({ navigation }) => {
         navigation.navigate('Profile');
     };
 
-    const getUser = async () => {
-        const token = await AsyncStorage.getItem('token')
-        console.log("token", token)
-        try {
-            const res = await authApiToken(token).get(endpoints['get-user'](current_user.id))
-            // console.log(res.data.avatar);
-            if (res.status === 200) {
-                const result = await res.data;
-                setUserInfor(result);
-                // console.log(res.data)
+    // const getUser = async () => {
+    //     const token = await AsyncStorage.getItem('token')
+    //     console.log("token", token)
+    //     try {
+    //         console.log(current_user.id)
+    //         const res = await authApiToken(token).get(endpoints['get-user'](current_user.id))
+    //         console.log(res.data.avatar);
+    //         if (res.status === 200) {
+    //             const result = await res.data;
+    //             setUserInfor(result);
+    //             // console.log(res.data)
 
-            } else {
-                console.log(Error)
-            }
-        } catch (error) {
-            console.log("lỗi tại đây", error)
-        }
+    //         } else {
+    //             console.log(Error)
+    //         }
+    //     } catch (error) {
+    //         console.log("mainheader", error)
+    //     }
 
-    }
-    useEffect(() => {
-        getUser();
-    }, [])
+    // }
+    // useEffect(() => {
+    //     getUser();
+    // }, [])
     return (
         <View style={{ flexDirection: "row" }}>
             <View style={header.container}>

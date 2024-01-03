@@ -25,9 +25,14 @@ const ListCom = ({ navigation }) => {
         return (
             <View key={item.id} style={hoidong.coll}>
                 <View style={hoidong.row}>
-                    <Text style={[hoidong.cell, hoidong.first, { width: "15%" }]}>{item.id}</Text>
-                    <Text style={[hoidong.cell, { width: '65%' }]}>{item.name}</Text>
-                    <TouchableOpacity onPress={() => goToDetail(item.id)} style={[hoidong.cell, hoidong.edit, { width: '15%' }]}>
+                    <Text style={[hoidong.cell, hoidong.first, { width: "15%" }]}>
+                        {item.id}
+                    </Text>
+                    <Text style={[hoidong.cell, { width: "65%" }]}>{item.name}</Text>
+                    <TouchableOpacity
+                        onPress={() => goToDetail(item.id)}
+                        style={[hoidong.cell, hoidong.edit, { width: "15%" }]}
+                    >
                         <Text>
                             <AntDesign color="gray" name="edit" size={25} />
                         </Text>

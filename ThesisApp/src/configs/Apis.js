@@ -1,11 +1,11 @@
 import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const SERVER_URL = 'http://192.168.1.6:8000';
-const SERVER = "http://192.168.1.6";
+// const SERVER_URL = 'http://192.168.1.6:8000';
+// const SERVER = "http://192.168.1.6";
 
-// const SERVER_URL = 'http://172.16.17.198:8000';
-// const SERVER = "http://172.16.17.198";
+const SERVER_URL = 'http://172.16.17.198:8000';
+const SERVER = "http://172.16.17.198";
 
 
 export const endpoints = {
@@ -27,6 +27,8 @@ export const endpoints = {
 
     "check-old-password": `${SERVER_URL}/check-old-password/`,//kiem tra pass cu
     "forgot-password": `${SERVER_URL}/forgot-password/`,
+
+    "add-all-member": `${SERVER_URL}/add-all-member/`, //add thành viên hội đồng  
 
 }
 
