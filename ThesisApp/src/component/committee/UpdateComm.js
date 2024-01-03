@@ -61,7 +61,7 @@ const UpdateComm = ({ route }) => {
         formData.append('member2', change2.value)
         formData.append('member3', change3.value)
         formData.append('member4', change4.value)
-        formData.append('member5', change5.value)
+        formData.append('member5', '7')
         formData.append('position1', '1')
         formData.append('position2', '2')
         formData.append('position3', '3')
@@ -109,14 +109,10 @@ const UpdateComm = ({ route }) => {
         data?.map(c => {
             setData(pre =>
                 [...pre, { value: c.id, label: c.name }]
-
             )
-
-            if (memb[0].Committee.id !== undefined) {
-                if (c.id === memb[0].user.id) {
-
+            if (memb[0]?.Committee.id !== undefined) {
+                if (c.id === memb[0]?.Committee.id) {
                     setGetDefault(c.id)
-
                 }
             }
         })
@@ -125,22 +121,48 @@ const UpdateComm = ({ route }) => {
     const getPresident = async () => {
         let data = await getTeacher()//callback gọi lại hàm lấy ds gv
         let memb = await getThisComm()  // thông tin hội đồng
+        // console.log(memb)
         data?.map(c => {
-
-            setData1(pre =>
-                [...pre, { value: c.id, label: `${c.first_name} ${c.last_name}` }]
-
-            )
-            // console.log('-----------------', data1)
-            // so sánh vị trí memb[0].position.id
-            // sktra có chọn chưa
-            if (memb[0].user.id !== undefined) {
-                console.log('-----------------', c.id)
-                if (c.id === memb[0].user.id) {
-
-                    setGetDefault1(c.id)
-
-                }
+            switch (memb[0]?.position.id) {
+                case 1:
+                    setData1(pre => [...pre, { value: c.id, label: `${c.first_name} ${c.last_name}` }])
+                    console.log('chủ tịch', memb[0]?.user.id)
+                    if (memb[0]?.user.id !== undefined) {
+                        if (c.id === memb[0]?.user.id) {
+                            setGetDefault1(c.id)
+                        }
+                    }
+                    break;
+                case 2:
+                    setData2(pre => [...pre, { value: c.id, label: `${c.first_name} ${c.last_name}` }])
+                    console.log('thư ký')
+                    if (memb[0]?.user.id !== undefined) {
+                        if (c.id === memb[0]?.user.id) {
+                            setGetDefault2(c.id)
+                        }
+                    }
+                    break;
+                case 3:
+                    setData3(pre => [...pre, { value: c.id, label: `${c.first_name} ${c.last_name}` }])
+                    console.log('phản biện')
+                    if (memb[0]?.user.id !== undefined) {
+                        if (c.id === memb[0]?.user.id) {
+                            setGetDefault3(c.id)
+                        }
+                    }
+                    break;
+                case 4:
+                    setData4(pre => [...pre, { value: c.id, label: `${c.first_name} ${c.last_name}` }])
+                    console.log('thành viên')
+                    if (memb[0]?.user.id !== undefined) {
+                        if (c.id === memb[0]?.user.id) {
+                            setGetDefault4(c.id)
+                        }
+                    }
+                    break;
+                default:
+                    setData5(pre => [...pre, { value: c.id, label: `${c.first_name} ${c.last_name}` }])
+                    console.log('thành viên')
             }
         })
     }
@@ -149,15 +171,47 @@ const UpdateComm = ({ route }) => {
         let data = await getTeacher()//callback gọi lại hàm lấy ds gv
         let memb = await getThisComm()
         data?.map(c => {
-            //thư ký
+            switch (memb[1]?.position.id) {
+                case 1:
+                    setData1(pre => [...pre, { value: c.id, label: `${c.first_name} ${c.last_name}` }])
+                    console.log('chủ tịch', memb[0]?.user.id)
+                    if (memb[1]?.user.id !== undefined) {
+                        if (c.id === memb[1]?.user.id) {
+                            setGetDefault1(c.id)
+                        }
+                    }
+                    break;
+                case 2:
+                    setData2(pre => [...pre, { value: c.id, label: `${c.first_name} ${c.last_name}` }])
+                    console.log('thư ký')
+                    if (memb[1]?.user.id !== undefined) {
+                        if (c.id === memb[1]?.user.id) {
+                            setGetDefault2(c.id)
+                        }
+                    }
+                    break;
+                case 3:
+                    setData3(pre => [...pre, { value: c.id, label: `${c.first_name} ${c.last_name}` }])
+                    console.log('phản biện')
+                    if (memb[1]?.user.id !== undefined) {
+                        if (c.id === memb[1]?.user.id) {
+                            setGetDefault3(c.id)
+                        }
+                    }
+                    break;
+                case 4:
+                    setData4(pre => [...pre, { value: c.id, label: `${c.first_name} ${c.last_name}` }])
+                    console.log('thành viên')
+                    if (memb[1]?.user.id !== undefined) {
+                        if (c.id === memb[1]?.user.id) {
+                            setGetDefault4(c.id)
+                        }
+                    }
 
-            setData2(pre =>
-                [...pre, { value: c.id, label: `${c.first_name} ${c.last_name}` }]
-            )
-            if (memb[1].user.id != undefined) {
-                if (c.id == memb[1]?.user.id) {
-                    setGetDefault2(c.id)
-                }
+                    break;
+                default:
+                    setData5(pre => [...pre, { value: c.id, label: `${c.first_name} ${c.last_name}` }])
+                    console.log('thành viên')
             }
         })
     }
@@ -166,15 +220,47 @@ const UpdateComm = ({ route }) => {
         let data = await getTeacher()//callback gọi lại hàm lấy ds gv
         let memb = await getThisComm()
         data?.map(c => {
-            // phản biện
+            switch (memb[2]?.position.id) {
+                case 1:
+                    setData1(pre => [...pre, { value: c.id, label: `${c.first_name} ${c.last_name}` }])
+                    console.log('chủ tịch', memb[0]?.user.id)
+                    if (memb[2]?.user.id !== undefined) {
+                        if (c.id === memb[2]?.user.id) {
+                            setGetDefault1(c.id)
+                        }
+                    }
+                    break;
+                case 2:
+                    setData2(pre => [...pre, { value: c.id, label: `${c.first_name} ${c.last_name}` }])
+                    console.log('thư ký')
+                    if (memb[2]?.user.id !== undefined) {
+                        if (c.id === memb[2]?.user.id) {
+                            setGetDefault2(c.id)
+                        }
+                    }
+                    break;
+                case 3:
+                    setData3(pre => [...pre, { value: c.id, label: `${c.first_name} ${c.last_name}` }])
+                    console.log('phản biện')
+                    if (memb[2]?.user.id !== undefined) {
+                        if (c.id === memb[2]?.user.id) {
+                            setGetDefault3(c.id)
+                        }
+                    }
+                    break;
+                case 4:
+                    setData4(pre => [...pre, { value: c.id, label: `${c.first_name} ${c.last_name}` }])
+                    console.log('thành viên')
+                    if (memb[2]?.user.id !== undefined) {
+                        if (c.id === memb[2]?.user.id) {
+                            setGetDefault4(c.id)
+                        }
+                    }
 
-            setData3(pre =>
-                [...pre, { value: c.id, label: `${c.first_name} ${c.last_name}` }]
-            )
-            if (memb[2]?.user.id !== undefined) {
-                if (c.id == memb[2]?.user.id) {
-                    setGetDefault3(c.id)
-                }
+                    break;
+                default:
+                    setData5(pre => [...pre, { value: c.id, label: `${c.first_name} ${c.last_name}` }])
+                    console.log('thành viên')
             }
         })
     }
@@ -183,31 +269,74 @@ const UpdateComm = ({ route }) => {
         let data = await getTeacher()//callback gọi lại hàm lấy ds gv
         let memb = await getThisComm()
         data?.map(c => {
-            // tv1
-
-            setData4(pre =>
-                [...pre, { value: c.id, label: `${c.first_name} ${c.last_name}` }]
-            )
-            if (memb[3]?.user.id !== undefined) {
-                if (c.id == memb[3]?.user.id) {
-                    setGetDefault4(c.id)
-                }
+            switch (memb[3]?.position.id) {
+                case 1:
+                    setData1(pre => [...pre, { value: c.id, label: `${c.first_name} ${c.last_name}` }])
+                    console.log('chủ tịch', memb[0]?.user.id)
+                    if (memb[3]?.user.id !== undefined) {
+                        if (c.id === memb[3]?.user.id) {
+                            setGetDefault1(c.id)
+                        }
+                    }
+                    break;
+                case 2:
+                    setData2(pre => [...pre, { value: c.id, label: `${c.first_name} ${c.last_name}` }])
+                    console.log('thư ký')
+                    if (memb[3]?.user.id !== undefined) {
+                        if (c.id === memb[3]?.user.id) {
+                            setGetDefault2(c.id)
+                        }
+                    }
+                    break;
+                case 3:
+                    setData3(pre => [...pre, { value: c.id, label: `${c.first_name} ${c.last_name}` }])
+                    console.log('phản biện')
+                    if (memb[3]?.user.id !== undefined) {
+                        if (c.id === memb[3]?.user.id) {
+                            setGetDefault3(c.id)
+                        }
+                    }
+                    break;
+                case 4:
+                    setData4(pre => [...pre, { value: c.id, label: `${c.first_name} ${c.last_name}` }])
+                    console.log('thành viên')
+                    if (memb[3]?.user.id !== undefined) {
+                        if (c.id === memb[3]?.user.id) {
+                            setGetDefault4(c.id)
+                        }
+                    }
+                    break;
+                default:
+                    setData5(pre => [...pre, { value: c.id, label: `${c.first_name} ${c.last_name}` }])
+                    console.log('thành viên')
             }
         })
     }
-    // tv2
+    // tv2 => chưa xử lý được
     const getMember2 = async () => {
         let data = await getTeacher()//callback gọi lại hàm lấy ds gv
         let memb = await getThisComm()
-        data.map(c => {
-
-            setData5(pre =>
-                [...pre, { value: c.id, label: `${c.first_name} ${c.last_name}` }]
-            )
-            if (memb[4]?.user.id !== undefined) {
-                if (c.id == memb[4]?.user.id) {
-                    setGetDefault5(c.id)
-                }
+        data?.map(c => {
+            switch (memb[4]?.position.id) {
+                case 1:
+                    setData1(pre => [...pre, { value: c.id, label: `${c.first_name} ${c.last_name}` }])
+                    console.log('chủ tịch', data1)
+                    break;
+                case 2:
+                    setData2(pre => [...pre, { value: c.id, label: `${c.first_name} ${c.last_name}` }])
+                    console.log('thư ký', data2)
+                    break;
+                case 3:
+                    setData3(pre => [...pre, { value: c.id, label: `${c.first_name} ${c.last_name}` }])
+                    console.log('phản biện', data3)
+                    break;
+                case 4:
+                    setData4(pre => [...pre, { value: c.id, label: `${c.first_name} ${c.last_name}` }])
+                    console.log('thành viên', data4)
+                    break;
+                default:
+                    setData5(pre => [...pre, { value: c.id, label: `${c.first_name} ${c.last_name}` }])
+                    console.log('thành viên')
             }
         })
     }
