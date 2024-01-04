@@ -4,55 +4,38 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import axios from 'axios';
 import { authApi, authApiToken, endpoints } from '../../configs/Apis';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import styles from '../../assets/js/style';
+import color from '../../assets/js/color';
 
 
 const MainHeader = ({ navigation }) => {
     const [current_user, dispatch] = useContext(MyUserContext);
-    const [userInfor, setUserInfor] = useState('');
-
-
     const goToProfile = () => {
         navigation.navigate('Profile');
     };
 
-    // const getUser = async () => {
-    //     const token = await AsyncStorage.getItem('token')
-    //     console.log("token", token)
-    //     try {
-    //         console.log(current_user.id)
-    //         const res = await authApiToken(token).get(endpoints['get-user'](current_user.id))
-    //         console.log(res.data.avatar);
-    //         if (res.status === 200) {
-    //             const result = await res.data;
-    //             setUserInfor(result);
-    //             // console.log(res.data)
-
-    //         } else {
-    //             console.log(Error)
-    //         }
-    //     } catch (error) {
-    //         console.log("mainheader", error)
-    //     }
-
-    // }
-    // useEffect(() => {
-    //     getUser();
-    // }, [])
     return (
-        <View style={{ flexDirection: "row" }}>
+        <View style={[styles.container, { flexDirection: "row" }]}>
+            <View
+                style={{ width: '80%' }}>
+                <Text style={{ fontSize: 30, flex: 1, alignItems: 'center', paddingVertical: 30, color: color.green }}>ThesisApp</Text>
+            </View>
             <View style={header.container}>
                 <View>
-                    <Image
-                        style={header.avatar}
-                        source={{ uri: current_user?.avatar_url }}
-                    />
+                    <TouchableOpacity onPress={goToProfile}>
+                        <Image
+                            style={header.avatar}
+                            source={{ uri: current_user?.avatar_url }}
+                        />
+                    </TouchableOpacity>
+
                 </View>
-                <View >
+                {/* <View >
                     <Text style={header.text}
                         onPress={goToProfile}>
                         Hello, {current_user.first_name} {current_user.last_name} !!!!!!</Text>
                     <Text style={header.text}>{current_user.role}</Text>
-                </View>
+                </View> */}
 
             </View>
 

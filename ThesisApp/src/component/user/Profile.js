@@ -9,6 +9,7 @@ import profile from './style';
 import ChangeAvatar from './ChangeAvatar';
 import { Button } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
+import color from '../../assets/js/color';
 
 
 const Profile = ({ navigation }) => {
@@ -28,10 +29,13 @@ const Profile = ({ navigation }) => {
         // console.log("url avatar", current_user.avatar)
     }, [])
     return (
-        <View >
-            <ChangeAvatar />
+        <View style={{ backgroundColor: color.background }}>
+            <View >
+                <ChangeAvatar />
 
-            <View>
+            </View>
+
+            <View style={{ marginTop: 20 }}>
                 <View
                     style={[profile.item, { flexDirection: "row" }]}>
                     <TouchableOpacity style={{ flexDirection: "row" }}>

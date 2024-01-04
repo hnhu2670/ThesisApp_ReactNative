@@ -35,7 +35,7 @@ function App() {
             <Stack.Screen name='ThesisApp' component={Main}
               options={{
                 title: 'ThesisApp',
-                headerShown: true,
+                headerShown: false,
                 headerLeft: null
               }}
             />
