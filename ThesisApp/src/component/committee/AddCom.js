@@ -62,7 +62,7 @@ const AddCom = ({ navigation }) => {
         formData.append('position2', '2')
         formData.append('position3', '3')
         formData.append('position4', '4')
-        formData.append('position5', '4')
+        formData.append('position5', '5')
         console.log('dữ liệu lấy được', formData)
 
         try {
@@ -74,7 +74,7 @@ const AddCom = ({ navigation }) => {
             console.log(res.status)
             setTimeout(() => {
                 navigation.navigate('ThesisApp')
-            }, 2000)
+            }, 1000)
             console.log('dữ liệu mới thêm', res.data)
         } catch (error) {
             console.log("lỗi hàm add member: ", error)

@@ -13,7 +13,6 @@ import Main from './src/component/home/Main'
 import Profile from './src/component/user/Profile';
 import ChangePassword from './src/component/user/ChangePassword';
 import Update from './src/component/user/Update';
-import DetailCom from './src/component/committee/DetailCom';
 import ListCom from './src/component/committee/ListCom';
 import AddCom from './src/component/committee/AddCom';
 import AddThesis from './src/component/thesis/AddThesis';

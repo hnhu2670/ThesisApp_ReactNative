@@ -13,7 +13,6 @@ import { Dropdown } from 'react-native-element-dropdown'
 
 const UpdateThesis = ({ route }) => {
     const { id } = route.params;
-    const [name, setName] = useState('')
     const [student, setStudent] = useState(null)
     const [teachers, setTeachers] = useState(null)
     const [listStudents, setListStudents] = useState([])
@@ -21,18 +20,9 @@ const UpdateThesis = ({ route }) => {
     const [changeGv1, setChangeGv1] = useState('')
     const [changeGv2, setChangeGv2] = useState('')
     const [changeComm, setChangeComm] = useState('')
-    const [data1, setData1] = useState([
-        { label: 'khong co', value: '1' }
-
-    ])
-    const [data2, setData2] = useState([
-        { label: 'khong co', value: '1' }
-
-    ])
-    const [data3, setData3] = useState([
-        { label: 'khong co', value: '1' }
-
-    ])
+    const [data1, setData1] = useState([])
+    const [data2, setData2] = useState([])
+    const [data3, setData3] = useState([])
 
     const [getDefault1, setGetDefault1] = useState(null)
     const [getDefault2, setGetDefault2] = useState(null)
@@ -154,7 +144,7 @@ const UpdateThesis = ({ route }) => {
         formData.append("sinhvien", student)
         formData.append("committee", changeComm.value)
         console.log("form data", formData)
-
+        console.log('get get ..........', getDefault1)
         try {
             const { data } = await authApiToken(token).patch(endpoints['update-thesis'](id), formData,
                 {
@@ -163,10 +153,10 @@ const UpdateThesis = ({ route }) => {
                     }
                 }
             )
-            console.log(data)
+            console.log('------------------------', data)
 
         } catch (error) {
-            console.log("lỗi rồi nhe bạn ơi", error)
+            console.log("lỗi rồi nhe bạn ơi update thesis", error)
         }
 
     }
