@@ -46,7 +46,7 @@ const ForgotPassword = ({ navigation }) => {
                     <TextInput
                         style={login.input}
                         placeholder='Nhập email nhận mật khẩu mới'
-                        value={email}
+                        value={email.toString()}
                         onChangeText={text => setEmail(text)}
 
                     />

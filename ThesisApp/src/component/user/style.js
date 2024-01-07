@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import color from "../../assets/js/color";
 
 const profile = StyleSheet.create({
     container: {
@@ -13,19 +14,21 @@ const profile = StyleSheet.create({
         marginBottom: 25
     },
     item: {
+        backgroundColor: color.lightgreen,
         marginTop: 10,
         marginLeft: 20,
         marginRight: 10,
         width: "90%",
         height: 70,
-        borderColor: "white",
+        borderColor: '#d0eacef5',
         borderWidth: 2,
         alignItems: "center",
         paddingLeft: 20,
+        marginBottom: 10,
         shadowColor: '#000',
         shadowOffset: {
             width: 0,
-            height: 2,
+            height: 5,
         },
         shadowOpacity: 0.25,
         shadowRadius: 3.84,

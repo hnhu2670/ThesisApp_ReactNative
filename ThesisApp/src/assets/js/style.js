@@ -1,4 +1,7 @@
 import { StyleSheet, } from 'react-native';
+
+// marginTop: '10%',
+// paddingHorizontal: '5%'
 const styles = StyleSheet.create({
     background: {
         flex: 1,

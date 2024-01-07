@@ -51,7 +51,7 @@ const ListThesis = ({ navigation }) => {
         getListThesis();
     }, []);
     return (
-        <View style={list_thesis.container}>
+        <View >
             {list.length < 1 ? (
                 <Text>Chưa có dữ liệu</Text>
             ) : (<FlatList
@@ -65,9 +65,9 @@ const ListThesis = ({ navigation }) => {
 
 }
 const list_thesis = StyleSheet.create({
-    container: {
-        margin: 10,
-    },
+    // container: {
+    //     margin: 10,
+    // },
     row: {
         flexDirection: "row",
         marginBottom: 10,

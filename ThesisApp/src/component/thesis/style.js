@@ -1,6 +1,7 @@
 import { StyleSheet } from "react-native";
+import color from "../../assets/js/color";
 
-const styles = StyleSheet.create({
+const thesis = StyleSheet.create({
     container: {
         // padding: 16
         borderWidth: 1,
@@ -16,6 +17,14 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.15,
         shadowRadius: 3.84,
         elevation: 1,
+    },
+    contain: {
+        height: '100%',
+        flexDirection: 'column',
+        // backgroundColor: "lightblue",
+        alignItems: 'center',
+        // marginTop: '10%',
+
     },
     dropdown: {
         // marginTop: 10,
@@ -93,6 +102,34 @@ const styles = StyleSheet.create({
     select: {
         width: '90%',
         backgroundColor: "red"
+    },
+    top_items: {
+        width: '100%',
+        height: '90%',
+
+        borderRadius: 20,
+        flexDirection: 'row',
+        justifyContent: 'center'
+    },
+    mini_item: {
+        width: '47%',
+        height: 200,
+        marginRight: 10,
+        backgroundColor: color.lightgreen,
+        borderRadius: 20
+    },
+    tile: {
+        fontSize: 17
+    },
+    mini_icon: {
+        backgroundColor: 'red',
+        padding: 10,
+        width: 60,
+        height: 60,
+        marginBottom: '10%',
+        justifyContent: 'center',
+        alignItems: 'center'
     }
+
 });
-export default styles
+export default thesis

@@ -2,9 +2,9 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { endpoints } from '../../configs/Apis';
 import { Dropdown } from 'react-native-element-dropdown';
-import styles from './style';
-import { Text } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 import { View } from 'react-native';
+import { AntDesign } from '@expo/vector-icons';
 
 const GetCom = (props) => {
     const [committee, setCommittee] = useState([])
@@ -25,11 +25,11 @@ const GetCom = (props) => {
     };
     const renderItem = (item) => {
         return (
-            <View style={styles.item}>
-                <Text style={styles.textItem}>{item.label}</Text>
-                {/* {item.id === committee && (
-                    <AntDesign style={styles.icon} name="checkcircleo" size={24} color="black" />
-                )} */}
+            <View style={style.item}>
+                <Text style={style.textItem}>{item.label}</Text>
+                {item.id === selectedCommittee && (
+                    <AntDesign style={style.icon} name="checkcircleo" size={24} color="black" />
+                )}
             </View>
         );
     };
@@ -40,13 +40,13 @@ const GetCom = (props) => {
     }, []);
 
     return (
-        // <Text>quá mợt</Text>
+
         <Dropdown
-            style={styles.dropdown}
-            placeholderStyle={styles.placeholderStyle}
-            selectedTextStyle={styles.selectedTextStyle}
-            inputSearchStyle={styles.inputSearchStyle}
-            iconStyle={styles.iconStyle}
+            style={style.dropdown}
+            placeholderStyle={style.placeholderStyle}
+            selectedTextStyle={style.selectedTextStyle}
+            inputSearchStyle={style.inputSearchStyle}
+            iconStyle={style.iconStyle}
             search
             maxHeight={300}
             labelField="label"
@@ -55,8 +55,8 @@ const GetCom = (props) => {
                 label: `${c.name}`,
                 id: `${c.id}`
             }))}
-            placeholder="Danh sách hội đồng"
-            searchPlaceholder="Tìm hội đồng..."
+            placeholder="Chọn giảng viên"
+            searchPlaceholder="Tìm tên giảng viên..."
             value={selectedCommittee} // Giá trị được lưu
             onChange={(item) => {
                 sendIdCommittee(item); // Gọi hàm sendIdTeacher với giá trị id
@@ -65,5 +65,47 @@ const GetCom = (props) => {
         />
     )
 }
+const style = StyleSheet.create({
+    dropdown: {
+        // marginTop: 10,
+        marginRight: 30,
+        height: 70,
+        backgroundColor: 'white',
+        borderRadius: 12,
+        padding: 12,
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 1,
+        },
+        shadowOpacity: 0.2,
+        shadowRadius: 1.41,
 
+        elevation: 2,
+    },
+    placeholderStyle: {
+        fontSize: 16,
+    },
+    selectedTextStyle: {
+        fontSize: 14,
+    },
+    iconStyle: {
+        width: 20,
+        height: 20,
+    },
+    inputSearchStyle: {
+        height: 40,
+        fontSize: 16,
+    },
+    icon: {
+        marginRight: 5,
+    },
+    item: {
+        padding: 17,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+
+})
 export default GetCom

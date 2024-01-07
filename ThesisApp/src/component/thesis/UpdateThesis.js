@@ -3,13 +3,13 @@ import React, { useEffect, useState } from 'react'
 import { TextInput, TouchableOpacity, View } from 'react-native'
 import { Text } from 'react-native'
 import { authApiToken, endpoints } from '../../configs/Apis'
-import styles from './style'
 import GetStudent from './GetStudent'
 import GetTeacher from './GetTeacher'
 import GetCom from './GetCom'
 import login from '../../login/style'
 import axios from 'axios'
 import { Dropdown } from 'react-native-element-dropdown'
+import thesis from './style'
 
 const UpdateThesis = ({ route }) => {
     const { id } = route.params;
@@ -180,8 +180,8 @@ const UpdateThesis = ({ route }) => {
         getInfor()
     }, [])
     return (
-        <View style={styles.container}>
-            <View style={styles.text_input}>
+        <View style={thesis.container}>
+            <View style={thesis.text_input}>
                 <Text style={login.text}>Danh sách sinh viên hiện tại </Text>
                 <Text style={{ marginLeft: 20, marginBottom: 0 }}>
                     {listStudents.length > 0 ? <>
@@ -199,22 +199,22 @@ const UpdateThesis = ({ route }) => {
                     </>}
                 </Text>
             </View>
-            <View style={styles.text_input}>
+            <View style={thesis.text_input}>
                 <Text style={login.text}>Danh sách sinh viên </Text>
 
                 <GetStudent getIdStudents={getIdStudent}
                     setSelected={chageMultipleSelect}
                 />
             </View>
-            <View style={styles.text_input}>
+            <View style={thesis.text_input}>
                 <Text style={login.text}>Giảng viên hướng dẫn 1 </Text>
 
                 <Dropdown
-                    style={styles.dropdown}
-                    placeholderStyle={styles.placeholderStyle}
-                    selectedTextStyle={styles.selectedTextStyle}
-                    inputSearchStyle={styles.inputSearchStyle}
-                    iconStyle={styles.iconStyle}
+                    style={thesis.dropdown}
+                    placeholderStyle={thesis.placeholderStyle}
+                    selectedTextStyle={thesis.selectedTextStyle}
+                    inputSearchStyle={thesis.inputSearchStyle}
+                    iconStyle={thesis.iconStyle}
                     search
                     maxHeight={300}
                     labelField="label"
@@ -229,15 +229,15 @@ const UpdateThesis = ({ route }) => {
                     }}
                 />
             </View>
-            <View style={styles.text_input}>
+            <View style={thesis.text_input}>
                 <Text style={login.text}>Giảng viên hướng dẫn 2 </Text>
 
                 <Dropdown
-                    style={styles.dropdown}
-                    placeholderStyle={styles.placeholderStyle}
-                    selectedTextStyle={styles.selectedTextStyle}
-                    inputSearchStyle={styles.inputSearchStyle}
-                    iconStyle={styles.iconStyle}
+                    style={thesis.dropdown}
+                    placeholderStyle={thesis.placeholderStyle}
+                    selectedTextStyle={thesis.selectedTextStyle}
+                    inputSearchStyle={thesis.inputSearchStyle}
+                    iconStyle={thesis.iconStyle}
                     search
                     maxHeight={300}
                     labelField="label"
@@ -253,15 +253,15 @@ const UpdateThesis = ({ route }) => {
                 />
             </View>
 
-            <View style={styles.text_input}>
+            <View style={thesis.text_input}>
                 <Text style={login.text}>Danh sách hội đồng </Text>
 
                 <Dropdown
-                    style={styles.dropdown}
-                    placeholderStyle={styles.placeholderStyle}
-                    selectedTextStyle={styles.selectedTextStyle}
-                    inputSearchStyle={styles.inputSearchStyle}
-                    iconStyle={styles.iconStyle}
+                    style={thesis.dropdown}
+                    placeholderStyle={thesis.placeholderStyle}
+                    selectedTextStyle={thesis.selectedTextStyle}
+                    inputSearchStyle={thesis.inputSearchStyle}
+                    iconStyle={thesis.iconStyle}
                     search
                     maxHeight={300}
                     labelField="label"
@@ -277,7 +277,7 @@ const UpdateThesis = ({ route }) => {
                 />
             </View>
 
-            <View style={[styles.text_input]}>
+            <View style={[thesis.text_input]}>
                 <TouchableOpacity onPress={change}>
                     <Text style={login.button}
                     >CẬP NHẬT KHÓA LUẬN</Text>

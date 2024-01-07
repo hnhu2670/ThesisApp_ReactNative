@@ -4,10 +4,12 @@ import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-nati
 import home from './style';
 import MainHeader from '../layout/MainHeader';
 import ListFunction from './ListFunction';
+import DrawerTab from './DrawerTab';
 
 const Home = ({ navigation }) => {
     return (
         <View>
+            {/* <DrawerTab navigation={navigation} /> */}
             <MainHeader navigation={navigation} />
             <ScrollView style={{ height: '80%' }}>
                 <ListFunction />

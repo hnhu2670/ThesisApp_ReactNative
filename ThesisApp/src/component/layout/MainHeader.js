@@ -30,12 +30,6 @@ const MainHeader = ({ navigation }) => {
                     </TouchableOpacity>
 
                 </View>
-                {/* <View >
-                    <Text style={header.text}
-                        onPress={goToProfile}>
-                        Hello, {current_user.first_name} {current_user.last_name} !!!!!!</Text>
-                    <Text style={header.text}>{current_user.role}</Text>
-                </View> */}
 
             </View>
 

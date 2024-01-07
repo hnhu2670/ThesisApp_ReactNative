@@ -12,7 +12,7 @@ const Login = ({ navigation }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-    const [user, dispatch] = useContext(MyUserContext);
+    const [current_user, dispatch] = useContext(MyUserContext);
 
     const loginUser = async () => {
         // Tạo form data để gửi trong yêu cầu
@@ -56,7 +56,7 @@ const Login = ({ navigation }) => {
                 // setPassword('');
                 // lưu thông tin user đăng nhập
                 await AsyncStorage.setItem('user', JSON.stringify(data));
-                console.log(data.data.avatar)
+                // console.log(data.data.avatar)
                 dispatch({
                     "type": "login",
                     "payload": data.data
@@ -70,7 +70,11 @@ const Login = ({ navigation }) => {
         }
     };
 
-
+    // useEffect(() => {
+    //     if (current_user !== null) {
+    //         navigation.navigate('ThesisApp');
+    //     }
+    // }, [current_user])
 
     return (
         <View style={styles.background}>

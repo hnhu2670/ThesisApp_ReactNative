@@ -6,11 +6,11 @@ import { Dropdown } from 'react-native-element-dropdown';
 import styles from "./style"
 import { authApiToken, endpoints } from '../../configs/Apis';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import thesis from './style';
 
 const GetTeacher = (props) => {
     const [teachers, setTeachers] = useState([]);
     const [selectedTeacher, setSelectedTeacher] = useState('');
-    const [value, setValue] = useState(null);
 
     const sendIdTeacher = (item) => {
 
@@ -26,18 +26,16 @@ const GetTeacher = (props) => {
         try {
             const { data } = await authApiToken(token).get(endpoints['get-user-role'] + '?role=lecturer');
             setTeachers(data);
-            // console.log(data[0])
-
         } catch (error) {
             console.log("Lỗi:", error);
         }
     };
     const renderItem = (item) => {
         return (
-            <View style={styles.item}>
-                <Text style={styles.textItem}>{item.label}</Text>
+            <View style={style.item}>
+                <Text style={style.textItem}>{item.label}</Text>
                 {item.id === selectedTeacher && (
-                    <AntDesign style={styles.icon} name="checkcircleo" size={24} color="black" />
+                    <AntDesign style={style.icon} name="checkcircleo" size={24} color="black" />
                 )}
             </View>
         );
@@ -50,11 +48,11 @@ const GetTeacher = (props) => {
 
     return (
         <Dropdown
-            style={styles.dropdown}
-            placeholderStyle={styles.placeholderStyle}
-            selectedTextStyle={styles.selectedTextStyle}
-            inputSearchStyle={styles.inputSearchStyle}
-            iconStyle={styles.iconStyle}
+            style={style.dropdown}
+            placeholderStyle={style.placeholderStyle}
+            selectedTextStyle={style.selectedTextStyle}
+            inputSearchStyle={style.inputSearchStyle}
+            iconStyle={style.iconStyle}
             search
             maxHeight={300}
             labelField="label"
@@ -75,4 +73,47 @@ const GetTeacher = (props) => {
     );
 };
 
+const style = StyleSheet.create({
+    dropdown: {
+        // marginTop: 10,
+        marginRight: 30,
+        height: 70,
+        backgroundColor: 'white',
+        borderRadius: 12,
+        padding: 12,
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 1,
+        },
+        shadowOpacity: 0.2,
+        shadowRadius: 1.41,
+
+        elevation: 2,
+    },
+    placeholderStyle: {
+        fontSize: 16,
+    },
+    selectedTextStyle: {
+        fontSize: 14,
+    },
+    iconStyle: {
+        width: 20,
+        height: 20,
+    },
+    inputSearchStyle: {
+        height: 40,
+        fontSize: 16,
+    },
+    icon: {
+        marginRight: 5,
+    },
+    item: {
+        padding: 17,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+
+})
 export default GetTeacher;

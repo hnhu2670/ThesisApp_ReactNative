@@ -1,6 +1,5 @@
 import * as React from 'react';
 import 'react-native-gesture-handler';
-import { View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createContext } from 'react';
@@ -26,35 +25,32 @@ export const MyThesisContext = createContext();
 const Stack = createNativeStackNavigator();
 function App() {
   const [user, dispatch] = useReducer(MyUserReducer, AsyncStorage.getItem("user") || null)
-  const [data, setData] = useReducer()
   return (
     <MyUserContext.Provider value={[user, dispatch]}>
-      <MyThesisContext.Provider value={[data, setData]}>
-        <NavigationContainer>
-          <Stack.Navigator initialRouteName='Login'>
-            <Stack.Screen name='ThesisApp' component={Main}
-              options={{
-                title: 'ThesisApp',
-                headerShown: false,
-                headerLeft: null
-              }}
-            />
-            <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} />
-            <Stack.Screen name='Profile' component={Profile} />
-            <Stack.Screen name='Cập nhật thông tin' component={Update} />
-            <Stack.Screen name='Đổi mật khẩu' component={ChangePassword} />
-            <Stack.Screen name='Cập nhật hội đồng' component={UpdateComm} />
-            <Stack.Screen name='Danh sách hội đồng' component={ListCom} />
-            <Stack.Screen name='Thêm hội đồng' component={AddCom} />
-            <Stack.Screen name='Quên mật khẩu' component={ForgotPassword} options={{ headerShown: false }} />
-            <Stack.Screen name='Thêm khóa luận' component={AddThesis} />
-            <Stack.Screen name='Cập nhật khóa luận' component={UpdateThesis} />
-            <Stack.Screen name='Danh sách khóa luận' component={ListThesis} />
-            {/* <Stack.Screen name='Hoi dong' component={Criteria} /> */}
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName='Login'>
+          <Stack.Screen name='ThesisApp' component={Main}
+            options={{
+              title: 'ThesisApp',
+              headerShown: false,
+              headerLeft: null
+            }}
+          />
+          <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} />
+          <Stack.Screen name='Profile' component={Profile} />
+          <Stack.Screen name='Cập nhật thông tin' component={Update} />
+          <Stack.Screen name='Đổi mật khẩu' component={ChangePassword} />
+          <Stack.Screen name='Cập nhật hội đồng' component={UpdateComm} />
+          <Stack.Screen name='Danh sách hội đồng' component={ListCom} />
+          <Stack.Screen name='Thêm hội đồng' component={AddCom} />
+          <Stack.Screen name='Quên mật khẩu' component={ForgotPassword} options={{ headerShown: false }} />
+          <Stack.Screen name='Thêm khóa luận' component={AddThesis} />
+          <Stack.Screen name='Cập nhật khóa luận' component={UpdateThesis} />
+          <Stack.Screen name='Danh sách khóa luận' component={ListThesis} />
+          {/* <Stack.Screen name='Hoi dong' component={Criteria} /> */}
 
-          </Stack.Navigator>
-        </NavigationContainer>
-      </MyThesisContext.Provider>
+        </Stack.Navigator>
+      </NavigationContainer>
     </MyUserContext.Provider>
   )
 }

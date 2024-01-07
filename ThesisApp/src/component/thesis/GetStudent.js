@@ -2,7 +2,6 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Button } from 'react-native';
 import { Dropdown, MultiSelect } from 'react-native-element-dropdown';
-import styles from "./style"
 import { AntDesign } from '@expo/vector-icons';
 import { authApiToken, endpoints } from '../../configs/Apis';
 import { ScrollView } from 'react-native-gesture-handler';

@@ -4,12 +4,12 @@ import { Image, ScrollView, Text, TextInput, TouchableOpacity, View } from 'reac
 import GetStudent from './GetStudent'
 import GetTeacher from './GetTeacher'
 import login from '../../login/style'
-import styles from './style'
 import GetCom from './GetCom'
 import { authApiToken, endpoints } from '../../configs/Apis'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import thesis from './style'
 const AddThesis = () => {
-    const [thesis, setThesis] = useState('')
+    const [listthesis, setThesis] = useState('')
     const [student, setStudent] = useState(null)
     const [teacher1, setTeacher1] = useState(null)
     const [teacher2, setTeacher2] = useState(null)
@@ -51,12 +51,12 @@ const AddThesis = () => {
         formData.append("sinhvien", student)
         formData.append("giangvien1", teacher1)
         formData.append("giangvien2", teacher2)
-        formData.append("name", thesis)
+        formData.append("name", listthesis)
 
         console.log("dữ liệu:---------", formData)
 
 
-        if (thesis) {
+        if (listthesis) {
             if (student === null) {
                 alert("Chọn sinh viên thực hiện khóa luận")
             } else if (teacher1 === null) {
@@ -83,47 +83,92 @@ const AddThesis = () => {
     }
 
     return (
-        <View style={styles.container}>
-            <View style={[styles.text_input]}>
+        // <View style={thesis.container}>
+        //     <View style={[thesis.text_input]}>
+        //         <Text style={login.text}>Tên khóa luận mới </Text>
+
+        //         <TextInput
+        //             style={[login.input, { fontSize: 16 }]}
+        //             placeholder='Tên khóa luận'
+        //             value={thesis}
+        //             onChangeText={text => setThesis(text)}
+        //         />
+        //     </View>
+        //     <View style={thesis.text_input}>
+        //         <Text style={login.text}>Danh sách sinh viên </Text>
+
+        //         <GetStudent getIdStudents={getIdStudent}
+        //         />
+        //     </View>
+        //     <View style={thesis.text_input}>
+        //         <Text style={login.text}>Giảng viên hướng dẫn 1 </Text>
+
+        //         <GetTeacher getTecher={getIdTeacher1} />
+        //     </View>
+        //     <View style={thesis.text_input}>
+        //         <Text style={login.text}>Giảng viên hướng dẫn 2 </Text>
+
+        //         <GetTeacher getTecher={getIdTeacher2} />
+        //     </View>
+        //     <View style={thesis.text_input}>
+        //         <Text style={login.text}>Danh sách hội đồng</Text>
+
+        //         <GetCom getTecher={getIdCommittee} />
+        //     </View>
+        //     <View style={[thesis.text_input]}>
+        //         <TouchableOpacity onPress={addNewThesis}>
+        //             <Text style={login.button}
+        //             >THÊM KHÓA LUẬN MỚI</Text>
+        //         </TouchableOpacity>
+
+        //     </View>
+
+        // </View>
+        <View >
+            <View style={[thesis.text_input]}>
                 <Text style={login.text}>Tên khóa luận mới </Text>
 
                 <TextInput
                     style={[login.input, { fontSize: 16 }]}
                     placeholder='Tên khóa luận'
-                    value={thesis}
+                    value={listthesis}
                     onChangeText={text => setThesis(text)}
                 />
             </View>
-            <View style={styles.text_input}>
+            <View style={thesis.text_input}>
                 <Text style={login.text}>Danh sách sinh viên </Text>
 
                 <GetStudent getIdStudents={getIdStudent}
                 />
             </View>
-            <View style={styles.text_input}>
+            <View style={thesis.text_input}>
                 <Text style={login.text}>Giảng viên hướng dẫn 1 </Text>
 
                 <GetTeacher getTecher={getIdTeacher1} />
             </View>
-            <View style={styles.text_input}>
+            <View style={thesis.text_input}>
                 <Text style={login.text}>Giảng viên hướng dẫn 2 </Text>
 
                 <GetTeacher getTecher={getIdTeacher2} />
             </View>
-            <View style={styles.text_input}>
-                <Text style={login.text}>Danh sách hội đồng</Text>
+            <View style={thesis.text_input}>
+                <Text style={login.text}>Giảng viên hướng dẫn 2 </Text>
 
                 <GetCom getTecher={getIdCommittee} />
             </View>
-            <View style={[styles.text_input]}>
+            {/* <View style={thesis.text_input}>
+                <Text style={login.text}>Danh sách hội đồng</Text>
+
+                // <GetCom getTecher={getIdCommittee} />
+            </View> */}
+            <View style={[thesis.text_input]}>
                 <TouchableOpacity onPress={addNewThesis}>
                     <Text style={login.button}
                     >THÊM KHÓA LUẬN MỚI</Text>
                 </TouchableOpacity>
 
             </View>
-
-        </View>
+        </View >
 
 
 

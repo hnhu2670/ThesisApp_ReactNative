@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import axios from 'axios';
 import { endpoints } from '../../configs/Apis';
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign, MaterialCommunityIcons, Octicons } from '@expo/vector-icons';
 import profile from '../user/style';
 import styles from '../../assets/js/style';
+import thesis from '../thesis/style';
+import Header from '../layout/Header';
 
 
 const Committee = ({ navigation }) => {
@@ -54,36 +56,49 @@ const Committee = ({ navigation }) => {
     // }, []);
 
     return (
-        <View>
-            <View
-                style={[profile.item, { flexDirection: "row" }]}>
-                <TouchableOpacity style={{ flexDirection: "row" }}>
-                    <Text
-                        onPress={() => { navigation.navigate("Thêm hội đồng") }}
-                        style={[styles.font, profile.link]}>Thêm hội đồng
-                    </Text>
-                    <AntDesign style={profile.icon} color="gray" name="right" size={20} />
+        <View style={[styles.container, thesis.contain]}>
+            <Header />
+            <Text
+                style={{
+                    fontSize: 20,
+                    textAlign: 'left',
+                    width: '100%',
+                    fontStyle: 'italic',
+                    marginBottom: '10%',
+                    color: color.green
+                }}
+            >Hội đồng bảo vệ khóa luận</Text>
+            <View style={thesis.top_thesis}>
+                <View style={thesis.top_items}>
+                    <TouchableOpacity style={thesis.mini_item} onPress={() => { navigation.navigate("Thêm hội đồng") }}
+                    >
+                        <View>
+                            <View style={thesis.mini_icon}>
+                                <MaterialCommunityIcons color="gray" name="update" size={35} />
+                            </View>
+                            <Text
+                                style={[styles.font, profile.link]}>Thêm hội đồng
+                            </Text>
 
-                </TouchableOpacity>
-
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={thesis.mini_item} onPress={() => { navigation.navigate("Danh sách hội đồng") }}
+                    >
+                        <View>
+                            <View style={thesis.mini_icon}>
+                                <Octicons color="gray" name="diff-added" size={35} />
+                            </View>
+                            <Text
+                                style={[styles.font, profile.link]}>Danh sách hội đồng
+                            </Text>
+                        </View>
+                    </TouchableOpacity>
+                </View>
 
             </View>
-            <View
-                style={[profile.item, { flexDirection: "row" }]}>
-                <TouchableOpacity style={{ flexDirection: "row" }}>
-                    <Text
-                        onPress={() => { navigation.navigate("Danh sách hội đồng") }}
-                        style={[styles.font, profile.link]}>Danh sách hội đồng
-                    </Text>
-                    <AntDesign style={profile.icon} color="gray" name="right" size={20} />
-
-                </TouchableOpacity>
-
-
-            </View>
-
         </View>
-    );
+
+    )
 };
 
 const hoidong = StyleSheet.create({

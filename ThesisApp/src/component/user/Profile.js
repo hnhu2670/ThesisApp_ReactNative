@@ -38,9 +38,9 @@ const Profile = ({ navigation }) => {
             <View style={{ marginTop: 20 }}>
                 <View
                     style={[profile.item, { flexDirection: "row" }]}>
-                    <TouchableOpacity style={{ flexDirection: "row" }}>
+                    <TouchableOpacity style={{ flexDirection: "row" }} onPress={update}>
                         <Text
-                            onPress={update}
+
                             style={[styles.font, profile.link]}>Cập nhật thông tin cá nhân
                         </Text>
                         <AntDesign style={profile.icon} color="gray" name="right" size={20} />
@@ -51,9 +51,9 @@ const Profile = ({ navigation }) => {
                 </View>
                 <View
                     style={[profile.item, { flexDirection: "row" }]}>
-                    <TouchableOpacity style={{ flexDirection: "row" }}>
+                    <TouchableOpacity style={{ flexDirection: "row" }} onPress={change}>
                         <Text
-                            onPress={change}
+
                             style={[styles.font, profile.link]}>Thay đổi mật khẩu
                         </Text>
                         <AntDesign style={profile.icon} color="gray" name="right" size={20} />
@@ -64,9 +64,9 @@ const Profile = ({ navigation }) => {
                 </View>
                 <View
                     style={[profile.item, { flexDirection: "row" }]}>
-                    <TouchableOpacity style={{ flexDirection: "row" }}>
+                    <TouchableOpacity style={{ flexDirection: "row" }} onPress={logout}>
                         <Text
-                            onPress={logout}
+
                             style={[styles.font, profile.link]}>Đăng xuất
                         </Text>
                         <AntDesign style={profile.icon} color="gray" name="right" size={20} />

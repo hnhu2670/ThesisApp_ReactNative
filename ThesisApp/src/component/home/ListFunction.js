@@ -9,6 +9,7 @@ const ListFunction = () => {
         <View style={{ backgroundColor: '#ebf5f0', marginBottom: 20, height: "100%" }}>
 
             <Item
+                // style={[...Item, { backgroundColor: 'red' }]}
                 tile={nameItem.thesi}
                 note={nameItem.updateThesis}
             />
