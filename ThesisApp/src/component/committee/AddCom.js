@@ -7,6 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Dropdown } from 'react-native-element-dropdown';
 import styles from '../thesis/style';
 import axios from 'axios';
+import color from '../../assets/js/color';
 
 const AddCom = ({ navigation }) => {
     const [nameComm, setNameComm] = useState('')
@@ -85,8 +86,8 @@ const AddCom = ({ navigation }) => {
         // addMember()
     }, [])
     return (
-        <View>
-            <ScrollView style={{ height: "85%", marginBottom: 10 }}>
+        <View style={[{ backgroundColor: color.background }]}>
+            <ScrollView style={{ height: "90%", marginBottom: 10 }}>
                 <View style={login.text_input} >
                     <Text style={[login.text]}>Tên hội đồng</Text>
                     <TextInput
@@ -192,7 +193,7 @@ const AddCom = ({ navigation }) => {
                         }}
                     />
                 </View>
-                <View style={login.text_input}>
+                <View style={[login.text_input, { paddingBottom: 20 }]}>
                     <Text style={[login.text]}>Thành viên 2</Text>
                     <Dropdown
                         style={styles.dropdown}
@@ -218,7 +219,7 @@ const AddCom = ({ navigation }) => {
                 </View>
             </ScrollView>
 
-            <View style={[login.text_input, { marginBottom: 20 }]}>
+            <View style={[login.text_input, { marginTop: 0 }]}>
                 <TouchableOpacity onPress={addMember}>
                     <Text style={login.button}
                     >THÊM</Text>

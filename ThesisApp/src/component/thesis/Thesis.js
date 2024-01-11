@@ -1,16 +1,14 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useContext } from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
-import ListThesis from './ListThesis'
-import AddThesis from './AddThesis'
-import Score from '../score/Score'
-import profile from '../user/style'
-import { AntDesign, MaterialCommunityIcons, Octicons } from '@expo/vector-icons'
+import { AntDesign, Entypo, MaterialCommunityIcons, MaterialIcons, Octicons } from '@expo/vector-icons'
 import styles from '../../assets/js/style'
 import thesis from './style'
 import Header from '../layout/Header'
 import color from '../../assets/js/color'
+import { MyUserContext } from '../../../App'
 
 const Thesis = ({ navigation }) => {
+    const [current_user, dispatch] = useContext(MyUserContext);
     return (
         <View style={[styles.container, thesis.contain]}>
             <Header />
@@ -24,31 +22,55 @@ const Thesis = ({ navigation }) => {
                     color: color.green
                 }}
             >Quản lý khóa luận</Text>
-            <View style={thesis.top_thesis}>
-                <View style={thesis.top_items}>
-                    <TouchableOpacity style={thesis.mini_item} onPress={() => navigation.navigate('Danh sách khóa luận')}>
-                        <View>
-                            <View style={thesis.mini_icon}>
-                                <MaterialCommunityIcons color="gray" name="update" size={35} />
-                            </View>
+            {current_user.role === 'admin' || current_user.role === 'universityadministrator' ? <>
+                <TouchableOpacity style={thesis.items} onPress={() => navigation.navigate('Danh sách khóa luận')}>
+                    <View style={thesis.list}>
+                        <View style={thesis.mini_icon}>
+                            <Entypo color={color.green} name="list" size={30} />
+                        </View>
+                        <View style={{ width: '80%', justifyContent: 'center' }}>
+                            <Text style={thesis.tile}>Cập Nhật Khóa Luận</Text>
+                        </View>
+                    </View>
+
+                </TouchableOpacity>
+                <TouchableOpacity style={thesis.items} onPress={() => navigation.navigate('Thêm khóa luận')}>
+                    <View style={thesis.list}>
+                        <View style={thesis.mini_icon}>
+                            <Octicons name="diff-added" size={30} color={color.green} />
+                        </View>
+                        <View style={{ width: '80%', justifyContent: 'center' }}>
+                            <Text style={thesis.tile}>Thêm Khóa Luận Mới</Text>
+                        </View>
+                    </View>
+
+                </TouchableOpacity>
+
+            </> : <>
+                <TouchableOpacity style={thesis.items} onPress={() => navigation.navigate('Danh sách khóa luận')}>
+                    <View style={thesis.list}>
+                        <View style={thesis.mini_icon}>
+                            <Entypo color={color.green} name="list" size={30} />
+                        </View>
+                        <View style={{ width: '80%', justifyContent: 'center' }}>
                             <Text style={thesis.tile}>Danh Sách Khóa Luận</Text>
-
-
                         </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={thesis.mini_item} onPress={() => navigation.navigate('Thêm khóa luận')}>
-                        <View>
-                            <View style={thesis.mini_icon}>
-                                <Octicons color="gray" name="diff-added" size={35} />
-                            </View>
-                            <Text style={thesis.tile}>Thêm Mới</Text>
+                    </View>
 
-
+                </TouchableOpacity>
+                <TouchableOpacity style={thesis.items}>
+                    <View style={thesis.list}>
+                        <View style={thesis.mini_icon}>
+                            <MaterialIcons
+                                color={color.green} name="my-library-books" size={30} />
                         </View>
-                    </TouchableOpacity>
-                </View>
+                        <View style={{ width: '80%', justifyContent: 'center' }}>
+                            <Text style={thesis.tile}>Khóa Luận Tham Gia</Text>
+                        </View>
+                    </View>
 
-            </View>
+                </TouchableOpacity>
+            </>}
         </View>
 
     )

@@ -1,59 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import axios from 'axios';
 import { endpoints } from '../../configs/Apis';
-import { AntDesign, MaterialCommunityIcons, Octicons } from '@expo/vector-icons';
+import { AntDesign, Entypo, MaterialCommunityIcons, Octicons, FontAwesome6, Ionicons } from '@expo/vector-icons';
 import profile from '../user/style';
 import styles from '../../assets/js/style';
 import thesis from '../thesis/style';
 import Header from '../layout/Header';
+import { MyUserContext } from '../../../App';
 
 
 const Committee = ({ navigation }) => {
-    // const [committees, setCommittees] = useState([]);
-
-    // const getCommittees = async () => {
-    //     try {
-    //         const { data } = await axios.get(endpoints['list-committes']);
-    //         // console.log("ds hội đồng", data.length);
-    //         setCommittees(data);
-    //     } catch (error) {
-    //         console.log("Lỗi rồi", error);
-    //     }
-    // };
-
-    // const goToDetail = (id) => {
-    //     navigation.navigate("Chi tiết", { id })
-    // }
-    // const renderItem = () => {
-    //     return (
-    //         <>
-    //             {committees.length < 1 ? (
-    //                 <Text>Chưa có dữ liệu</Text>
-    //             ) : (
-    //                 committees.map(c =>
-
-    //                     <View key={c.id} style={hoidong.coll}>
-    //                         <View style={hoidong.row}>
-    //                             <Text style={[hoidong.cell, hoidong.first, { width: "15%" }]}>{c.id}</Text>
-    //                             <Text style={[hoidong.cell, { width: '65%' }]}>{c.name}</Text>
-    //                             <TouchableOpacity onPress={() => goToDetail(c.id)}
-    //                                 style={[hoidong.cell, hoidong.edit, { width: '15%' }]}>
-    //                                 <Text >
-    //                                     <AntDesign color="gray" name="edit" size={25} />
-    //                                 </Text>
-    //                             </TouchableOpacity>
-    //                         </View>
-    //                     </View>
-    //                 )
-    //             )}
-    //         </>
-    //     );
-    // }
-    // useEffect(() => {
-    //     getCommittees();
-    //     // renderItem()
-    // }, []);
+    const [current_user, dispatch] = useContext(MyUserContext);
 
     return (
         <View style={[styles.container, thesis.contain]}>
@@ -68,34 +26,69 @@ const Committee = ({ navigation }) => {
                     color: color.green
                 }}
             >Hội đồng bảo vệ khóa luận</Text>
-            <View style={thesis.top_thesis}>
-                <View style={thesis.top_items}>
-                    <TouchableOpacity style={thesis.mini_item} onPress={() => { navigation.navigate("Thêm hội đồng") }}
-                    >
-                        <View>
-                            <View style={thesis.mini_icon}>
-                                <MaterialCommunityIcons color="gray" name="update" size={35} />
-                            </View>
-                            <Text
-                                style={[styles.font, profile.link]}>Thêm hội đồng
-                            </Text>
 
+            {current_user.role === 'admin' || current_user.role === 'universityadministrator' ? <>
+                <TouchableOpacity style={thesis.items} onPress={() => { navigation.navigate("Danh sách hội đồng") }}>
+                    <View style={thesis.list}>
+                        <View style={thesis.mini_icon}>
+                            <Entypo color={color.green} name="list" size={30} />
                         </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={thesis.mini_item} onPress={() => { navigation.navigate("Danh sách hội đồng") }}
-                    >
-                        <View>
-                            <View style={thesis.mini_icon}>
-                                <Octicons color="gray" name="diff-added" size={35} />
-                            </View>
-                            <Text
-                                style={[styles.font, profile.link]}>Danh sách hội đồng
-                            </Text>
+                        <View style={{ width: '80%', justifyContent: 'center' }}>
+                            <Text style={thesis.tile}>Cập Nhật Hội Đồng</Text>
                         </View>
-                    </TouchableOpacity>
-                </View>
+                    </View>
 
-            </View>
+                </TouchableOpacity>
+                <TouchableOpacity style={thesis.items} onPress={() => { navigation.navigate("Thêm hội đồng") }}>
+                    <View style={thesis.list}>
+                        <View style={thesis.mini_icon}>
+                            <Octicons name="diff-added" size={30} color={color.green} />
+                        </View>
+                        <View style={{ width: '80%', justifyContent: 'center' }}>
+                            <Text style={thesis.tile}>Thêm Khóa Hội Đồng Mới</Text>
+                        </View>
+                    </View>
+                </TouchableOpacity>
+
+            </> : <>
+                {current_user.role === 'lecturer' ? <>
+                    <TouchableOpacity style={thesis.items} onPress={() => { navigation.navigate("Danh sách hội đồng") }}>
+                        <View style={thesis.list}>
+                            <View style={thesis.mini_icon}>
+                                <Entypo color={color.green} name="list" size={30} />
+                            </View>
+                            <View style={{ width: '80%', justifyContent: 'center' }}>
+                                <Text style={thesis.tile}>Danh Sách Hội Đồng</Text>
+                            </View>
+                        </View>
+
+                    </TouchableOpacity>
+                    <TouchableOpacity style={thesis.items} >
+                        <View style={thesis.list}>
+                            <View style={thesis.mini_icon}>
+                                <Ionicons color={color.green} name="people" size={30} />
+                            </View>
+                            <View style={{ width: '80%', justifyContent: 'center' }}>
+                                <Text style={thesis.tile}>Hội Đồng Của Tôi</Text>
+                            </View>
+                        </View>
+
+                    </TouchableOpacity>
+                </> : <>
+                    <TouchableOpacity style={thesis.items} onPress={() => { navigation.navigate("Danh sách hội đồng") }}>
+                        <View style={thesis.list}>
+                            <View style={thesis.mini_icon}>
+                                <Entypo color={color.green} name="list" size={30} />
+                            </View>
+                            <View style={{ width: '80%', justifyContent: 'center' }}>
+                                <Text style={thesis.tile}>Danh Sách Hội Đồng</Text>
+                            </View>
+                        </View>
+
+                    </TouchableOpacity>
+                </>}
+
+            </>}
         </View>
 
     )

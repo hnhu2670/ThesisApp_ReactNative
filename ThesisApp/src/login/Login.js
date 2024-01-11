@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import { Image, Text, TextInput, View, StyleSheet, Alert, Button, TouchableOpacity } from 'react-native'
 import { useEffect } from 'react';
 import axios, { Axios } from 'axios';
@@ -7,77 +7,70 @@ import login from './style';
 import styles from '../styles/styles'
 import { authApi, endpoints } from '../configs/Apis';
 import { MyUserContext } from '../../App';
+import ToastifyMessage from '../component/layout/ToastifyMessage';
 
 const Login = ({ navigation }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [current_user, dispatch] = useContext(MyUserContext);
-
+    const [show, setShow] = useState(false)
+    const toastRef = useRef(null);
     const loginUser = async () => {
         // Tạo form data để gửi trong yêu cầu
         const formData = new FormData();
         formData.append('username', username);
         formData.append('password', password);
-
-
-
         try {
             if (!username || !password) {
-                setError('Tên đăng nhập và tài khoản không được trống');
+                setError('Tên đăng nhập và mật khẩu không được trống');
+                setShow(true)
                 console.log('Tài khoản không hợp lệ');
                 return;
             }
-
-            let response = await axios.post(endpoints['login'], formData, {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
-            });
-
-            console.log('Tới đây', response.status);
-
-            // lưu vào AsyncStorage
-            await AsyncStorage.setItem('token', response.data.access_token);
-
-            // console.log(formData)
-            let { data } = await axios.get(endpoints['current-user'], {
-                headers: {
-                    'Authorization': "Bearer " + response.data.access_token,
-                },
-            });
-
-            if (response.status === 200) {
-                alert('Đăng nhập thành công')
+            else {
+                setShow(false)
+                let response = await axios.post(endpoints['login'], formData, {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                });
+                // lưu vào AsyncStorage
+                await AsyncStorage.setItem('token', response.data.access_token);
+                let { data } = await axios.get(endpoints['current-user'], {
+                    headers: {
+                        'Authorization': "Bearer " + response.data.access_token,
+                    },
+                });
                 console.log('Đăng nhập thành công');
-                // console.log(data.data)
                 navigation.navigate('ThesisApp');
-                // setUsername('');
-                // setPassword('');
                 // lưu thông tin user đăng nhập
                 await AsyncStorage.setItem('user', JSON.stringify(data));
-                // console.log(data.data.avatar)
                 dispatch({
                     "type": "login",
                     "payload": data.data
                 });
-            } else {
-                console.log('Đăng nhập thất bại');
             }
 
         } catch (error) {
             console.log('Lỗi:', error);
+            setError('Tên đăng nhập hoặc mật khẩu sai');
+            setShow(true)
         }
     };
-
-    // useEffect(() => {
-    //     if (current_user !== null) {
-    //         navigation.navigate('ThesisApp');
-    //     }
-    // }, [current_user])
+    useEffect(() => {
+        console.log('trạng thái 77777:', show)
+        if (show === true) {
+            const timer = setTimeout(() => {
+                setShow(false);
+            }, 2000);
+            return () => clearTimeout(timer);
+        }
+    }, [show]);
 
     return (
         <View style={styles.background}>
+
             <View style={login.top}>
                 <View style={{ flexDirection: "row" }}>
                     <Image
@@ -113,17 +106,18 @@ const Login = ({ navigation }) => {
                         placeholder='Mật khẩu'
                         secureTextEntry
                         value={password}
-
-                        // value={'123456'}
                         onChangeText={text => setPassword(text)}
 
                     />
                 </View>
 
                 <View style={login.text_input}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => {
+                        loginUser();
+                        setShow(true);
+                    }}>
                         <Text style={login.button}
-                            onPress={() => loginUser()}
+
                         >ĐĂNG NHẬP</Text>
                     </TouchableOpacity>
 
@@ -136,7 +130,13 @@ const Login = ({ navigation }) => {
                 </View>
 
             </View>
-
+            {show == true && (
+                <ToastifyMessage
+                    type="danger"
+                    text={error}
+                    description="Đăng nhập thất bại"
+                />
+            )}
         </View>
 
 

@@ -103,32 +103,34 @@ const thesis = StyleSheet.create({
         width: '90%',
         backgroundColor: "red"
     },
-    top_items: {
-        width: '100%',
-        height: '90%',
-
-        borderRadius: 20,
+    items: { justifyContent: 'center', alignItems: 'center', marginBottom: 20 },
+    list: {
         flexDirection: 'row',
-        justifyContent: 'center'
-    },
-    mini_item: {
-        width: '47%',
-        height: 200,
-        marginRight: 10,
+        width: '100%',
         backgroundColor: color.lightgreen,
-        borderRadius: 20
+        paddingVertical: 10
     },
     tile: {
         fontSize: 17
     },
     mini_icon: {
-        backgroundColor: 'red',
-        padding: 10,
         width: 60,
         height: 60,
-        marginBottom: '10%',
+        backgroundColor: 'white',
+        padding: 10,
+        marginLeft: 10,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        borderRadius: 20,
+        marginRight: '5%',
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 5,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
     }
 
 });
