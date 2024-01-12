@@ -6,6 +6,7 @@ import { AntDesign } from '@expo/vector-icons';
 import Search from '../layout/Search';
 import color from '../../assets/js/color';
 import { MyUserContext } from '../../../App';
+import styles from '../../assets/js/style';
 
 
 const ListCom = ({ navigation }) => {
@@ -79,7 +80,7 @@ const ListCom = ({ navigation }) => {
     }, []);
 
     return (
-        <View style={{ backgroundColor: color.lightgreen, height: '100%' }}>
+        <View style={[styles.container, { backgroundColor: color.background, height: '80%' }]}>
             <View style={hoidong.container}>
                 <View style={hoidong.top}>
                     <Search onSearch={searchName} />
@@ -105,10 +106,10 @@ const ListCom = ({ navigation }) => {
 };
 
 const hoidong = StyleSheet.create({
-    container: {
-        margin: 10,
-        // backgroundColor: color.lightgreen,
-    },
+    // container: {
+    //     margin: 20,
+    //     // backgroundColor: color.lightgreen,
+    // },
     top: {
         height: '10%',
         marginVertical: '2%'

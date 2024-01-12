@@ -26,6 +26,7 @@ const UpdateComm = ({ route, navigation }) => {
     const [getDefault3, setGetDefault3] = useState(null)
     const [getDefault4, setGetDefault4] = useState(null)
     const [getDefault5, setGetDefault5] = useState(null)
+    const [getDefault, setGetDefault] = useState(null)
 
     const [change1, setChange1] = useState([])
     const [change2, setChange2] = useState([])
@@ -39,16 +40,16 @@ const UpdateComm = ({ route, navigation }) => {
 
         const formData = new FormData()
         formData.append('committee', id)
-        formData.append('member1', change1.value || getDefault1.value)
-        formData.append('member2', change2.value || getDefault2.value)
-        formData.append('member3', change3.value || getDefault3.value)
-        formData.append('member4', change4.value || getDefault4.value)
-        formData.append('member5', change5.value || getDefault5.value)
+        formData.append('member1', change1.value || '')
+        formData.append('member2', change2.value || '')
+        formData.append('member3', change3.value || '')
+        formData.append('member4', change4.value || '')
+        formData.append('member5', change5.value || '')
         formData.append('position1', '1')
         formData.append('position2', '2')
         formData.append('position3', '3')
         formData.append('position4', '4')
-        formData.append('position5', '4')
+        formData.append('position5', '5')
         console.log('dữ liệu lấy được', formData)
 
         try {
@@ -58,12 +59,12 @@ const UpdateComm = ({ route, navigation }) => {
                 }
             })
             // console.log()
-            console.log("duwx liệu thêm thành công", data)
+            console.log("du liệu thêm thành công", data)
             setTimeout(() => {
                 navigation.navigate('ThesisApp')
             }, 1000)
         } catch (error) {
-            console.log("updateCommittee lỗi rồi", error)
+            console.log("updateCommittee lỗi rồi", error.request)
         }
     }
 
@@ -92,72 +93,74 @@ const UpdateComm = ({ route, navigation }) => {
         var count = 0
 
         data.map(c => {
-            setDataNew(pre => [...pre, { value: c.id, label: `${c.first_name} ${c.last_name}` }])
+            setDataNew(pre => [...pre, { value: c.id, label: `${c.last_name} ${c.first_name}` }])
         })
+        setGetDefault('')
         for (let i = 0; i < memb.length; i++) {
             switch (memb[i]?.position.id) {
-                case 1: console.log('chủ tịch--- ', i)
+                case 1: console.log('chức vụ chủ tịch--- ', i)
+                    change1.value = memb[i].user.id
+                    console.log("chủ tịch id", change1.value)
                     data.map(c => {
-                        setData1(pre => [...pre, { value: c.id, label: `${c.first_name} ${c.last_name}` }])
+                        setData1(pre => [...pre, { value: c.id, label: `${c.last_name} ${c.first_name}` }])
                         if (c.id === memb[i]?.user.id) {
                             setGetDefault1(c.id)
                         }
                     })
 
                     break;
-                case 2: console.log('thư ký --- ', i)
+                case 2: console.log('chức vụ thư ký --- ', i)
+                    change2.value = memb[i].user.id
+                    console.log("thư ký id", change2.value)
                     data.map(c => {
-                        setData2(pre => [...pre, { value: c.id, label: `${c.first_name} ${c.last_name}` }])
+
+                        setData2(pre => [...pre, { value: c.id, label: `${c.last_name} ${c.first_name}` }])
                         if (c.id === memb[i]?.user.id) {
                             setGetDefault2(c.id)
                         }
                     })
                     break;
-                case 3: console.log('phản biện --- ', i)
+                case 3: console.log('chức vụ phản biện --- ', i)
+                    change3.value = memb[i].user.id
+                    console.log("phản biện id", change3.value)
                     data.map(c => {
-                        setData3(pre => [...pre, { value: c.id, label: `${c.first_name} ${c.last_name}` }])
+
+                        setData3(pre => [...pre, { value: c.id, label: `${c.last_name} ${c.first_name}` }])
                         if (c.id === memb[i]?.user.id) {
                             setGetDefault3(c.id)
                         }
                     })
                     break;
 
-                case 4:
-                    count++ //đếm lần xuất hiện của id 4
-                    console.log('----------số thành viên', count)
-                    if (count === 1) {
-                        data.map(c => {
-                            setData4(pre => [...pre, { value: c.id, label: `${c.first_name} ${c.last_name}` }])
-                            if (c.id === memb[i]?.user.id) {
-                                console.log('thành viên 1 --- ', i)
-                                setGetDefault4(c.id)
-                            }
-                        })
-                    }
-                    else {
-                        data.map(c => {
-
-                            setData5(pre => [...pre, { value: c.id, label: `${c.first_name} ${c.last_name}` }])
-                            if (c.id === memb[i]?.user.id) {
-                                console.log('thành viên 2 --- ', i)
-                                setGetDefault5(c.id)
-                            }
-                        })
-                    }
-                    break;
-                case 5: console.log('thành viên 2 ---- ', i)
+                case 4: console.log('tv1 --- ', i)
+                    change4.value = memb[i].user.id
+                    console.log("tv1 id", change4.value)
                     data.map(c => {
-                        setData5(pre => [...pre, { value: c.id, label: `${c.first_name} ${c.last_name}` }])
+
+                        setData4(pre => [...pre, { value: c.id, label: `${c.last_name} ${c.first_name}` }])
+                        if (c.id === memb[i]?.user.id) {
+                            setGetDefault4(c.id)
+                        }
+                    })
+                    break;
+                case 5: console.log('tv2 --- ', i)
+                    change5.value = memb[i].user.id
+                    console.log("tv2 id", change5.value)
+                    data.map(c => {
+
+                        setData5(pre => [...pre, { value: c.id, label: `${c.last_name} ${c.first_name}` }])
                         if (c.id === memb[i]?.user.id) {
                             setGetDefault5(c.id)
                         }
                     })
+                    break;
                 default: console.log('chọn thành viên mới đi', i)
 
             }
         }
     }
     const defaultSelet = (itemValue) => {
+        setGetDefault(itemValue)
         setGetDefault1(itemValue)
         setGetDefault2(itemValue)
         setGetDefault3(itemValue)
@@ -169,6 +172,7 @@ const UpdateComm = ({ route, navigation }) => {
         getTeacher()
         checkMember()
         console.log('-------------------------------')
+        // console.log('thanh vien 1:', thisComm[0].user.id)
     }, [])
     return (
         <View>
@@ -185,234 +189,127 @@ const UpdateComm = ({ route, navigation }) => {
             {/* chủ tịch */}
             <View style={styles.text_input}>
                 <Text style={login.text}>Chủ tịch </Text>
-                {thisComm[0]?.position.id === 1 ? <>
-                    <Dropdown
-                        style={styles.dropdown}
-                        placeholderStyle={styles.placeholderStyle}
-                        selectedTextStyle={styles.selectedTextStyle}
-                        inputSearchStyle={styles.inputSearchStyle}
-                        iconStyle={styles.iconStyle}
-                        search
-                        maxHeight={300}
-                        labelField="label"
-                        valueField="value" // Trường giá trị hiển thị
-                        data={data1}
-                        value={getDefault1}
-                        placeholder="Chọn giảng viên"
-                        searchPlaceholder="Tìm tên giảng viên..."
-                        onSelect={defaultSelet}
-                        onChange={(item) => {
-                            setChange1(item); // Gọi hàm sendIdTeacher với giá trị id
-                        }}
-                    />
-                </> : <>
-                    <Dropdown
-                        style={styles.dropdown}
-                        placeholderStyle={styles.placeholderStyle}
-                        selectedTextStyle={styles.selectedTextStyle}
-                        inputSearchStyle={styles.inputSearchStyle}
-                        iconStyle={styles.iconStyle}
-                        search
-                        maxHeight={300}
-                        labelField="label"
-                        valueField="value" // Trường giá trị hiển thị
-                        data={dataNew}
-                        value={getDefault5}
-                        placeholder="Chọn giảng viên"
-                        searchPlaceholder="Tìm tên giảng viên..."
-                        onSelect={defaultSelet}
-                        onChange={(item) => {
-                            setChange1(item); // Gọi hàm sendIdTeacher với giá trị id
-                        }}
-                    />
-                </>}
+                <Dropdown
+                    style={styles.dropdown}
+                    placeholderStyle={styles.placeholderStyle}
+                    selectedTextStyle={styles.selectedTextStyle}
+                    inputSearchStyle={styles.inputSearchStyle}
+                    iconStyle={styles.iconStyle}
+                    search
+                    maxHeight={300}
+                    labelField="label"
+                    valueField="value" // Trường giá trị hiển thị
+                    data={thisComm[0]?.position.id === 1 ? data1 : dataNew}
+                    value={getDefault1}
+                    placeholder="Chọn giảng viên"
+                    searchPlaceholder="Tìm tên giảng viên..."
+                    onSelect={defaultSelet}
+                    onChange={(item) => {
+                        setChange1(item); // Gọi hàm sendIdTeacher với giá trị id
+                    }}
+                />
+
             </View>
             {/* thư ký */}
             <View style={styles.text_input}>
                 <Text style={login.text}>Thư ký </Text>
-                {thisComm[1]?.position.id === 2 || thisComm[0]?.position.id === 2 ? <>
-                    <Dropdown
-                        style={styles.dropdown}
-                        placeholderStyle={styles.placeholderStyle}
-                        selectedTextStyle={styles.selectedTextStyle}
-                        inputSearchStyle={styles.inputSearchStyle}
-                        iconStyle={styles.iconStyle}
-                        search
-                        maxHeight={300}
-                        labelField="label"
-                        valueField="value" // Trường giá trị hiển thị
-                        data={data2}
-                        value={getDefault2}
-                        placeholder="Chọn giảng viên"
-                        searchPlaceholder="Tìm tên giảng viên..."
-                        onSelect={defaultSelet}
-                        onChange={(item) => {
-                            setChange2(item); // Gọi hàm sendIdTeacher với giá trị id
-                        }}
-                    />
-                </> : <>
-                    <Dropdown
-                        style={styles.dropdown}
-                        placeholderStyle={styles.placeholderStyle}
-                        selectedTextStyle={styles.selectedTextStyle}
-                        inputSearchStyle={styles.inputSearchStyle}
-                        iconStyle={styles.iconStyle}
-                        search
-                        maxHeight={300}
-                        labelField="label"
-                        valueField="value" // Trường giá trị hiển thị
-                        data={dataNew}
-                        value={getDefault5}
-                        placeholder="Chọn giảng viên"
-                        searchPlaceholder="Tìm tên giảng viên..."
-                        onSelect={defaultSelet}
-                        onChange={(item) => {
-                            setChange2(item); // Gọi hàm sendIdTeacher với giá trị id
-                        }}
-                    />
-                </>}
+                <Dropdown
+                    style={styles.dropdown}
+                    placeholderStyle={styles.placeholderStyle}
+                    selectedTextStyle={styles.selectedTextStyle}
+                    inputSearchStyle={styles.inputSearchStyle}
+                    iconStyle={styles.iconStyle}
+                    search
+                    maxHeight={300}
+                    labelField="label"
+                    valueField="value" // Trường giá trị hiển thị
+                    data={thisComm[0]?.position.id === 2 || thisComm[1]?.position.id === 2 ? data2 : dataNew}
+                    value={getDefault2}
+                    placeholder="Chọn giảng viên"
+                    searchPlaceholder="Tìm tên giảng viên..."
+                    onSelect={defaultSelet}
+                    onChange={(item) => {
+                        setChange2(item); // Gọi hàm sendIdTeacher với giá trị id
+                    }}
+                />
+
 
             </View>
             {/* phản biện */}
             <View style={styles.text_input}>
                 <Text style={login.text}>Phản biện </Text>
-                {thisComm[1]?.position.id === 3 || thisComm[0]?.position.id === 3 ||
-                    thisComm[2]?.position.id === 3 ? <>
-                    <Dropdown
-                        style={styles.dropdown}
-                        placeholderStyle={styles.placeholderStyle}
-                        selectedTextStyle={styles.selectedTextStyle}
-                        inputSearchStyle={styles.inputSearchStyle}
-                        iconStyle={styles.iconStyle}
-                        search
-                        maxHeight={300}
-                        labelField="label"
-                        valueField="value" // Trường giá trị hiển thị
-                        data={data3}
-                        value={getDefault3}
-                        placeholder="Chọn giảng viên"
-                        searchPlaceholder="Tìm tên giảng viên..."
-                        onSelect={defaultSelet}
-                        onChange={(item) => {
-                            setChange3(item); // Gọi hàm sendIdTeacher với giá trị id
-                        }}
-                    />
-                </> : <>
-                    <Dropdown
-                        style={styles.dropdown}
-                        placeholderStyle={styles.placeholderStyle}
-                        selectedTextStyle={styles.selectedTextStyle}
-                        inputSearchStyle={styles.inputSearchStyle}
-                        iconStyle={styles.iconStyle}
-                        search
-                        maxHeight={300}
-                        labelField="label"
-                        valueField="value" // Trường giá trị hiển thị
-                        data={dataNew}
-                        value={getDefault5}
-                        placeholder="Chọn giảng viên"
-                        searchPlaceholder="Tìm tên giảng viên..."
-                        onSelect={defaultSelet}
-                        onChange={(item) => {
-                            setChange3(item); // Gọi hàm sendIdTeacher với giá trị id
-                        }}
-                    />
-                </>}
+                <Dropdown
+                    style={styles.dropdown}
+                    placeholderStyle={styles.placeholderStyle}
+                    selectedTextStyle={styles.selectedTextStyle}
+                    inputSearchStyle={styles.inputSearchStyle}
+                    iconStyle={styles.iconStyle}
+                    search
+                    maxHeight={300}
+                    labelField="label"
+                    valueField="value" // Trường giá trị hiển thị
+                    data={thisComm[1]?.position.id === 3 || thisComm[0]?.position.id === 3 ||
+                        thisComm[2]?.position.id === 3 ? data3 : dataNew}
+                    value={getDefault3}
+                    placeholder="Chọn giảng viên"
+                    searchPlaceholder="Tìm tên giảng viên..."
+                    onSelect={defaultSelet}
+                    onChange={(item) => {
+                        setChange3(item); // Gọi hàm sendIdTeacher với giá trị id
+                    }}
+                />
+
 
             </View>
             {/* tv1 */}
             <View style={styles.text_input}>
                 <Text style={login.text}>Thành viên 1 </Text>
-                {thisComm[1]?.position.id === 4 || thisComm[0]?.position.id === 4 ||
-                    thisComm[2]?.position.id === 4 || thisComm[3]?.position.id === 4 ? <>
-                    <Dropdown
-                        style={styles.dropdown}
-                        placeholderStyle={styles.placeholderStyle}
-                        selectedTextStyle={styles.selectedTextStyle}
-                        inputSearchStyle={styles.inputSearchStyle}
-                        iconStyle={styles.iconStyle}
-                        search
-                        maxHeight={300}
-                        labelField="label"
-                        valueField="value" // Trường giá trị hiển thị
-                        data={data4}
-                        value={getDefault4}
-                        placeholder="Chọn giảng viên"
-                        searchPlaceholder="Tìm tên giảng viên..."
-                        onSelect={defaultSelet}
-                        onChange={(item) => {
-                            setChange4(item); // Gọi hàm sendIdTeacher với giá trị id
-                        }}
-                    />
-                </> : <>
-                    <Dropdown
-                        style={styles.dropdown}
-                        placeholderStyle={styles.placeholderStyle}
-                        selectedTextStyle={styles.selectedTextStyle}
-                        inputSearchStyle={styles.inputSearchStyle}
-                        iconStyle={styles.iconStyle}
-                        search
-                        maxHeight={300}
-                        labelField="label"
-                        valueField="value" // Trường giá trị hiển thị
-                        data={dataNew}
-                        value={getDefault5}
-                        placeholder="Chọn giảng viên"
-                        searchPlaceholder="Tìm tên giảng viên..."
-                        onSelect={defaultSelet}
-                        onChange={(item) => {
-                            setChange4(item); // Gọi hàm sendIdTeacher với giá trị id
-                        }}
-                    />
-                </>}
+                <Dropdown
+                    style={styles.dropdown}
+                    placeholderStyle={styles.placeholderStyle}
+                    selectedTextStyle={styles.selectedTextStyle}
+                    inputSearchStyle={styles.inputSearchStyle}
+                    iconStyle={styles.iconStyle}
+                    search
+                    maxHeight={300}
+                    labelField="label"
+                    valueField="value" // Trường giá trị hiển thị
+                    data={thisComm[1]?.position.id === 4 || thisComm[0]?.position.id === 4 ||
+                        thisComm[2]?.position.id === 4 || thisComm[3]?.position.id === 4 ? data4 : dataNew}
+                    value={getDefault4}
+                    placeholder="Chọn giảng viên"
+                    searchPlaceholder="Tìm tên giảng viên..."
+                    onSelect={defaultSelet}
+                    onChange={(item) => {
+                        setChange4(item); // Gọi hàm sendIdTeacher với giá trị id
+                    }}
+                />
+
             </View>
             {/* tv2 */}
             <View style={styles.text_input}>
                 <Text style={login.text}>Thành viên 2</Text>
-                {thisComm[1]?.position.id === 4 || thisComm[0]?.position.id === 4 ||
-                    thisComm[2]?.position.id === 4 || thisComm[3]?.position.id === 4 ||
-                    thisComm[4]?.position.id === 4 ? <>
-                    <Dropdown
-                        style={styles.dropdown}
-                        placeholderStyle={styles.placeholderStyle}
-                        selectedTextStyle={styles.selectedTextStyle}
-                        inputSearchStyle={styles.inputSearchStyle}
-                        iconStyle={styles.iconStyle}
-                        search
-                        maxHeight={300}
-                        labelField="label"
-                        valueField="value" // Trường giá trị hiển thị
-                        data={data5}
-                        value={getDefault5}
-                        placeholder="Chọn giảng viên"
-                        searchPlaceholder="Tìm tên giảng viên..."
-                        onSelect={defaultSelet}
-                        onChange={(item) => {
-                            setChange5(item); // Gọi hàm sendIdTeacher với giá trị id
-                        }}
-                    />
-                </> : <>
-                    <Dropdown
-                        style={styles.dropdown}
-                        placeholderStyle={styles.placeholderStyle}
-                        selectedTextStyle={styles.selectedTextStyle}
-                        inputSearchStyle={styles.inputSearchStyle}
-                        iconStyle={styles.iconStyle}
-                        search
-                        maxHeight={300}
-                        labelField="label"
-                        valueField="value" // Trường giá trị hiển thị
-                        data={dataNew}
-                        value={getDefault5}
-                        placeholder="Chọn giảng viên"
-                        searchPlaceholder="Tìm tên giảng viên..."
-                        onSelect={defaultSelet}
-                        onChange={(item) => {
-                            setChange5(item); // Gọi hàm sendIdTeacher với giá trị id
-                        }}
-                    />
-                </>
-                }
+                <Dropdown
+                    style={styles.dropdown}
+                    placeholderStyle={styles.placeholderStyle}
+                    selectedTextStyle={styles.selectedTextStyle}
+                    inputSearchStyle={styles.inputSearchStyle}
+                    iconStyle={styles.iconStyle}
+                    search
+                    maxHeight={300}
+                    labelField="label"
+                    valueField="value" // Trường giá trị hiển thị
+                    data={thisComm[1]?.position.id === 4 || thisComm[0]?.position.id === 4 ||
+                        thisComm[2]?.position.id === 4 || thisComm[3]?.position.id === 4 ||
+                        thisComm[4]?.position.id === 4 ? data5 : dataNew}
+                    value={getDefault5}
+                    placeholder="Chọn giảng viên"
+                    searchPlaceholder="Tìm tên giảng viên..."
+                    onSelect={defaultSelet}
+                    onChange={(item) => {
+                        setChange5(item); // Gọi hàm sendIdTeacher với giá trị id
+                    }}
+                />
 
             </View>
             <View style={[login.text_input, { marginBottom: 20 }]}>

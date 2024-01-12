@@ -1,25 +1,19 @@
-import { StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 import color from "../../assets/js/color";
 
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 const thesis = StyleSheet.create({
     container: {
-        // padding: 16
-        borderWidth: 1,
-        borderColor: 'lightgray',
+
         marginVertical: '10%',
+        // marginRight: windowWidth * 0.1,
+        // marginLeft: windowWidth * 0.1,
         marginHorizontal: 15,
         paddingVertical: 20,
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.15,
-        shadowRadius: 3.84,
-        elevation: 1,
     },
     contain: {
-        height: '100%',
+        height: windowHeight,
         flexDirection: 'column',
         // backgroundColor: "lightblue",
         alignItems: 'center',
@@ -91,8 +85,8 @@ const thesis = StyleSheet.create({
         fontSize: 16,
     },
     banner: {
-        width: "100%",
-        height: "100%"
+        width: windowWidth,
+        height: windowHeight
     },
     text_input: {
         marginTop: 10,
@@ -100,7 +94,7 @@ const thesis = StyleSheet.create({
         // width: "%"
     },
     select: {
-        width: '90%',
+        width: windowWidth * 0.9,
         backgroundColor: "red"
     },
     items: { justifyContent: 'center', alignItems: 'center', marginBottom: 20 },
@@ -122,7 +116,7 @@ const thesis = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 20,
-        marginRight: '5%',
+        marginRight: windowWidth * 0.05,
         shadowColor: '#000',
         shadowOffset: {
             width: 0,

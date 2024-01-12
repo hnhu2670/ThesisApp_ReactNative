@@ -1,11 +1,12 @@
 import axios from 'axios'
 import React, { useContext, useEffect, useState } from 'react'
-import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { FlatList, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { endpoints } from '../../configs/Apis'
 import { AntDesign } from '@expo/vector-icons'
 import Search from '../layout/Search'
 import color from '../../assets/js/color'
 import { MyUserContext } from '../../../App'
+import styles from '../../assets/js/style'
 
 const ListThesis = ({ navigation }) => {
     const [current_user, dispatch] = useContext(MyUserContext);
@@ -50,6 +51,7 @@ const ListThesis = ({ navigation }) => {
 
                         </View>
                     </View>
+
                 </> : <>
                     <View key={item.id} style={list_thesis.coll}>
                         <View style={list_thesis.row}>
@@ -68,6 +70,7 @@ const ListThesis = ({ navigation }) => {
                     </View>
                 </>}
 
+
             </>
         );
     }
@@ -85,7 +88,7 @@ const ListThesis = ({ navigation }) => {
         getListThesis();
     }, []);
     return (
-        <View style={{ backgroundColor: color.background, height: '100%' }}>
+        <View style={[styles.container, { backgroundColor: color.background, height: '80%' }]}>
             <View style={list_thesis.container}>
                 <View style={list_thesis.top}>
                     <Search onSearch={searchName} />
@@ -100,9 +103,11 @@ const ListThesis = ({ navigation }) => {
                     />
                     )}
                 </View>
+
             </View>
 
         </View>
+
     )
 
 }

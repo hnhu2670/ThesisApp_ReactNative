@@ -1,12 +1,13 @@
 import React, { Fragment, useContext } from 'react'
-import { Text, TouchableOpacity, View } from 'react-native'
+import { Dimensions, Text, TouchableOpacity, View } from 'react-native'
 import { AntDesign, Entypo, MaterialCommunityIcons, MaterialIcons, Octicons } from '@expo/vector-icons'
 import styles from '../../assets/js/style'
 import thesis from './style'
 import Header from '../layout/Header'
 import color from '../../assets/js/color'
 import { MyUserContext } from '../../../App'
-
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 const Thesis = ({ navigation }) => {
     const [current_user, dispatch] = useContext(MyUserContext);
     return (
@@ -72,6 +73,7 @@ const Thesis = ({ navigation }) => {
                 </TouchableOpacity>
             </>}
         </View>
+
 
     )
 }

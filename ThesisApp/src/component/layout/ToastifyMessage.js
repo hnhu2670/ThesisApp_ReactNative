@@ -35,7 +35,7 @@ const ToastifyMessage = forwardRef(({ type = 'success', text, description, timeo
         setVisible(true);
         setTimeout(() => {
             setVisible(false);
-        }, message.timeout || 3000);
+        }, message.timeout || 5000);
     };
 
     if (!visible) {
@@ -66,7 +66,7 @@ const style = StyleSheet.create({
         textAlign: 'center',
         padding: 20,
         position: 'absolute',
-        top: '7%',
+        top: '5%',
         marginLeft: '5%',
         borderRadius: 10,
         shadowColor: '#0000',

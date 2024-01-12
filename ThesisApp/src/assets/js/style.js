@@ -1,5 +1,7 @@
+import { Dimensions } from 'react-native';
 import { StyleSheet, } from 'react-native';
-
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 // marginTop: '10%',
 // paddingHorizontal: '5%'
 const styles = StyleSheet.create({
@@ -9,7 +11,7 @@ const styles = StyleSheet.create({
     },
     container: {
         paddingTop: '10%',
-        marginHorizontal: '5%'
+        marginHorizontal: windowWidth * 0.05
     }
     ,
     text: {
