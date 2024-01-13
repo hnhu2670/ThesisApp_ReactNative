@@ -6,6 +6,7 @@ import { endpoints } from '../../configs/Apis'
 import ListThesis from '../thesis/ListThesis'
 import styles from '../../assets/js/style'
 import Header from '../layout/Header'
+import ListThesisForScore from '../thesis/ListThesisForScore'
 
 const Score = () => {
     return (
@@ -22,7 +23,7 @@ const Score = () => {
                 }}
             >Điểm khóa luận</Text>
             <Text>chấm điểm</Text>
-            <ListThesis />
+            <ListThesisForScore />
         </View>
     )
 }

@@ -132,17 +132,35 @@ const UpdateComm = ({ route, navigation }) => {
                     })
                     break;
 
-                case 4: console.log('tv1 --- ', i)
-                    change4.value = memb[i].user.id
-                    console.log("tv1 id", change4.value)
-                    data.map(c => {
+                case 4:
+                    count++
+                    if (count === 1) {
+                        console.log('tv1 --- ', i)
+                        change4.value = memb[i].user.id
+                        console.log("tv1 id", change4.value)
+                        data.map(c => {
 
-                        setData4(pre => [...pre, { value: c.id, label: `${c.last_name} ${c.first_name}` }])
-                        if (c.id === memb[i]?.user.id) {
-                            setGetDefault4(c.id)
-                        }
-                    })
-                    break;
+                            setData4(pre => [...pre, { value: c.id, label: `${c.last_name} ${c.first_name}` }])
+                            if (c.id === memb[i]?.user.id) {
+                                setGetDefault4(c.id)
+                            }
+                        })
+                        break;
+                    }
+                    else {
+                        console.log('tv2 --- ', i)
+                        change5.value = memb[i].user.id
+                        console.log("tv2 id", change5.value)
+                        data.map(c => {
+
+                            setData5(pre => [...pre, { value: c.id, label: `${c.last_name} ${c.first_name}` }])
+                            if (c.id === memb[i]?.user.id) {
+                                setGetDefault5(c.id)
+                            }
+                        })
+                        break;
+                    }
+
                 case 5: console.log('tv2 --- ', i)
                     change5.value = memb[i].user.id
                     console.log("tv2 id", change5.value)
@@ -172,7 +190,6 @@ const UpdateComm = ({ route, navigation }) => {
         getTeacher()
         checkMember()
         console.log('-------------------------------')
-        // console.log('thanh vien 1:', thisComm[0].user.id)
     }, [])
     return (
         <View>
@@ -299,9 +316,10 @@ const UpdateComm = ({ route, navigation }) => {
                     maxHeight={300}
                     labelField="label"
                     valueField="value" // Trường giá trị hiển thị
-                    data={thisComm[1]?.position.id === 4 || thisComm[0]?.position.id === 4 ||
-                        thisComm[2]?.position.id === 4 || thisComm[3]?.position.id === 4 ||
-                        thisComm[4]?.position.id === 4 ? data5 : dataNew}
+
+                    data={thisComm[1]?.position.id === 5 || thisComm[0]?.position.id === 5 ||
+                        thisComm[2]?.position.id === 5 || thisComm[3]?.position.id === 5 ||
+                        thisComm[4]?.position.id === 5 ? data5 : dataNew}
                     value={getDefault5}
                     placeholder="Chọn giảng viên"
                     searchPlaceholder="Tìm tên giảng viên..."

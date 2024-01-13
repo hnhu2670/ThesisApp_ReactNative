@@ -19,6 +19,7 @@ import UpdateThesis from './src/component/thesis/UpdateThesis';
 import ListThesis from './src/component/thesis/ListThesis';
 import ForgotPassword from './src/component/user/ForgotPassword';
 import UpdateComm from './src/component/committee/UpdateComm';
+import AddScore from './src/component/score/AddScore';
 
 export const MyUserContext = createContext();
 export const MyThesisContext = createContext();
@@ -47,6 +48,7 @@ function App() {
           <Stack.Screen name='Thêm khóa luận' component={AddThesis} />
           <Stack.Screen name='Cập nhật khóa luận' component={UpdateThesis} />
           <Stack.Screen name='Danh sách khóa luận' component={ListThesis} />
+          <Stack.Screen name='Chấm Điểm' component={AddScore} />
           {/* <Stack.Screen name='Hoi dong' component={Criteria} /> */}
 
         </Stack.Navigator>

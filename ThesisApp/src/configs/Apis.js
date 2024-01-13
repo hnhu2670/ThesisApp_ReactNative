@@ -4,8 +4,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 // const SERVER_URL = 'http://192.168.1.7:8000';
 // const SERVER = "http://192.168.1.7";
 
-const SERVER_URL = 'http://172.16.17.254:8000';
-const SERVER = "http://172.16.17.254";
+const SERVER_URL = 'http://10.17.65.28:8000';
+const SERVER = "http://10.17.65.28";
 
 // const SERVER_URL = 'http://10.17.49.245:8000';
 // const SERVER = "http://10.17.49.245";
@@ -33,7 +33,12 @@ export const endpoints = {
 
     "add-all-member": `${SERVER_URL}/add-all-member/`, //add thành viên hội đồng  
     "get-member": `${SERVER_URL}/get-member-of-committee/`,//edit hội đồng
-    "update-committes": (id) => `${SERVER_URL}/update-committee-and-member/${id}/`
+    "update-committes": (id) => `${SERVER_URL}/update-committee-and-member/${id}/`,
+
+    "score-thesis-students": (id) => `${SERVER_URL}/get-thesis/${id}/student/`,//điểm của sv làm khóa luận
+    "get-thesis-score": (id) => `${SERVER_URL}/get-thesis/${id}/score/`,
+
+
 
 }
 

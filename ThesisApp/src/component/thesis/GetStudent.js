@@ -57,6 +57,7 @@ const GetStudent = (props) => {
                         key: `${student.id}`,
                         value: `${student.first_name} ${student.last_name}`, // Hiển thị nhãn
                     }))}
+                    // defaultValue={selected}
                     onSelect={() => sendIdStudent(selected)} //set id ở đây
                     save='key'
                     label='Danh sách sinh viên'

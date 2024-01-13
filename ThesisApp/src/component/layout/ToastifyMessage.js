@@ -31,12 +31,12 @@ const ToastifyMessage = forwardRef(({ type = 'success', text, description, timeo
         show: showToast
     }));
 
-    const showToast = (message) => {
-        setVisible(true);
-        setTimeout(() => {
-            setVisible(false);
-        }, message.timeout || 5000);
-    };
+    // const showToast = (message) => {
+    //     setVisible(true);
+    //     setTimeout(() => {
+    //         setVisible(false);
+    //     }, message.timeout || 5000);
+    // };
 
     if (!visible) {
         return null;
@@ -50,7 +50,6 @@ const ToastifyMessage = forwardRef(({ type = 'success', text, description, timeo
                 </View>
                 <View>
                     <Text style={style.text}>{text}</Text>
-                    {/* <Text style={style.text}>{description}</Text> */}
                 </View>
             </Animated.View>
 
