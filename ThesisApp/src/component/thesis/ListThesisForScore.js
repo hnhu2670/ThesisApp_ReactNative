@@ -1,9 +1,10 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { FlatList, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { endpoints } from '../../configs/Apis'
 import { AntDesign } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
+import styles from '../../assets/js/style'
 
 
 const ListThesisForScore = () => {
@@ -34,7 +35,7 @@ const ListThesisForScore = () => {
                             <Text style={list_thesis.text}>{item.id}</Text>
                         </View>
 
-                        <View style={{ width: "85%" }}>
+                        <View style={{ width: "95%" }}>
                             <TouchableOpacity onPress={() => goToScore(item.id)}>
                                 <View style={list_thesis.right}>
                                     <Text style={list_thesis.name}>{item.name}</Text>
@@ -48,22 +49,25 @@ const ListThesisForScore = () => {
 
                     </View>
                 </View>
+
             </>
         );
     }
     useEffect(() => {
         getListThesis();
-    },[])
+    }, [])
     return (
-        <View style={list_thesis.container}>
-            {list.length < 1 ? (
-                <Text>Chưa có dữ liệu</Text>
-            ) : (<FlatList
-                data={list}
-                keyExtractor={(item) => item.id.toString()}
-                renderItem={renderItem}
-            />
-            )}
+        <View style={[{ backgroundColor: color.background, height: '70%', marginTop: '3%' }]}>
+            <View style={list_thesis.container}>
+                {list.length < 1 ? (
+                    <Text>Chưa có dữ liệu</Text>
+                ) : (<FlatList
+                    data={list}
+                    keyExtractor={(item) => item.id.toString()}
+                    renderItem={renderItem}
+                />
+                )}
+            </View>
         </View>
     )
 }

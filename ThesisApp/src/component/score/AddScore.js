@@ -13,12 +13,13 @@ const AddScore = ({ route }) => {
     // var list_score_criteria_user = []
     const [list_score_criteria_user, set_List_score_criteria_user] = useState([])
     const [listStudent, setListStudent] = useState([
-        // {id: '', score: ''}
+        // {id: '', name: ''}
     ])
     const [criteria, setCriteria] = useState([]); // list tieu chi
 
     const getScore = async () => {
         try {
+            // console.log('id khoa luan', id)
             const token = await AsyncStorage.getItem('token')
             // lấy hs làm khóa luận
             const { data } = await axios.get(endpoints['score-thesis-students'](id))
@@ -29,12 +30,15 @@ const AddScore = ({ route }) => {
             const tempList = [];
 
             datascore = res.data
+            // console.log('data score 111   ', datascore)
             data.map(d => {
                 // console.log('data', d.user.id)
                 datascore.map(ds => {
                     // console.log('có điểm chưa', ds.score, ds.student.user.id)
                     // ktra hs có điểm chưa
-                    if (d.user.id == ds.student.user.id) {
+                    let student = ds.student.user
+                    // console.log('stuedent', student)
+                    if (d.user.id == student.id) {
                         // set_List_score_criteria_user(pre => [...pre, { user: d.user.id, criteria: ds.criteria.id, score: ds.score }])
                         // console.log('+++++++++++++++++++++++++++', list_score_criteria_user[1]?.user)
                         tempList.push({ user: d.user.id, criteria: ds.criteria.id, score: ds.score });
@@ -42,6 +46,7 @@ const AddScore = ({ route }) => {
 
                     }
                 })
+                // console.log('tempList    ', tempList)
                 //     // console.log('---------', list_score_criteria_user)
                 setListStudent(pre => [...pre, { id: d.user.id, name: d.user.last_name + ' ' + d.user.first_name }])
             })
@@ -68,54 +73,63 @@ const AddScore = ({ route }) => {
 
     const viewScore = async () => {
         // console.log('ds sinh viên', listStudent)
-        const data = listStudent
-        console.log('ds sinh viên', data)
 
-        console.log('tiêu chí', criteria)
-        console.log('kiểm tra điểm', list_score_criteria_user)
-        return (<>
-            {listStudent.map(s => {
-                criteria.map(c => {
-                    list_score_criteria_user.map(m => {
-                        return (<>
-                            <View key={c.id}>
-                                <Text>{c.name}</Text>
-                            </View>
-                        </>)
-                    })
-                })
-            })}
-        </>)
+        return <>
+
+        </>
     }
     useEffect(() => {
         getcriteria();
         getScore();
         viewScore()
-        // sendScore()
-        // console.log('danh sách:=============', list_score_criteria_user)
-        // console.log('list student e', listStudent)
-
     }, [])
     return (
         <View>
-            <Text>111111</Text>
-            {listStudent.map(s => {
+            {listStudent.length > 0 ? <>
+                {listStudent.map(ls => {
+
+                    return <>
+                        <Text>Tên học sinh: {ls.id}- {ls.name}</Text>
+                        {criteria.length > 0 ? <>
+                            {criteria.map(c => {
+                                let defaultScore = list_score_criteria_user.find(l => l.user == ls.id && l.criteria == c.id) ?? undefined;
+                                console.log(defaultScore)
+                                return <View>
+                                    <Text>{c.id} {c.name} ({c.percent})</Text>
+                                    {defaultScore == undefined ? <>
+                                        <TextInput placeholder='Nhập Điểm' keyboardType='numeric' />
+                                    </> : <>
+                                        <TextInput placeholder='Nhập Điểm' keyboardType='numeric' defaultValue={defaultScore.score + ''} />
+                                    </>}
+
+                                </View>
+                            })}
+                        </> : <>
+                            <Text>criteria rỗng</Text>
+                        </>}
+                    </>
+                })}
+            </> : <>
+                <Text>listStudent rỗng</Text>
+            </>}
+            {/* {listStudent.map(s => {
                 return <>
                     {criteria.length > 0 ? <>
                         {criteria.map(c => {
                             return <>
-                                {list_score_criteria_user.length > 0 ? <>
-                                    {list_score_criteria_user.map(m => {
-                                        return (<>
-                                            <View key={c.id}>
-                                                <Text>{c.name}</Text>
-                                                <Text>2222</Text>
-                                            </View>
-                                        </>)
-                                    })}
-                                </> : <>
+                                {list_score_criteria_user.length > 0 ?
+                                    <>
+                                        {list_score_criteria_user.map(m => {
+                                            return (<>
+                                                <View key={c.id}>
+                                                    <Text>{c.name}</Text>
+                                                    <Text>2222</Text>
+                                                </View>
+                                            </>)
+                                        })}
+                                    </> : <>
 
-                                    <Text>list_score_criteria_user rỗng</Text></>}
+                                        <Text>list_score_criteria_user rỗng</Text></>}
                             </>
                         })}
                     </> : <>
@@ -123,7 +137,7 @@ const AddScore = ({ route }) => {
                     </>}
 
                 </>
-            })}
+            })} */}
             {/* {listStudent.length > 0 ? <>
                 {listStudent.map(s => {
                     let list_score = listStudent.filter(obj => obj.id == s.id)
