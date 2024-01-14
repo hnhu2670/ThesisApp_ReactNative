@@ -82,7 +82,7 @@ const AddScore = ({ route }) => {
         getcriteria();
         getScore();
         viewScore()
-    }, [])
+    }, [id])
     return (
         <View>
             {listStudent.length > 0 ? <>

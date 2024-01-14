@@ -26,10 +26,13 @@ const Login = ({ navigation }) => {
                 setError('Tên đăng nhập và mật khẩu không được trống');
                 setShow(true)
                 console.log('Tài khoản không hợp lệ');
+                // setTimeout(() => {
+                //     setShow(false)
+                // }, 2000)
+                console.log(show)
                 return;
             }
             else {
-                setShow(false)
                 let response = await axios.post(endpoints['login'], formData, {
                     headers: {
                         "Content-Type": "multipart/form-data",
@@ -59,13 +62,14 @@ const Login = ({ navigation }) => {
         }
     };
     useEffect(() => {
-        console.log('trạng thái 77777:', show)
+        // console.log('trạng thái 77777:', show)
         if (show === true) {
             const timer = setTimeout(() => {
                 setShow(false);
             }, 2000);
             return () => clearTimeout(timer);
         }
+        console.log(show)
     }, [show]);
 
     return (
@@ -114,7 +118,8 @@ const Login = ({ navigation }) => {
                 <View style={login.text_input}>
                     <TouchableOpacity onPress={() => {
                         loginUser();
-                        setShow(true);
+                        // setShow(true);
+                        // Báo Như
                     }}>
                         <Text style={login.button}
 
@@ -130,7 +135,7 @@ const Login = ({ navigation }) => {
                 </View>
 
             </View>
-            {show == true && (
+            {show === true && (
                 <ToastifyMessage
                     type="danger"
                     text={error}

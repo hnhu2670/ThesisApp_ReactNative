@@ -196,7 +196,7 @@ const UpdateThesis = ({ route, navigation }) => {
         getCommittee()
         getGv1()
         getGv2()
-    }, [])
+    }, [id])
     return (
         <View>
             <View style={style.top}>

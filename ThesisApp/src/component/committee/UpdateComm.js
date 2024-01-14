@@ -190,7 +190,7 @@ const UpdateComm = ({ route, navigation }) => {
         getTeacher()
         checkMember()
         console.log('-------------------------------')
-    }, [])
+    }, [id])
     return (
         <View>
             {/* hội đồng */}
