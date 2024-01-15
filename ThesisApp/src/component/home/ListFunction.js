@@ -1,30 +1,33 @@
-import React from 'react'
-import { ScrollView, Text, View } from 'react-native'
+import React, { useContext } from 'react'
+import { Dimensions, ScrollView, StyleSheet, Text, View } from 'react-native'
 import Item from './Item'
 import nameItem from '../../assets/js/nameItem'
 import color from '../../assets/js/color'
+import { MyUserContext } from '../../../App'
+import styles from '../../assets/js/style'
+
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 const ListFunction = () => {
+    const [current_user, dispatch] = useContext(MyUserContext);
+
     return (
-        <View style={{ backgroundColor: '#ebf5f0', marginBottom: 20, height: "100%" }}>
-
-            <Item
-                // style={[...Item, { backgroundColor: 'red' }]}
-                tile={nameItem.thesi}
-                note={nameItem.updateThesis}
-            />
-            <Item
-
-                tile={nameItem.committess}
-                note={nameItem.updateCommittess}
-            />
-            <Item
-                tile={nameItem.score}
-                note={nameItem.updateScore}
-            />
-
+        <View style={[list.container]}>
+            <Item />
+            <Item />
         </View>
     )
 }
 
+
+const list = StyleSheet.create({
+    container: {
+        marginBottom: 20,
+        flexDirection: 'row',
+        width: windowWidth,
+
+    }
+})
 export default ListFunction

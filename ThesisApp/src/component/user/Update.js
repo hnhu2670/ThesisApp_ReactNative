@@ -5,9 +5,22 @@ import { MyUserContext } from '../../../App';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { authApiToken, endpoints } from '../../configs/Apis';
+// import { DateTimePickerAndroid } from '@react-native-community/datetimepicker'
+
+
 
 const Update = ({ navigation }) => {
 
+    // const [date, setDate] = useState(new Date())
+    // const [show, setShow] = useState(false)
+    // const [mode, setMode] = useState('date')
+    // const onChange = (e, selectedDate) => {
+    //     setDate(selectedDate)
+    //     setShow(false)
+    // }
+    // const showMode = (modeToShow) => {
+    //     setShow(true)
+    // }
     const [current_user, dispatch] = useContext(MyUserContext);
     const [myuser, setMyUser] = useState({
         "first_name": current_user.first_name,
@@ -85,13 +98,19 @@ const Update = ({ navigation }) => {
                     onChangeText={text => change(text, "last_name")} />
             </View>
             {/* < View style={login.text_input} >
-                <Text style={[login.text]}> Tên </Text>
-                <TextInput
-                    style={login.input}
-                    placeholder='Ngày sinh'
-                    value={current_user.}
-                    // onChangeText={text => change(text, "last_name")} 
+                <Text>Ngày</Text>
+                <Text style={[login.text]} onPress={() => showMode("date")}> Ngày sinh </Text>
+                <Text style={[login.text]} onPress={() => showMode("time")}> Giờ </Text>
+                {show && (
+                    <DateTimePickerAndroid
+                        value={date}
+                        mode={mode}
+                        is24Hour={true}
+                        onChange={onChange}
                     />
+                )}
+                <Text>{date.toLocaleString()}</Text>
+
             </View> */}
             < View style={login.text_input} >
                 <Text style={[login.text]}> Điện thoại </Text>

@@ -1,5 +1,7 @@
-import { StyleSheet } from "react-native";
-
+import { Dimensions, StyleSheet } from "react-native";
+import color from "../../assets/js/color";
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 const home = StyleSheet.create({
     top: {
         height: "15%",
@@ -34,7 +36,43 @@ const home = StyleSheet.create({
         paddingLeft: 20,
         paddingRight: 15,
         color: "#ffff"
+    },
+
+    // chỉnh icon các chức năng chi tiết *
+    title: {
+        fontSize: 16,
+        color: 'white',
+        marginBottom: 10,
+        marginTop: 15,
+        marginLeft: 20,
+        // paddingLeft: '10%',
+        paddingVertical: '3%',
+        backgroundColor: color.green,
+        borderRadius: 50,
+        width: '60%',
+        textAlign: 'center'
+    },
+    items: {
+        width: '100%',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'center'
+    },
+    thumb: {
+        width: '27%',
+        paddingVertical: 20,
+        marginHorizontal: '3%',
+        // borderWidth: 1,
+        // borderColor: color.green,
+        // borderRadius: 20,
+        // marginBottom: '5%'
+    },
+    icon: {
+        textAlign: 'center',
+        marginBottom: 10
     }
+
+
 
 })
 export default home

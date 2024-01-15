@@ -1,11 +1,11 @@
 import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// const SERVER_URL = 'http://192.168.1.7:8000';
-// const SERVER = "http://192.168.1.7";
+const SERVER_URL = 'http://192.168.1.7:8000';
+const SERVER = "http://192.168.1.7";
 
-const SERVER_URL = 'http://10.17.49.225:8000';
-const SERVER = "http://10.17.49.225";
+// const SERVER_URL = 'http://10.17.18.254:8000';
+// const SERVER = "http://10.17.18.254";
 
 // const SERVER_URL = 'http://10.17.49.245:8000';
 // const SERVER = "http://10.17.49.245";
@@ -37,6 +37,7 @@ export const endpoints = {
 
     "score-thesis-students": (id) => `${SERVER_URL}/get-thesis/${id}/student/`,//điểm của sv làm khóa luận
     "get-thesis-score": (id) => `${SERVER_URL}/get-thesis/${id}/score/`,
+    "add-or-update-score": `${SERVER_URL}/add-or-update-score/`
 
 
 

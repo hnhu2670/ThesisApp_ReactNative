@@ -1,9 +1,10 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { Button, TextInput, View } from 'react-native'
+import { Button, TextInput, TouchableOpacity, View } from 'react-native'
 import { Text } from 'react-native'
 import { authApiToken, endpoints } from '../../configs/Apis'
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import login from '../../login/style'
 
 const AddScore = ({ route }) => {
     const { id } = route.params //id khoa luan
@@ -16,6 +17,12 @@ const AddScore = ({ route }) => {
         // {id: '', name: ''}
     ])
     const [criteria, setCriteria] = useState([]); // list tieu chi
+    const [list_Score, setListScore] = useState([
+        // {"student": " ",
+        // "criteria": " ",
+        // "thesis": " ",
+        // "score": " "},
+    ])
 
     const getScore = async () => {
         try {
@@ -57,13 +64,37 @@ const AddScore = ({ route }) => {
 
     }
 
-    const sendScore = () => {
-        console.log('listStudent ', listStudent)
+    const sendScore = async () => {
+        if (list_Score.length > 0){
+            try{
+                console.log('list_Score',list_Score)
+                const token = await AsyncStorage.getItem('token')
+                let res = await authApiToken(token).post(endpoints['add-or-update-score'],{
+                    "score": list_Score
+                })
+
+                if (res.status == 200){
+                    alert('Oke')
+                }else{
+                    alert('error!!!')
+                }
+
+            }
+            catch(er){
+                console.log('error function sendscore')
+            }
+        }
+        else{
+            alert('list_Score null')
+        }
+        
     }
 
     const getcriteria = async () => {
         try {
-            const { data } = await axios.get(endpoints['criteria'])
+            const { data } = await axios.get(endpoints['criteria'], {
+                "score": list_Score
+            })
             setCriteria(data)
         }
         catch (error) {
@@ -71,17 +102,36 @@ const AddScore = ({ route }) => {
         }
     }
 
-    const viewScore = async () => {
-        // console.log('ds sinh viên', listStudent)
+    // const viewScore = async () => {
+    //     // console.log('ds sinh viên', listStudent)
 
-        return <>
+    //     return <>
 
-        </>
+    //     </>
+    // }
+
+    const addScore = (value, idhs, idcriteria, idthesis) => {
+        
+        // {"student": " ",
+        // "criteria": " ",
+        // "thesis": " ",
+        // "score": " "},
+            let score_check = list_Score.find(score => score['student'] == idhs && score['criteria'] == idcriteria && score['thesis'] == idthesis) ?? undefined
+            console.log('score_check', score_check)
+            if(score_check == undefined){
+                setListScore(pre => [...pre,{"student": idhs, "criteria": idcriteria, "thesis": idthesis, "score": value}])
+            }
+            else{
+                score_check['score'] = value;
+                setListScore([...list_Score]);
+            }
+        
+        console.log('list score update', list_Score)
     }
     useEffect(() => {
         getcriteria();
         getScore();
-        viewScore()
+        // viewScore()
     }, [id])
     return (
         <View>
@@ -89,17 +139,18 @@ const AddScore = ({ route }) => {
                 {listStudent.map(ls => {
 
                     return <>
+                        <View key={ls.id}>
                         <Text>Tên học sinh: {ls.id}- {ls.name}</Text>
                         {criteria.length > 0 ? <>
                             {criteria.map(c => {
                                 let defaultScore = list_score_criteria_user.find(l => l.user == ls.id && l.criteria == c.id) ?? undefined;
-                                console.log(defaultScore)
-                                return <View>
+                                // console.log(defaultScore)
+                                return <View key={c.id}>
                                     <Text>{c.id} {c.name} ({c.percent})</Text>
                                     {defaultScore == undefined ? <>
-                                        <TextInput placeholder='Nhập Điểm' keyboardType='numeric' />
+                                        <TextInput placeholder='Nhập Điểm' keyboardType='numeric' onChange={(e) => addScore(e.nativeEvent.text, ls.id, c.id, id)} />
                                     </> : <>
-                                        <TextInput placeholder='Nhập Điểm' keyboardType='numeric' defaultValue={defaultScore.score + ''} />
+                                        <TextInput placeholder='Nhập Điểm' keyboardType='numeric' onChange={(e) => addScore(e.nativeEvent.text, ls.id, c.id, id)} defaultValue={defaultScore.score + ''} />
                                     </>}
 
                                 </View>
@@ -107,11 +158,15 @@ const AddScore = ({ route }) => {
                         </> : <>
                             <Text>criteria rỗng</Text>
                         </>}
+                        </View>
                     </>
                 })}
             </> : <>
                 <Text>listStudent rỗng</Text>
             </>}
+            <TouchableOpacity onPress={sendScore}>
+                    <Text style={login.button}>THÊM</Text>
+                </TouchableOpacity>
             {/* {listStudent.map(s => {
                 return <>
                     {criteria.length > 0 ? <>
