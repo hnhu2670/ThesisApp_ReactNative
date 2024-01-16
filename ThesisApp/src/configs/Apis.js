@@ -1,11 +1,11 @@
 import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// const SERVER_URL = 'http://192.168.1.7:8000';
-// const SERVER = "http://192.168.1.7";
+const SERVER_URL = 'http://192.168.1.7:8000';
+const SERVER = "http://192.168.1.7";
 
-const SERVER_URL = 'http://10.17.50.232:8000';
-const SERVER = "http://10.17.50.232";
+// const SERVER_URL = 'http://10.17.50.232:8000';
+// const SERVER = "http://10.17.50.232";
 
 // const SERVER_URL = 'http://10.17.49.245:8000';
 // const SERVER = "http://10.17.49.245";
@@ -17,6 +17,7 @@ export const endpoints = {
     "get-user": (id) => `${SERVER_URL}/get-users/${id}/`,//get user by id
     "get-user-role": `${SERVER_URL}/get-users/`,//get user by id
     "update-user": (id) => `${SERVER_URL}/update-user/${id}/`,//update profile
+    "check-old-password": `${SERVER_URL}/check-old-password/`,//ktra mật khẩu cũ
 
     "criteria": `${SERVER_URL}/get-criteria/`,//tiêu chí
 

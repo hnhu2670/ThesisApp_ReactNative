@@ -20,6 +20,8 @@ import ListThesis from './src/component/thesis/ListThesis';
 import ForgotPassword from './src/component/user/ForgotPassword';
 import UpdateComm from './src/component/committee/UpdateComm';
 import AddScore from './src/component/score/AddScore';
+import DanhSachHD from './src/component/committee/DanhSachHD';
+import DanhSachKL from './src/component/thesis/DanhSachKL';
 
 export const MyUserContext = createContext();
 export const MyThesisContext = createContext();
@@ -42,11 +44,19 @@ function App() {
           <Stack.Screen name='Đổi mật khẩu' component={ChangePassword} />
           <Stack.Screen name='Cập nhật hội đồng' component={UpdateComm} />
           <Stack.Screen name='Danh sách hội đồng' component={ListCom} />
+          <Stack.Screen name='Danh sách HĐ' component={DanhSachHD}
+            options={{
+              title: 'Xem hội đồng',
+            }} />
           <Stack.Screen name='Thêm hội đồng' component={AddCom} />
           <Stack.Screen name='Quên mật khẩu' component={ForgotPassword} options={{ headerShown: false }} />
           <Stack.Screen name='Thêm khóa luận' component={AddThesis} />
           <Stack.Screen name='Cập nhật khóa luận' component={UpdateThesis} />
           <Stack.Screen name='Danh sách khóa luận' component={ListThesis} />
+          <Stack.Screen name='Danh sách KL' component={DanhSachKL}
+            options={{
+              title: 'Xem khóa luận',
+            }} />
           <Stack.Screen name='Chấm Điểm' component={AddScore} />
           {/* <Stack.Screen name='Hoi dong' component={Criteria} /> */}
 

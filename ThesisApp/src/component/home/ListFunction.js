@@ -22,7 +22,7 @@ const ListFunction = ({ navigation }) => {
                 <View style={items.text}>
                     <Text style={items.tile}>Danh sách hội đồng</Text>
                 </View>
-                <TouchableOpacity style={items.button} onPress={committee}>
+                <TouchableOpacity style={items.button} onPress={() => { navigation.navigate("Danh sách HĐ") }}>
                     <Text style={items.btn_text}>Chi tiết</Text>
                     <AntDesign name='rightcircleo' size={20} color={color.green} />
                 </TouchableOpacity>
@@ -31,7 +31,7 @@ const ListFunction = ({ navigation }) => {
                 <View style={items.text}>
                     <Text style={items.tile}>Danh sách khóa luận</Text>
                 </View>
-                <TouchableOpacity style={items.button} onPress={() => { navigation.navigate('Danh sách khóa luận') }}>
+                <TouchableOpacity style={items.button} onPress={() => { navigation.navigate('Danh sách KL') }}>
                     <Text style={items.btn_text}>Chi tiết</Text>
                     <AntDesign name='rightcircleo' size={20} color={color.green} />
                 </TouchableOpacity>

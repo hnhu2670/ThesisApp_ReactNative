@@ -1,3 +1,4 @@
+import Chat from "../chat/Chat";
 import Committee from "../committee/Committee";
 import Criteria from "../criteria/Criteria";
 // import Criteria from "../criteria/Criteria";
@@ -15,29 +16,38 @@ export const HomeNavigation = [
         activeSize: 25,
         unactiveSize: 15,
     },
+    // {
+    //     id: 2,
+    //     route: Thesis,
+    //     name: 'Khóa luận',
+    //     activeIconName: 'book',
+    //     typeIcon: "AntDesign",
+    //     activeSize: 25,
+    //     unactiveSize: 15,
+    // },
+    // {
+    //     id: 3,
+    //     route: Committee,
+    //     name: 'Hội đồng',
+    //     activeIconName: 'users',
+    //     typeIcon: "Entypo",
+    //     activeSize: 25,
+    //     unactiveSize: 15,
+    // },
     {
         id: 2,
-        route: Thesis,
-        name: 'Khóa luận',
-        activeIconName: 'book',
+        route: Criteria,
+        name: 'Điểm',
+        activeIconName: 'star',
         typeIcon: "AntDesign",
         activeSize: 25,
         unactiveSize: 15,
     },
     {
         id: 3,
-        route: Committee,
-        name: 'Hội đồng',
-        activeIconName: 'users',
-        typeIcon: "Entypo",
-        activeSize: 25,
-        unactiveSize: 15,
-    },
-    {
-        id: 4,
-        route: Criteria,
-        name: 'Điểm',
-        activeIconName: 'star',
+        route: Chat,
+        name: 'Chat',
+        activeIconName: 'wechat',
         typeIcon: "AntDesign",
         activeSize: 25,
         unactiveSize: 15,

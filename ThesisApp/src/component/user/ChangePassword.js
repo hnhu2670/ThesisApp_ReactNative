@@ -15,42 +15,36 @@ const ChangePassword = ({ navigation }) => {
     const [check, setCheck] = useState('')
     const checkPassword = async () => {
         const token = await AsyncStorage.getItem('token')
+        const formData = new FormData();
+        formData.append('old_password', old_password);
+        formData.append('user_id', current_user.id);
+        console.log('form data', formData)
+        // nhập mật khẩu không khớp thì xuất lỗi 400
         try {
             if (!old_password) {
                 console.log('Nhập mật khẩu hiện tại');
                 return;
             }
 
-            // let response = await authApiToken(token).post(endpoints['check-old-password'], formData, {
-            //     headers: {
-            //         "Content-Type": "multipart/form-data",
-            //     },
-            // });
-            const formData = new FormData();
-            formData.append('old_password', old_password);
-            formData.append('user_id', current_user.id);
-
-            const response = await fetch("http://192.168.1.6:8000/check-old-password/", {
-                method: 'POST',
+            const response = await authApiToken(token).post(endpoints["check-old-password"], formData, {
                 headers: {
-                    'Content-Type': 'multipart/form-data',
-                    'Authorization': "Bearer " + token,
-                },
-                body: formData,
-            });
+                    "Content-Type": "multipart/form-data"
+                }
+            })
+            console.log('====================', response.data)
+            const json = await response.data
+            // const jsonResponse = await response.json();
 
-            // console.log('Tới đây', response.status);
-            const jsonResponse = await response.json();
-            // console.log('Data', jsonResponse);
-            // console.log(typeof jsonResponse.data)
-            if (jsonResponse.data == true) {
-                setCheck(true)
-                console.log("Mật khẩu cũ hợp lệ")
-            }
-            else {
-                setCheck(false)
-                console.log("Mật khẩu cũ không hợp lệ")
-            }
+            // if (json === 'true') {
+            //     console.log("Mật khẩu cũ hợp lệ", data)
+            //     return true
+            //     // setCheck(true)
+            // }
+            // else {
+            //     // setCheck(false)
+            //     console.log("Mật khẩu cũ không hợp lệ")
+            //     return false
+            // }
         } catch (error) {
             console.log('Lỗi:', error);
         }
@@ -58,10 +52,12 @@ const ChangePassword = ({ navigation }) => {
 
     const updatePassword = async () => {
         const token = await AsyncStorage.getItem('token')
-        // if (check !== true) {
-        //     console.log("mật khẩu cũ không hợp lệ")
-        //     return;
-        // }
+        await checkPassword();
+        console.log('mật khẩu cũ-------------', check)
+        if (check !== true) {
+            console.log("mật khẩu cũ không hợp lệ")
+            return;
+        }
         try {
             if (!old_password || !newPassword || !confirmNewPassword) {
                 console.log('Vui lòng nhập đầy đủ thông tin');

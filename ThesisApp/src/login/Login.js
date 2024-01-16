@@ -1,5 +1,5 @@
 import React, { useContext, useRef, useState } from 'react';
-import { Image, Text, TextInput, View, StyleSheet, Alert, Button, TouchableOpacity } from 'react-native'
+import { Image, Text, TextInput, View, StyleSheet, Alert, Button, TouchableOpacity, KeyboardAvoidingView } from 'react-native'
 import { useEffect } from 'react';
 import axios, { Axios } from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -73,7 +73,11 @@ const Login = ({ navigation }) => {
     }, [show]);
 
     return (
-        <View style={styles.background}>
+        <KeyboardAvoidingView
+            // behavior={"padding"}
+            style={styles.background}>
+
+
 
             <View style={login.top}>
                 <View style={{ flexDirection: "row" }}>
@@ -142,7 +146,8 @@ const Login = ({ navigation }) => {
                     description="Đăng nhập thất bại"
                 />
             )}
-        </View>
+
+        </KeyboardAvoidingView>
 
 
     )

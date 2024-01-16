@@ -62,14 +62,16 @@ const home = StyleSheet.create({
         width: '27%',
         paddingVertical: 20,
         marginHorizontal: '3%',
-        // borderWidth: 1,
-        // borderColor: color.green,
-        // borderRadius: 20,
-        // marginBottom: '5%'
+
     },
     icon: {
         textAlign: 'center',
-        marginBottom: 10
+        marginBottom: 10,
+
+    },
+    infor: {
+        textAlign: 'center',
+        color: 'black'
     }
 
 
