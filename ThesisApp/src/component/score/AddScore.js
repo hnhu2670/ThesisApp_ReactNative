@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { Button, ScrollView, TextInput, TouchableOpacity, View } from 'react-native'
+import { Alert, Button, ScrollView, TextInput, TouchableOpacity, View } from 'react-native'
 import { Text } from 'react-native'
 import { authApiToken, endpoints } from '../../configs/Apis'
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -8,7 +8,7 @@ import login from '../../login/style'
 import styles from '../../assets/js/style'
 import mark from './style'
 import thesis from '../thesis/style'
-const AddScore = ({ route }) => {
+const AddScore = ({ route, navigation }) => {
     const { id } = route.params //id khoa luan
     const [score, setScore] = useState([])
     const [student, setStudent] = useState([])
@@ -69,6 +69,7 @@ const AddScore = ({ route }) => {
 
                 if (res.status == 200) {
                     alert('Oke')
+                    navigation.navigate('Thesis App')
                 } else {
                     alert('error!!!')
                 }
@@ -79,8 +80,14 @@ const AddScore = ({ route }) => {
             }
         }
         else {
+            let check = confirm('Ok')
+            if (check) {
+                navigation.navigate('ThesisApp')
+            }
             alert('list_Score null')
+
         }
+
 
     }
 

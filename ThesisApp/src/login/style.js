@@ -13,12 +13,11 @@ const login = StyleSheet.create({
         width: "100%"
     },
     text_input: {
-        marginTop: 30,
+        marginTop: 20,
         marginLeft: 30
     },
     input: {
         height: 50,
-        marginTop: 10,
         marginRight: 30,
         borderWidth: 1,
         padding: 10,

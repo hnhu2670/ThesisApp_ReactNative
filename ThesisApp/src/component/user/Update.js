@@ -1,34 +1,48 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { Button, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import login from '../../login/style'
 import { MyUserContext } from '../../../App';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { authApiToken, endpoints } from '../../configs/Apis';
-// import { DateTimePickerAndroid } from '@react-native-community/datetimepicker'
+// import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
+import DateTimePicker from '@react-native-community/datetimepicker'
+import moment from 'moment';
+import { Fontisto } from '@expo/vector-icons';
+import styles from '../../assets/js/style';
 
 
 
 const Update = ({ navigation }) => {
 
-    // const [date, setDate] = useState(new Date())
-    // const [show, setShow] = useState(false)
-    // const [mode, setMode] = useState('date')
-    // const onChange = (e, selectedDate) => {
-    //     setDate(selectedDate)
-    //     setShow(false)
-    // }
-    // const showMode = (modeToShow) => {
-    //     setShow(true)
-    // }
+    const [show, setShow] = useState(false)
+    const showMode = () => {
+        setShow(true)
+    }
+    const onChange = (event, selectedDate) => {
+        const currentDate = selectedDate;
+        setDate(currentDate);
+        myuser['date_of_birth'] = selectedDate.toISOString().split("T")[0]
+        console.log('===============', selectedDate.toISOString().split("T")[0])
+        setShow(false)
+    };
+
     const [current_user, dispatch] = useContext(MyUserContext);
+    const [date, setDate] = useState(new Date(current_user.date_of_birth));
+
     const [myuser, setMyUser] = useState({
         "first_name": current_user.first_name,
         "last_name": current_user.last_name,
         "email": current_user.email,
-        "phone": current_user.phone
+        "phone": current_user.phone,
+        // "gender": current_user.gender,
+        "address": current_user.address,
+        // "date_of_birth": date.toISOString().split("T")[0]
+        "date_of_birth": date.toISOString().split("T")[0]
     })
-    // console.log("thông tin user: ", myuser)
+    // let date = new Date(current_user.date_of_birth)
+
+    console.log("thông tin user: ", date.toISOString())
     const change = (value, field) => {
         setMyUser(user => ({
             ...user,
@@ -45,8 +59,9 @@ const Update = ({ navigation }) => {
                 let form = new FormData();
                 for (let field in myuser) {
                     form.append(field, myuser[field]);
-                    // console.log(myuser[field])
+                    console.log(myuser[field])
                 }
+                console.log('form data', form)
                 const response = await authApiToken(token).patch(endpoints["update-user"](current_user.id), form, {
                     headers: {
                         "Content-Type": "multipart/form-data"
@@ -60,9 +75,8 @@ const Update = ({ navigation }) => {
                 dispatch({ type: 'login', payload: response.data });
                 alert("Cập nhật thành công")
             } catch (err) {
-                console.log("lỗi", err);
+                console.log("lỗi", err.request);
             }
-
         }
         process()
     }
@@ -70,68 +84,99 @@ const Update = ({ navigation }) => {
     //     updateUser()
     // }, [])
     return (
-        <View>
-            <View style={login.text_input} >
-                <Text style={[login.text]}> Tên đăng nhập </Text>
-                < TextInput
-                    style={login.input}
-                    placeholder='Tên đăng nhập'
-                    value={current_user.username}
-                    editable={false}
+        <View >
+            <ScrollView style={{ height: '85%' }}>
+                <View style={login.text_input} >
+                    <Text style={[login.text]}> Tên đăng nhập </Text>
+                    < TextInput
+                        style={login.input}
+                        placeholder='Tên đăng nhập'
+                        value={current_user.username}
+                        editable={false}
 
-                />
-            </View>
-            < View style={login.text_input} >
-                <Text style={[login.text]}> Họ </Text>
-                < TextInput
-                    style={login.input}
-                    placeholder='Họ'
-                    value={myuser.first_name}
-                    onChangeText={text => change(text, "first_name")} />
-            </View>
-            < View style={login.text_input} >
-                <Text style={[login.text]}> Tên </Text>
-                <TextInput
-                    style={login.input}
-                    placeholder='Tên'
-                    value={myuser.last_name}
-                    onChangeText={text => change(text, "last_name")} />
-            </View>
-            {/* < View style={login.text_input} >
-                <Text>Ngày</Text>
-                <Text style={[login.text]} onPress={() => showMode("date")}> Ngày sinh </Text>
-                <Text style={[login.text]} onPress={() => showMode("time")}> Giờ </Text>
-                {show && (
-                    <DateTimePickerAndroid
-                        value={date}
-                        mode={mode}
-                        is24Hour={true}
-                        onChange={onChange}
                     />
-                )}
-                <Text>{date.toLocaleString()}</Text>
+                </View>
 
-            </View> */}
-            < View style={login.text_input} >
-                <Text style={[login.text]}> Điện thoại </Text>
-                < TextInput
-                    style={login.input}
-                    placeholder='Điện thoại'
-                    value={myuser.phone || ""}
-                    onChangeText={text => change(text, "phone")}
+                <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
+                    < View style={[login.text_input, { width: '45%' }]} >
+                        <Text style={[login.text]}> Họ </Text>
+                        < TextInput
+                            style={login.input}
+                            placeholder='Họ'
+                            value={myuser.first_name}
+                            onChangeText={text => change(text, "first_name")} />
+                    </View>
+                    < View style={[login.text_input, { width: '45%', marginLeft: 0 }]} >
+                        <Text style={[login.text]}> Tên </Text>
+                        <TextInput
+                            style={login.input}
+                            placeholder='Tên'
+                            value={myuser.last_name}
+                            onChangeText={text => change(text, "last_name")} />
+                    </View>
 
-                />
-            </View>
-            < View style={login.text_input} >
-                <Text style={[login.text]}> Email </Text>
-                < TextInput
-                    style={login.input}
-                    placeholder='email'
-                    value={myuser.email}
-                    onChangeText={text => change(text, "email")}
+                </View>
+                {/* < View style={login.text_input} >
+                    <Text style={[login.text]}> Giới tính </Text>
+                    < TextInput
+                        style={login.input}
+                        placeholder='Giới tính'
+                        value={myuser.gender}
+                        onChangeText={text => change(text, "gender")}
 
-                />
-            </View>
+                    />
+                </View> */}
+                < View style={login.text_input} >
+                    <Text style={[login.text]}>Ngày sinh</Text>
+                    <TouchableOpacity onPress={() => showMode()}>
+                        <View style={[login.input, {
+                            flexDirection: 'row',
+                            alignItems: 'center', justifyContent: 'space-around'
+                        }]}>
+                            <Text style={{ width: '90%' }}>{moment(date).format('DD/MM/YYYY')}</Text>
+                            <Fontisto name='date' size={20} />
+                        </View>
+                        {show && (
+                            <DateTimePicker
+                                value={date}
+                                mode="date"
+                                is24Hour={true}
+                                onChange={onChange}
+                            />
+                        )}
+                    </TouchableOpacity>
+                </View>
+                < View style={login.text_input} >
+                    <Text style={[login.text]}> Địa chỉ</Text>
+                    < TextInput
+                        style={login.input}
+                        placeholder='Địa chỉ'
+                        value={myuser.address}
+                        onChangeText={text => change(text, "address")} />
+                </View>
+
+                < View style={login.text_input} >
+                    <Text style={[login.text]}> Điện thoại </Text>
+                    < TextInput
+                        style={login.input}
+                        placeholder='Điện thoại'
+                        value={myuser.phone || ""}
+                        onChangeText={text => change(text, "phone")}
+
+                    />
+                </View>
+                < View style={login.text_input} >
+                    <Text style={[login.text]}> Email </Text>
+                    < TextInput
+                        style={login.input}
+                        placeholder='email'
+                        value={myuser.email}
+                        onChangeText={text => change(text, "email")}
+
+                    />
+                </View>
+            </ScrollView>
+
             <View style={[login.text_input, { flexDirection: "row" }]} >
                 < View style={{ width: '50%' }}>
                     <TouchableOpacity onPress={() => navigation.navigate('Profile')}>

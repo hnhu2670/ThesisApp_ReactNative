@@ -28,7 +28,7 @@ const Home = ({ navigation }) => {
                 }}
             >
                 <View style={[styles.container]}>
-                    <ListFunction />
+                    <ListFunction navigation={navigation} />
                     <View style={{
                         backgroundColor: color.background,
                         borderTopLeftRadius: 50,
