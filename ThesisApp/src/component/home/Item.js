@@ -13,7 +13,6 @@ const Item = (props) => {
         <View style={[items.container]}>
             <View style={items.text}>
                 <Text style={items.tile}>{props.tile}</Text>
-                <Text style={items.note}>{props.note}</Text>
             </View>
             <TouchableOpacity style={items.button}>
                 <Text style={items.btn_text}>Chi tiết</Text>
@@ -25,7 +24,7 @@ const Item = (props) => {
 const items = StyleSheet.create({
     container: {
         width: windowWidth * 0.43,
-        height: 200,
+        height: 190,
         marginHorizontal: '1%',
         borderRadius: 30,
         backgroundColor: color.lightgreen,
@@ -34,22 +33,17 @@ const items = StyleSheet.create({
     },
     text: {
         textAlign: 'center',
-        height: 140,
         marginBottom: 20,
         textAlign: 'center',
         alignItems: 'center',
     },
     tile: {
-        fontSize: 25,
-        marginVertical: 35,
+        fontSize: 18,
+        marginVertical: 40,
+        marginHorizontal: 20,
         color: color.green
+    },
 
-    },
-    note: {
-        fontSize: 15,
-        fontStyle: 'italic',
-        color: color.green
-    },
     button: {
         width: '90%',
         backgroundColor: 'white',

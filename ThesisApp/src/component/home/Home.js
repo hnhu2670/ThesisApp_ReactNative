@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useContext } from 'react'
 import { Dimensions, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 // import Header from './Layout/Header';
 import home from './style';
@@ -6,13 +6,16 @@ import MainHeader from '../layout/MainHeader';
 import ListFunction from './ListFunction';
 import DrawerTab from './DrawerTab';
 import styles from '../../assets/js/style';
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign, FontAwesome, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import color from '../../assets/js/color';
+import { MyUserContext } from '../../../App';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 const Home = ({ navigation }) => {
+    const [current_user, dispatch] = useContext(MyUserContext);
+
     return (
         <View>
             <MainHeader navigation={navigation} />
@@ -37,21 +40,33 @@ const Home = ({ navigation }) => {
                             borderBottomWidth: 1,
                             borderColor: 'lightgray'
                         }}>
-                            <Text style={[home.title]}>Chức năng của tôi</Text>
-                            <View style={[home.items]}>
-                                <TouchableOpacity style={[home.thumb]}>
-                                    <AntDesign style={[home.icon]} name='customerservice' size={35} color={color.green} />
-                                    <Text style={{ textAlign: 'center', color: color.green }}>CHức năng 1</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={[home.thumb]}>
-                                    <AntDesign style={[home.icon]} name='customerservice' size={35} color={color.green} />
-                                    <Text style={{ textAlign: 'center', color: color.green }}>CHức năng 1</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={[home.thumb]}>
-                                    <AntDesign style={[home.icon]} name='customerservice' size={35} color={color.green} />
-                                    <Text style={{ textAlign: 'center', color: color.green }}>CHức năng 1</Text>
-                                </TouchableOpacity>
-                            </View>
+                            {current_user.role === 'student' || current_user.role === 'lecturer' ? <>
+                                <Text style={[home.title]}>Chức năng của tôi</Text>
+                                {current_user.role === 'student' ? <>
+                                    <View style={[home.items]}>
+                                        <TouchableOpacity style={[home.thumb]}>
+                                            <FontAwesome style={[home.icon]} name='group' size={35} color={color.green} />
+                                            <Text style={{ textAlign: 'center', color: color.green }}>Khóa luận tham gia</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity style={[home.thumb]}>
+                                            <AntDesign style={[home.icon]} name='customerservice' size={35} color={color.green} />
+                                            <Text style={{ textAlign: 'center', color: color.green }}>Điểm của tôi</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                </> : <>
+                                    <View style={[home.items]}>
+
+                                        <TouchableOpacity style={[home.thumb]}>
+                                            <AntDesign style={[home.icon]} name='customerservice' size={35} color={color.green} />
+                                            <Text style={{ textAlign: 'center', color: color.green }}>Hội đồng tham gia</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity style={[home.thumb]}>
+                                            <MaterialCommunityIcons style={[home.icon]} name='marker' size={35} color={color.green} />
+                                            <Text style={{ textAlign: 'center', color: color.green }}>Chấm điểm</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                </>}
+                            </> : <></>}
                         </View>
                         {/* quản lý hội đồng */}
                         <View style={{
@@ -62,28 +77,25 @@ const Home = ({ navigation }) => {
                             <View style={[home.items]}>
                                 <TouchableOpacity style={[home.thumb]}>
                                     <AntDesign style={[home.icon]} name='customerservice' size={35} color={color.green} />
-                                    <Text style={{ textAlign: 'center', color: color.green }}>CHức năng 1</Text>
+                                    <Text style={{ textAlign: 'center', color: color.green }}>Thêm hội đồng</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={[home.thumb]}>
                                     <AntDesign style={[home.icon]} name='customerservice' size={35} color={color.green} />
-                                    <Text style={{ textAlign: 'center', color: color.green }}>CHức năng 1</Text>
+                                    <Text style={{ textAlign: 'center', color: color.green }}>Cập nhật hồi đồng</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={[home.thumb]}>
                                     <AntDesign style={[home.icon]} name='customerservice' size={35} color={color.green} />
-                                    <Text style={{ textAlign: 'center', color: color.green }}>CHức năng 1</Text>
+                                    <Text style={{ textAlign: 'center', color: color.green }}>Cập nhật tên</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={[home.thumb]}>
                                     <AntDesign style={[home.icon]} name='customerservice' size={35} color={color.green} />
-                                    <Text style={{ textAlign: 'center', color: color.green }}>CHức năng 1</Text>
+                                    <Text style={{ textAlign: 'center', color: color.green }}>Xóa hội đồng</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={[home.thumb]}>
                                     <AntDesign style={[home.icon]} name='customerservice' size={35} color={color.green} />
-                                    <Text style={{ textAlign: 'center', color: color.green }}>CHức năng 1</Text>
+                                    <Text style={{ textAlign: 'center', color: color.green }}>Xóa thành viên</Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity style={[home.thumb]}>
-                                    <AntDesign style={[home.icon]} name='customerservice' size={35} color={color.green} />
-                                    <Text style={{ textAlign: 'center', color: color.green }}>CHức năng 1</Text>
-                                </TouchableOpacity>
+
                             </View>
                         </View>
                         {/* quản lý khóa luận */}
@@ -95,28 +107,17 @@ const Home = ({ navigation }) => {
                             <View style={[home.items]}>
                                 <TouchableOpacity style={[home.thumb]}>
                                     <AntDesign style={[home.icon]} name='customerservice' size={35} color={color.green} />
-                                    <Text style={{ textAlign: 'center', color: color.green }}>CHức năng 1</Text>
+                                    <Text style={{ textAlign: 'center', color: color.green }}>Thêm khóa luận</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={[home.thumb]}>
                                     <AntDesign style={[home.icon]} name='customerservice' size={35} color={color.green} />
-                                    <Text style={{ textAlign: 'center', color: color.green }}>CHức năng 1</Text>
+                                    <Text style={{ textAlign: 'center', color: color.green }}>Cập nhật khóa luận</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={[home.thumb]}>
                                     <AntDesign style={[home.icon]} name='customerservice' size={35} color={color.green} />
-                                    <Text style={{ textAlign: 'center', color: color.green }}>CHức năng 1</Text>
+                                    <Text style={{ textAlign: 'center', color: color.green }}>Loại bỏ khóa luận</Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity style={[home.thumb]}>
-                                    <AntDesign style={[home.icon]} name='customerservice' size={35} color={color.green} />
-                                    <Text style={{ textAlign: 'center', color: color.green }}>CHức năng 1</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={[home.thumb]}>
-                                    <AntDesign style={[home.icon]} name='customerservice' size={35} color={color.green} />
-                                    <Text style={{ textAlign: 'center', color: color.green }}>CHức năng 1</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={[home.thumb]}>
-                                    <AntDesign style={[home.icon]} name='customerservice' size={35} color={color.green} />
-                                    <Text style={{ textAlign: 'center', color: color.green }}>CHức năng 1</Text>
-                                </TouchableOpacity>
+
                             </View>
                         </View>
                     </View>
