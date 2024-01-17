@@ -97,7 +97,7 @@ const Login = ({ navigation }) => {
                 >Thesis App</Text>
 
             </View>
-            <View style={login.bottom}>
+            <View style={[login.bottom]}>
                 <View style={login.text_input}>
                     <Text style={[login.text]}>Tên đăng nhập</Text>
                     <TextInput

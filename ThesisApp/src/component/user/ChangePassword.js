@@ -6,24 +6,28 @@ import { authApi, authApiToken, endpoints } from '../../configs/Apis';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AntDesign } from '@expo/vector-icons';
+import ToastifyMessage from '../layout/ToastifyMessage';
+import styles from '../../assets/js/style';
 
 const ChangePassword = ({ navigation }) => {
     const [current_user, dispatch] = useContext(MyUserContext);
     const [old_password, setPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmNewPassword, setConfirmNewPassword] = useState('');
-    const [check, setCheck] = useState('')
+    const [show, setShow] = useState('')
+    const [err, setErr] = useState('')
+
+
     const checkPassword = async () => {
         const token = await AsyncStorage.getItem('token')
         const formData = new FormData();
         formData.append('old_password', old_password);
         formData.append('user_id', current_user.id);
         console.log('form data', formData)
-        // nhập mật khẩu không khớp thì xuất lỗi 400
         try {
             if (!old_password) {
                 console.log('Nhập mật khẩu hiện tại');
-                return;
+                return false;
             }
 
             const response = await authApiToken(token).post(endpoints["check-old-password"], formData, {
@@ -31,67 +35,82 @@ const ChangePassword = ({ navigation }) => {
                     "Content-Type": "multipart/form-data"
                 }
             })
-            console.log('====================', response.data)
             const json = await response.data
-            // const jsonResponse = await response.json();
+            console.log('====================', response.status)
 
-            // if (json === 'true') {
-            //     console.log("Mật khẩu cũ hợp lệ", data)
-            //     return true
-            //     // setCheck(true)
-            // }
-            // else {
-            //     // setCheck(false)
-            //     console.log("Mật khẩu cũ không hợp lệ")
-            //     return false
-            // }
+            if (response.status == 200) {
+                console.log("Mật khẩu cũ hợp lệ", json)
+                return true
+            }
+            else {
+                console.log("Không hợp lệ", json)
+            }
         } catch (error) {
             console.log('Lỗi:', error);
+            return false;
+
         }
     };
 
     const updatePassword = async () => {
         const token = await AsyncStorage.getItem('token')
-        await checkPassword();
-        console.log('mật khẩu cũ-------------', check)
-        if (check !== true) {
-            console.log("mật khẩu cũ không hợp lệ")
-            return;
+        const oldPass = await checkPassword()
+        console.log('mật khẩu cũ-------------', oldPass)
+        if (oldPass !== true) {
+            setShow('error')
+            setErr('Mật khẩu hiện tại không hợp lệ')
+            return
         }
-        try {
-            if (!old_password || !newPassword || !confirmNewPassword) {
-                console.log('Vui lòng nhập đầy đủ thông tin');
-                return;
-            }
-
-            if (newPassword !== confirmNewPassword) {
-                console.log('Mật khẩu mới không khớp');
-                return;
-            }
-            const form = new FormData();
-            form.append('password', newPassword);
-            console.log(form)
-            const response = await authApiToken(token).patch(endpoints["update-user"](current_user.id), form, {
-                headers: {
-                    "Content-Type": "multipart/form-data"
+        else {
+            try {
+                if (!old_password || !newPassword || !confirmNewPassword) {
+                    console.log('Vui lòng nhập đầy đủ thông tin');
+                    setShow('error')
+                    setErr('Vui lòng nhập đầy đủ thông tin')
+                    return;
                 }
-            })
-            console.log('Cập nhật thành công:');
-            alert("Đăng nhập lại sau 3s")
-            setTimeout(() => {
-                navigation.navigate("Login");
-            }, 3000); // Thời gian chờ 3 giây 
-        } catch (error) {
-            console.log('Lỗi khi thay đổi mật khẩu:', error);
+
+                if (newPassword !== confirmNewPassword) {
+
+                    console.log('Mật khẩu mới không khớp');
+                    setShow('error')
+                    setErr('Mật khẩu mới không khớp')
+                    return;
+                }
+                const form = new FormData();
+                form.append('password', newPassword);
+                console.log(form)
+                const response = await authApiToken(token).patch(endpoints["update-user"](current_user.id), form, {
+                    headers: {
+                        "Content-Type": "multipart/form-data"
+                    }
+                })
+                console.log('Cập nhật thành công:');
+                // alert("Đăng nhập lại sau 3s")
+                setShow('success')
+                setErr('Đổi mật khẩu thành công')
+                setTimeout(() => {
+                    navigation.navigate("Login");
+                }, 3000); // Thời gian chờ 3 giây 
+            } catch (error) {
+                console.log('Lỗi khi thay đổi mật khẩu:', error);
+            }
         }
+
     };
 
     useEffect(() => {
-        // checkPassword()
-        // handleChangePassword()
-    }, [])
+        if (show !== '') {
+            const timer = setTimeout(() => {
+                setShow('');
+            }, 2000);
+            return () => clearTimeout(timer);
+        }
+        console.log(show)
+    }, [show]);
+
     return (
-        <View>
+        <View style={[styles.container]}>
             <View style={login.text_input}>
                 <Text style={[login.text]}>Mật khẩu cũ</Text>
                 <View style={{ flexDirection: "row" }}>
@@ -101,10 +120,6 @@ const ChangePassword = ({ navigation }) => {
                         value={old_password}
                         onChangeText={text => setPassword(text)}
                     />
-                    <TouchableOpacity onPress={checkPassword}>
-                        <AntDesign name='right' size={30} />
-
-                    </TouchableOpacity>
                 </View>
 
             </View>
@@ -131,6 +146,33 @@ const ChangePassword = ({ navigation }) => {
                     <Text style={login.button} >THAY ĐỔI</Text>
                 </TouchableOpacity>
             </View>
+            {show === 'error' ? <>
+                <ToastifyMessage
+                    type="danger"
+                    text={err}
+                    description="Đổi mk thất bại"
+                />
+            </> : <>
+                {show === 'success' && (
+                    <ToastifyMessage
+                        type="success"
+                        text={err}
+                        description="Đổi thành công thất bại"
+                    />
+                )}
+            </>}
+            {/* {show === 'error'? (
+                <ToastifyMessage
+                    type="danger"
+                    text={err}
+                    description="Đổi mk thất bại"
+                />
+            ):
+            (
+
+                    { show==='success'}
+            )
+            } */}
         </View>
     )
 }
