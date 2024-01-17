@@ -62,7 +62,7 @@ const style = StyleSheet.create({
         // backgroundColor: 'red',
         // backgroundColor: backgroundColor,
         width: '90%',
-        textAlign: 'center',
+        textAlign: 'left',
         padding: 20,
         position: 'absolute',
         top: '5%',
@@ -77,7 +77,7 @@ const style = StyleSheet.create({
         shadowRadius: 3.84,
         elevation: 5,
         flexDirection: 'row',
-        justifyContent: 'center',
+        // justifyContent: 'space-evenly',
         alignItems: 'center'
     },
     text: {

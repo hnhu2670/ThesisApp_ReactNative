@@ -8,6 +8,7 @@ import { Dropdown } from 'react-native-element-dropdown';
 import styles from '../thesis/style';
 import axios from 'axios';
 import color from '../../assets/js/color';
+import ToastifyMessage from '../layout/ToastifyMessage';
 
 const AddCom = ({ navigation }) => {
     const [nameComm, setNameComm] = useState('')
@@ -18,6 +19,8 @@ const AddCom = ({ navigation }) => {
     const [selectedMember1, setSelectedMember1] = useState('');
     const [selectedMember2, setSelectedMember2] = useState('');
 
+    const [show, setShow] = useState('')
+    const [error, setError] = useState('')
 
     const listMember = async () => {
         const token = await AsyncStorage.getItem('token')
@@ -32,59 +35,74 @@ const AddCom = ({ navigation }) => {
         }
     }
 
-
-
-
     const addMember = async () => {
         const token = await AsyncStorage.getItem('token')
         const formData = new FormData()
-        formData.append('name', nameComm)
-        // member 1
-        if (selectedPres.id !== undefined) {
-            formData.append('member1', selectedPres.id)
+        if (nameComm === '') {
+            setShow('error')
+            setError("Tên hội đồng không được rỗng")
         }
-        //member 2
-        if (selectedSecr.id !== undefined) {
-            formData.append('member2', selectedSecr.id)
-        }
-        //member 3
-        if (selectedMember.id !== undefined) {
-            formData.append('member3', selectedMember.id)
-        }
-        //member 4
-        if (selectedMember1.id !== undefined) {
-            formData.append('member4', selectedMember1.id)
-        }
-        //member 5
-        if (selectedMember2.id !== undefined) {
-            formData.append('member5', selectedMember2.id)
-        }
-        formData.append('position1', '1')
-        formData.append('position2', '2')
-        formData.append('position3', '3')
-        formData.append('position4', '4')
-        formData.append('position5', '5')
-        console.log('dữ liệu lấy được', formData)
+        else {
 
-        try {
-            const res = await authApiToken(token).post(endpoints['add-all-member'], formData, {
-                headers: {
-                    "Content-Type": "multipart/form-data"
-                }
-            })
-            console.log(res.status)
-            setTimeout(() => {
-                navigation.navigate('ThesisApp')
-            }, 1000)
-            console.log('dữ liệu mới thêm', res.data)
-        } catch (error) {
-            console.log("lỗi hàm add member: ", error)
+            formData.append('name', nameComm)
+            // member 1 ==> ktra dữ liệu có được lấy không
+            if (selectedPres.id !== undefined) {
+                formData.append('member1', selectedPres.id)
+            }
+            //member 2
+            if (selectedSecr.id !== undefined) {
+                formData.append('member2', selectedSecr.id)
+            }
+            //member 3
+            if (selectedMember.id !== undefined) {
+                formData.append('member3', selectedMember.id)
+            }
+            //member 4
+            if (selectedMember1.id !== undefined) {
+                formData.append('member4', selectedMember1.id)
+            }
+            //member 5
+            if (selectedMember2.id !== undefined) {
+                formData.append('member5', selectedMember2.id)
+            }
+            formData.append('position1', '1')
+            formData.append('position2', '2')
+            formData.append('position3', '3')
+            formData.append('position4', '4')
+            formData.append('position5', '5')
+            console.log('dữ liệu lấy được', formData)
+
+            try {
+                const res = await authApiToken(token).post(endpoints['add-all-member'], formData, {
+                    headers: {
+                        "Content-Type": "multipart/form-data"
+                    }
+                })
+                // console.log(res.status)
+                setShow('success')
+                setError("Thêm hội đồng thành công")
+                setTimeout(() => {
+                    navigation.navigate('ThesisApp')
+                }, 3000)
+                console.log('dữ liệu mới thêm', res.data)
+            } catch (error) {
+                console.log("lỗi hàm add member: ", error)
+                setShow('error')
+                setError("Thêm hội đồng thất bại")
+            }
         }
+
     }
     useEffect(() => {
         listMember()
-        // addMember()
-    }, [])
+        if (show !== '') {
+            const timer = setTimeout(() => {
+                setShow('');
+            }, 2000);
+            return () => clearTimeout(timer);
+        }
+        console.log(show)
+    }, [show]);
     return (
         <View style={[{ backgroundColor: color.background }]}>
             <ScrollView style={{ height: "90%", marginBottom: 10 }}>
@@ -225,6 +243,21 @@ const AddCom = ({ navigation }) => {
                     >THÊM</Text>
                 </TouchableOpacity>
             </View>
+            {show === 'error' && (
+                <ToastifyMessage
+                    type="danger"
+                    text={error}
+                    description="Thêm thành công"
+                />
+            )}
+            {show === 'success' && (
+                <ToastifyMessage
+                    type="success"
+                    text={error}
+                    description="Thêm thất bại"
+                />
+            )}
+
         </View>
     );
 };

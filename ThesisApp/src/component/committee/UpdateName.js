@@ -11,7 +11,7 @@ const windowHeight = Dimensions.get('window').height;
 
 const UpdateName = ({ route, navigation }) => {
     const { id, name } = route.params; //id truyền từ trang danh sách qua
-    console.log('tên hội đồng ở updateName', id, name)
+    // console.log('tên hội đồng ở updateName', id, name)
 
     const [nameComm, setNameComm] = useState({
         'name': name
@@ -22,7 +22,7 @@ const UpdateName = ({ route, navigation }) => {
         const formData = new FormData()
         for (let field in nameComm) {
             formData.append(field, nameComm[field]);
-            console.log(nameComm[field])
+            // console.log(nameComm[field])
         }
         try {
             const data = authApiToken(token).patch(endpoints['update-name-committes'](id), formData, {

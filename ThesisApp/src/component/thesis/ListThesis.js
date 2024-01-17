@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useContext, useEffect, useState } from 'react'
-import { FlatList, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, FlatList, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { endpoints } from '../../configs/Apis'
 import { AntDesign } from '@expo/vector-icons'
 import Search from '../layout/Search'
@@ -95,7 +95,8 @@ const ListThesis = ({ navigation }) => {
                 </View>
                 <View style={list_thesis.bottom}>
                     {list.length < 1 ? (
-                        <Text>Chưa có dữ liệu</Text>
+                        // <Text>Chưa có dữ liệu</Text>
+                        <ActivityIndicator size={30} color={color.green} />
                     ) : (<FlatList
                         data={filter.length > 0 ? filter : list}
                         keyExtractor={(item) => item.id.toString()}

@@ -1,5 +1,5 @@
 // update theo id
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import GetStudent from './GetStudent'
 import GetTeacher from './GetTeacher'
@@ -9,13 +9,16 @@ import { authApiToken, endpoints } from '../../configs/Apis'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import thesis from './style'
 import color from '../../assets/js/color'
-const AddThesis = () => {
+import ToastifyMessage from '../layout/ToastifyMessage'
+const AddThesis = ({ navigation }) => {
     const [listthesis, setThesis] = useState('')
     const [student, setStudent] = useState(null)
     const [teacher1, setTeacher1] = useState(null)
     const [teacher2, setTeacher2] = useState(null)
     const [comm, setComm] = useState(null)
 
+    const [show, setShow] = useState('')
+    const [error, setError] = useState('')
     const getIdStudent = (data) => {
         var id_student = ''
         data.map(s => {
@@ -59,9 +62,13 @@ const AddThesis = () => {
 
         if (listthesis) {
             if (student === null) {
-                alert("Chọn sinh viên thực hiện khóa luận")
+                // alert("Chọn sinh viên thực hiện khóa luận")
+                setShow('error')
+                setError('Chọn sinh viên thực hiện khóa luận')
             } else if (teacher1 === null) {
-                alert("Phải chọn giảng viên hướng dẫn")
+                // alert("Phải chọn giảng viên hướng dẫn")
+                setShow('error')
+                setError('Phải chọn giảng viên hướng dẫn')
             } else {
                 try {
                     const { data } = await authApiToken(token).post(endpoints["add-thesis"], formData, {
@@ -70,19 +77,38 @@ const AddThesis = () => {
                         }
                     })
 
-                    console.log("data-----------", data)
+                    console.log("thành công-----------", data)
+                    setShow('success')
+                    setError('Thêm khóa luận thành công')
+                    setTimeout(() => {
+                        navigation.navigate('ThesisApp')
+                    }, 4000)
                 } catch (error) {
                     console.log("lỗi..............", error.request.responseText)
                     err = error.request.responseText
                     e = JSON.parse(err)
-                    alert(e.error)
+                    // alert(e.error)
+                    setShow('error')
+                    setError(err)
                 }
             }
 
         }
-        else { alert("tên khóa luận không được rỗng") }
+        else {
+            setShow('error')
+            setError('Nhập tên khóa luận')
+            // alert("tên khóa luận không được rỗng") }
+        }
     }
-
+    useEffect(() => {
+        if (show !== '') {
+            const timer = setTimeout(() => {
+                setShow('');
+            }, 2000);
+            return () => clearTimeout(timer);
+        }
+        console.log(show)
+    }, [show]);
     return (
         <View>
             <View style={style.top}>
@@ -111,7 +137,7 @@ const AddThesis = () => {
                         />
                     </View>
                     <View style={thesis.text_input}>
-                        <Text style={login.text}>Giảng viên hướng dẫn 1 </Text>
+                        <Text style={login.text}>Giảng viên phản biện </Text>
 
                         <GetTeacher getTecher={getIdTeacher1} />
                     </View>
@@ -135,6 +161,20 @@ const AddThesis = () => {
 
                 </View>
             </View >
+            {show === 'error' && (
+                <ToastifyMessage
+                    type="danger"
+                    text={error}
+                    description="Cập nhật thất bại"
+                />
+            )}
+            {show === 'success' && (
+                <ToastifyMessage
+                    type="success"
+                    text={error}
+                    description="Cập nhật thất bại"
+                />
+            )}
         </View>
 
 

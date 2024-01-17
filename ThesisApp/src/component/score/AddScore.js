@@ -76,14 +76,14 @@ const AddScore = ({ route, navigation }) => {
 
             }
             catch (er) {
-                console.log('error function sendscore')
+                console.log('error function sendscore', er)
             }
         }
         else {
-            let check = confirm('Ok')
-            if (check) {
-                navigation.navigate('ThesisApp')
-            }
+            // let check = confirm('Ok')
+            // if (check) {
+            //     navigation.navigate('ThesisApp')
+            // }
             alert('list_Score null')
 
         }
@@ -107,7 +107,7 @@ const AddScore = ({ route, navigation }) => {
 
     const addScore = (value, idhs, idcriteria, idthesis) => {
         let score_check = list_Score.find(score => score['student'] == idhs && score['criteria'] == idcriteria && score['thesis'] == idthesis) ?? undefined
-        console.log('score_check', score_check)
+        // console.log('score_check', score_check)
         if (score_check == undefined) {
             setListScore(pre => [...pre, { "student": idhs, "criteria": idcriteria, "thesis": idthesis, "score": value }])
         }
@@ -116,7 +116,7 @@ const AddScore = ({ route, navigation }) => {
             setListScore([...list_Score]);
         }
 
-        console.log('list score update', list_Score)
+        // console.log('list score update', list_Score)
     }
     useEffect(() => {
         getcriteria();

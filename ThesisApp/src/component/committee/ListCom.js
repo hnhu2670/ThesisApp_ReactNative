@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { FlatList, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, FlatList, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import axios from 'axios';
 import { endpoints } from '../../configs/Apis';
 import { AntDesign } from '@expo/vector-icons';
@@ -96,7 +96,8 @@ const ListCom = ({ navigation }) => {
                 </View>
                 <View style={hoidong.bottom}>
                     {committees.length < 1 ? (
-                        <Text>Chưa có dữ liệu</Text>
+                        // <Text>Chưa có dữ liệu</Text>
+                        <ActivityIndicator size={30} color={color.green} />
                     ) : (
 
                         <FlatList
