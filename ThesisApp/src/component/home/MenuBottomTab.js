@@ -29,7 +29,6 @@ const MenuBottomTab = () => {
                                 <Icon
                                     name={tab.activeIconName}
                                     color={focused ? "#2d665f" : "gray"}
-                                    // type={tab.typeIcon}
                                     size={focused ? tab.activeSize : tab.unactiveSize}
                                 />
                             )

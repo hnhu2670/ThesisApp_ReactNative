@@ -97,7 +97,7 @@ const Home = ({ navigation }) => {
                                     <MaterialIcons style={[home.icon]} name='update' size={30} color={color.green} />
                                     <Text style={[home.infor]}>Cập nhật hồi đồng</Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity style={[home.thumb]}>
+                                <TouchableOpacity style={[home.thumb]} onPress={() => { navigation.navigate("Đổi tên hội đồng") }}>
                                     <MaterialCommunityIcons style={[home.icon]} name='rename-box' size={30} color={color.green} />
                                     <Text style={[home.infor]}>Cập nhật tên</Text>
                                 </TouchableOpacity>

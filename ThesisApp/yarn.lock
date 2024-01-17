@@ -5680,6 +5680,11 @@ react-native-image-picker@^7.1.0:
   resolved "https://registry.npmjs.org/react-native-image-picker/-/react-native-image-picker-7.1.0.tgz"
   integrity sha512-An0hn2mwqjGAA2mbsXdHRTyoMMklGPT9stIjE2zvkegU7CdoFhowqvVHfnELJNZnfAiSQuIaeY//z0r1R0lsgw==
 
+react-native-popup-confirm-toast@^2.3.3:
+  version "2.3.3"
+  resolved "https://registry.npmjs.org/react-native-popup-confirm-toast/-/react-native-popup-confirm-toast-2.3.3.tgz"
+  integrity sha512-SpcUIK71euQ8XEAipNPDjrM9WiMsxP2C7b6mje0jYRrrChjf8T8McTktK+LhOJxKf9oNE1gHLgobyFVKRGzJlg==
+
 react-native-reanimated@~3.3.0:
   version "3.3.0"
   resolved "https://registry.npmjs.org/react-native-reanimated/-/react-native-reanimated-3.3.0.tgz"

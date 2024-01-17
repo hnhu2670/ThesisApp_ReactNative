@@ -1,6 +1,7 @@
 import Chat from "../chat/Chat";
 import Committee from "../committee/Committee";
 import Criteria from "../criteria/Criteria";
+import ConfirmMessage from "../layout/ConfirmMessage";
 // import Criteria from "../criteria/Criteria";
 import Thesis from "../thesis/Thesis";
 import Home from "./Home";
@@ -47,6 +48,15 @@ export const HomeNavigation = [
         id: 3,
         route: Chat,
         name: 'Chat',
+        activeIconName: 'wechat',
+        typeIcon: "AntDesign",
+        activeSize: 25,
+        unactiveSize: 15,
+    },
+    {
+        id: 4,
+        route: ConfirmMessage,
+        name: 'Confirm',
         activeIconName: 'wechat',
         typeIcon: "AntDesign",
         activeSize: 25,

@@ -67,8 +67,7 @@ const Update = ({ navigation }) => {
                         "Content-Type": "multipart/form-data"
                     }
                 })
-                // console.log(response.status);
-                // console.log('usserupdate', response.data);
+
                 // lưu lại thông tin user vào AsyncStorage
                 await AsyncStorage.setItem('user', JSON.stringify(response.data));
 

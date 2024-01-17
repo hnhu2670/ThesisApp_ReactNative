@@ -6,6 +6,7 @@ import { createContext } from 'react';
 import MyUserReducer from './src/reducers/MyUserReducer';
 import { useReducer } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Root as PopupRootProvider } from 'react-native-popup-confirm-toast';
 
 import Login from './src/login/Login';
 import Main from './src/component/home/Main'
@@ -22,6 +23,7 @@ import UpdateComm from './src/component/committee/UpdateComm';
 import AddScore from './src/component/score/AddScore';
 import DanhSachHD from './src/component/committee/DanhSachHD';
 import DanhSachKL from './src/component/thesis/DanhSachKL';
+import UpdateName from './src/component/committee/UpdateName';
 
 export const MyUserContext = createContext();
 export const MyThesisContext = createContext();
@@ -29,40 +31,43 @@ const Stack = createNativeStackNavigator();
 function App() {
   const [user, dispatch] = useReducer(MyUserReducer, AsyncStorage.getItem("user") || null)
   return (
-    <MyUserContext.Provider value={[user, dispatch]}>
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName='Login'>
-          <Stack.Screen name='ThesisApp' component={Main}
-            options={{
-              title: 'ThesisApp',
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} />
-          <Stack.Screen name='Profile' component={Profile} />
-          <Stack.Screen name='Cập nhật thông tin' component={Update} />
-          <Stack.Screen name='Đổi mật khẩu' component={ChangePassword} />
-          <Stack.Screen name='Cập nhật hội đồng' component={UpdateComm} />
-          <Stack.Screen name='Danh sách hội đồng' component={ListCom} />
-          <Stack.Screen name='Danh sách HĐ' component={DanhSachHD}
-            options={{
-              title: 'Xem hội đồng',
-            }} />
-          <Stack.Screen name='Thêm hội đồng' component={AddCom} />
-          <Stack.Screen name='Quên mật khẩu' component={ForgotPassword} options={{ headerShown: false }} />
-          <Stack.Screen name='Thêm khóa luận' component={AddThesis} />
-          <Stack.Screen name='Cập nhật khóa luận' component={UpdateThesis} />
-          <Stack.Screen name='Danh sách khóa luận' component={ListThesis} />
-          <Stack.Screen name='Danh sách KL' component={DanhSachKL}
-            options={{
-              title: 'Xem khóa luận',
-            }} />
-          <Stack.Screen name='Chấm Điểm' component={AddScore} />
-          {/* <Stack.Screen name='Hoi dong' component={Criteria} /> */}
+    <PopupRootProvider>
+      <MyUserContext.Provider value={[user, dispatch]}>
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName='Login'>
+            <Stack.Screen name='ThesisApp' component={Main}
+              options={{
+                title: 'ThesisApp',
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} />
+            <Stack.Screen name='Profile' component={Profile} />
+            <Stack.Screen name='Cập nhật thông tin' component={Update} />
+            <Stack.Screen name='Đổi mật khẩu' component={ChangePassword} />
+            <Stack.Screen name='Cập nhật hội đồng' component={UpdateComm} />
+            <Stack.Screen name='Danh sách hội đồng' component={ListCom} />
+            <Stack.Screen name='Danh sách HĐ' component={DanhSachHD}
+              options={{
+                title: 'Xem hội đồng',
+              }} />
+            <Stack.Screen name='Thêm hội đồng' component={AddCom} />
+            <Stack.Screen name='Tên hội đồng' component={UpdateName} />
+            <Stack.Screen name='Quên mật khẩu' component={ForgotPassword} options={{ headerShown: false }} />
+            <Stack.Screen name='Thêm khóa luận' component={AddThesis} />
+            <Stack.Screen name='Cập nhật khóa luận' component={UpdateThesis} />
+            <Stack.Screen name='Danh sách khóa luận' component={ListThesis} />
+            <Stack.Screen name='Danh sách KL' component={DanhSachKL}
+              options={{
+                title: 'Xem khóa luận',
+              }} />
+            <Stack.Screen name='Chấm Điểm' component={AddScore} />
+            {/* <Stack.Screen name='Hoi dong' component={Criteria} /> */}
 
-        </Stack.Navigator>
-      </NavigationContainer>
-    </MyUserContext.Provider>
+          </Stack.Navigator>
+        </NavigationContainer>
+      </MyUserContext.Provider>
+    </PopupRootProvider>
   )
 }
 

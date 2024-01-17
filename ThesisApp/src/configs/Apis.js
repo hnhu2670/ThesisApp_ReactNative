@@ -38,6 +38,7 @@ export const endpoints = {
     "add-all-member": `${SERVER_URL}/add-all-member/`, //add thành viên hội đồng  
     "get-member": `${SERVER_URL}/get-member-of-committee/`,//edit hội đồng
     "update-committes": (id) => `${SERVER_URL}/update-committee-and-member/${id}/`,
+    "update-name-committes": (id) => `${SERVER_URL}/update-committee/${id}/`,
 
     "score-thesis-students": (id) => `${SERVER_URL}/get-thesis/${id}/student/`,//điểm của sv làm khóa luận
     "get-thesis-score": (id) => `${SERVER_URL}/get-thesis/${id}/score/`,

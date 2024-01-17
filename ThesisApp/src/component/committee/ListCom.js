@@ -26,6 +26,10 @@ const ListCom = ({ navigation }) => {
     const goToDetail = (id) => {
         navigation.navigate("Cập nhật hội đồng", { id })
     }
+
+    const changeName = (id, name) => {
+        navigation.navigate("Tên hội đồng", { id, name })
+    }
     const renderData = ({ item }) => {
         return (
             <>
@@ -35,7 +39,12 @@ const ListCom = ({ navigation }) => {
                             <Text style={[hoidong.cell, hoidong.first, { width: "15%" }]}>
                                 {item.id}
                             </Text>
-                            <Text style={[hoidong.cell, { width: "65%" }]}>{item.name}</Text>
+                            <TouchableOpacity
+                                style={[hoidong.cell, { width: "65%" }]}
+                                onPress={() => changeName(item.id, item.name)}>
+                                <Text >{item.name}</Text>
+                            </TouchableOpacity>
+
                             <TouchableOpacity
                                 onPress={() => goToDetail(item.id)}
                                 style={[hoidong.cell, hoidong.edit, { width: "15%" }]}

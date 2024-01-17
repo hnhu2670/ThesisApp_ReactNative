@@ -1,5 +1,6 @@
-import { StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 import color from "../../assets/js/color";
+const windowHeight = Dimensions.get('window').height;
 
 const profile = StyleSheet.create({
     container: {
@@ -69,6 +70,23 @@ const profile = StyleSheet.create({
         bottom: -10,
         right: -20
 
+    },
+    // change pass
+    topChange: {
+        height: windowHeight * 0.35,
+        backgroundColor: color.green
+    },
+    bottomChange: {
+        backgroundColor: "#ffff",
+        height: windowHeight * 0.55,
+        width: "100%",
+    },
+    tile: {
+        fontSize: 30,
+        textAlign: 'center',
+        paddingVertical: 30,
+        justifyContent: 'center'
     }
+
 });
 export default profile;

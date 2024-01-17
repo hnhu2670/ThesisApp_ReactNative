@@ -8,6 +8,7 @@ import styles from '../styles/styles'
 import { authApi, endpoints } from '../configs/Apis';
 import { MyUserContext } from '../../App';
 import ToastifyMessage from '../component/layout/ToastifyMessage';
+import color from '../assets/js/color';
 
 const Login = ({ navigation }) => {
     const [username, setUsername] = useState('');
@@ -73,13 +74,8 @@ const Login = ({ navigation }) => {
     }, [show]);
 
     return (
-        <KeyboardAvoidingView
-            // behavior={"padding"}
-            style={styles.background}>
-
-
-
-            <View style={login.top}>
+        <View>
+            <View style={[login.top, { backgroundColor: color.green }]}>
                 <View style={{ flexDirection: "row" }}>
                     <Image
                         style={[login.image]}
@@ -97,7 +93,11 @@ const Login = ({ navigation }) => {
                 >Thesis App</Text>
 
             </View>
-            <View style={[login.bottom]}>
+
+            <KeyboardAvoidingView style={[login.bottom]}
+                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            // keyboardVerticalOffset={500}
+            >
                 <View style={login.text_input}>
                     <Text style={[login.text]}>Tên đăng nhập</Text>
                     <TextInput
@@ -138,7 +138,7 @@ const Login = ({ navigation }) => {
                     </TouchableOpacity>
                 </View>
 
-            </View>
+            </KeyboardAvoidingView>
             {show === true && (
                 <ToastifyMessage
                     type="danger"
@@ -147,7 +147,7 @@ const Login = ({ navigation }) => {
                 />
             )}
 
-        </KeyboardAvoidingView>
+        </View>
 
 
     )
