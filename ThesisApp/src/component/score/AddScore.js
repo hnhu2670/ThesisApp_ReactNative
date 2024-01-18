@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { Alert, Button, ScrollView, TextInput, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, Alert, Button, ScrollView, TextInput, TouchableOpacity, View } from 'react-native'
 import { Text } from 'react-native'
 import { authApiToken, endpoints } from '../../configs/Apis'
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -69,7 +69,7 @@ const AddScore = ({ route, navigation }) => {
 
                 if (res.status == 200) {
                     alert('Oke')
-                    navigation.navigate('Thesis App')
+                    navigation.navigate('ThesisApp')
                 } else {
                     alert('error!!!')
                 }
@@ -155,12 +155,14 @@ const AddScore = ({ route, navigation }) => {
                                     })}
                                 </> : <>
                                     <Text>criteria rỗng</Text>
+                                    <ActivityIndicator />
                                 </>}
                             </View>
                         </>
                     })}
                 </> : <>
                     <Text>Chưa có sinh viên được nhập điểm</Text>
+                    <ActivityIndicator />
                 </>}
             </ScrollView>
             <View style={[thesis.text_input]} >

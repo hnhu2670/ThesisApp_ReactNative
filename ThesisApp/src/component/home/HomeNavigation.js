@@ -2,6 +2,7 @@ import Chat from "../chat/Chat";
 import Committee from "../committee/Committee";
 import Criteria from "../criteria/Criteria";
 import ConfirmMessage from "../layout/ConfirmMessage";
+import ModalConfirm from "../layout/ModalConfirm";
 // import Criteria from "../criteria/Criteria";
 import Thesis from "../thesis/Thesis";
 import Home from "./Home";

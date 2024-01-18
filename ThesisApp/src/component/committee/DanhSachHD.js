@@ -5,9 +5,12 @@ import { endpoints } from '../../configs/Apis';
 import Search from '../layout/Search';
 import color from '../../assets/js/color';
 import styles from '../../assets/js/style';
+import { MyUserContext } from '../../../App';
 
 
-const DanhSachHD = () => {
+const DanhSachHD = ({ navigation }) => {
+    const [current_user, dispatch] = useContext(MyUserContext);
+
     const [committees, setCommittees] = useState([]);
     const [filter, setFilter] = useState([])
     const getCommittees = async () => {
@@ -18,18 +21,43 @@ const DanhSachHD = () => {
             console.log("Lỗi rồi trang listcom", error.message);
         }
     };
+    const goToDetail = (id, name) => {
+        navigation.navigate("Chi tiết hội đồng", { id, name })
+    }
+    const goToDelete = (id, name) => {
+        navigation.navigate("Xóa thành viên", { id, name })
+    }
     const renderData = ({ item }) => {
         return (
             <>
-                <View key={item.id} >
-                    <View style={hoidong.row}>
-                        <Text style={[hoidong.cell, hoidong.first, { width: "15%" }]}>
-                            {item.id}
-                        </Text>
-                        <Text style={[hoidong.cell, { width: "65%" }]}>{item.name}</Text>
-                    </View>
+                {current_user.role === 'student' || current_user.role === 'lecturer' ? <>
+                    <View key={item.id} >
+                        <View style={hoidong.row}>
+                            <Text style={[hoidong.cell, hoidong.first, { width: "20%" }]}>
+                                Mã: {item.id}
+                            </Text>
+                            <TouchableOpacity onPress={() => goToDetail(item.id, item.name)}>
+                                <Text style={[hoidong.cell, { width: "100%" }]}>{item.name}</Text>
+                            </TouchableOpacity>
 
-                </View>
+                        </View>
+
+                    </View>
+                </> : <>
+                    <View key={item.id} >
+                        <View style={hoidong.row}>
+                            <Text style={[hoidong.cell, hoidong.first, { width: "20%" }]}>
+                                Mã: {item.id}
+                            </Text>
+                            <TouchableOpacity onPress={() => goToDelete(item.id, item.name)}>
+                                <Text style={[hoidong.cell, { width: "100%" }]}>{item.name}</Text>
+                            </TouchableOpacity>
+
+                        </View>
+
+                    </View>
+                </>}
+
             </>)
     };
     const searchName = (text) => {
@@ -86,7 +114,7 @@ const hoidong = StyleSheet.create({
         flexDirection: "row",
         width: "100%",
         height: 80,
-        justifyContent: "space-around",
+        // justifyContent: "space-around",
         borderRadius: 15,
         borderColor: color.green,
         borderWidth: 1,
@@ -104,11 +132,12 @@ const hoidong = StyleSheet.create({
         elevation: 5, // Áp dụng bóng (chỉ áp dụng cho Android)
     },
     cell: {
-        height: "auto",
+        // height: "auto",
         padding: 10,
         textAlign: "left",
         fontSize: 16,
         color: color.green,
+        width: '100%'
         // borderRightWidth: 2
     },
     first: {

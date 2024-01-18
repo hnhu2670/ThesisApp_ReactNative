@@ -1,11 +1,12 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { ActivityIndicator, FlatList, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import { endpoints } from '../../configs/Apis'
+import { authApiToken, endpoints } from '../../configs/Apis'
 import { AntDesign } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import styles from '../../assets/js/style'
 import Search from '../layout/Search'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 
 const ListThesisForScore = () => {
@@ -15,8 +16,10 @@ const ListThesisForScore = () => {
     const nav = useNavigation();
 
     const getListThesis = async () => {
-        const res = await axios.get(endpoints["list-thesis"])
+        const token = await AsyncStorage.getItem('token')
 
+        const res = await authApiToken(token).get(endpoints["list-thesis"])
+        console.log('danh sách khóa luận được chấm điểm', res.data.length)
         if (res.status === 200) {
             const result = await res.data;
             setList(result);

@@ -24,6 +24,8 @@ import AddScore from './src/component/score/AddScore';
 import DanhSachHD from './src/component/committee/DanhSachHD';
 import DanhSachKL from './src/component/thesis/DanhSachKL';
 import UpdateName from './src/component/committee/UpdateName';
+import DetailCom from './src/component/committee/DetailCom';
+import DeleteMember from './src/component/committee/DeleteMember';
 
 export const MyUserContext = createContext();
 export const MyThesisContext = createContext();
@@ -51,6 +53,11 @@ function App() {
               options={{
                 title: 'Xem hội đồng',
               }} />
+            <Stack.Screen name='Chi tiết hội đồng' component={DetailCom}
+              options={{
+                title: 'Xem thông tin hội đồng',
+              }} />
+            <Stack.Screen name='Xóa thành viên' component={DeleteMember} />
             <Stack.Screen name='Thêm hội đồng' component={AddCom} />
             <Stack.Screen name='Tên hội đồng' component={UpdateName} />
             <Stack.Screen name='Quên mật khẩu' component={ForgotPassword} options={{ headerShown: false }} />

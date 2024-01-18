@@ -63,51 +63,53 @@ const Home = ({ navigation }) => {
                                         </TouchableOpacity>
                                     </View>
                                 </>}
-                            </> : <></>}
-                        </View>
-                        {/* quản lý khóa luận */}
-                        <View >
-                            <Text style={[home.title]}>Quản lý khóa luận</Text>
-                            <View style={[home.items]}>
-                                <TouchableOpacity style={[home.thumb]} onPress={() => navigation.navigate('Thêm khóa luận')}>
-                                    <MaterialIcons style={[home.icon]} name='addchart' size={30} color={color.green} />
-                                    <Text style={[home.infor]}>Thêm khóa luận</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={[home.thumb]} onPress={() => navigation.navigate('Danh sách khóa luận')}>
-                                    <MaterialIcons style={[home.icon]} name='update' size={30} color={color.green} />
-                                    <Text style={[home.infor]}>Cập nhật khóa luận</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={[home.thumb]}>
-                                    <FontAwesome style={[home.icon]} name='remove' size={30} color={color.green} />
-                                    <Text style={[home.infor]}>Loại bỏ khóa luận</Text>
-                                </TouchableOpacity>
+                            </> : <>
+                                {/* quản lý khóa luận */}
+                                <View >
+                                    <Text style={[home.title]}>Quản lý khóa luận</Text>
+                                    <View style={[home.items]}>
+                                        <TouchableOpacity style={[home.thumb]} onPress={() => navigation.navigate('Thêm khóa luận')}>
+                                            <MaterialIcons style={[home.icon]} name='addchart' size={30} color={color.green} />
+                                            <Text style={[home.infor]}>Thêm khóa luận</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity style={[home.thumb]} onPress={() => navigation.navigate('Danh sách khóa luận')}>
+                                            <MaterialIcons style={[home.icon]} name='update' size={30} color={color.green} />
+                                            <Text style={[home.infor]}>Cập nhật khóa luận</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity style={[home.thumb]}>
+                                            <FontAwesome style={[home.icon]} name='remove' size={30} color={color.green} />
+                                            <Text style={[home.infor]}>Loại bỏ khóa luận</Text>
+                                        </TouchableOpacity>
 
-                            </View>
-                        </View>
-                        {/* quản lý hội đồng */}
-                        <View
-                        >
-                            <Text style={[home.title]}>Quản lý hội đồng</Text>
-                            <View style={[home.items]}>
-                                <TouchableOpacity style={[home.thumb]} onPress={() => { navigation.navigate("Thêm hội đồng") }}>
-                                    <Entypo style={[home.icon]} name='add-to-list' size={30} color={color.green} />
-                                    <Text style={[home.infor]}>Thêm hội đồng</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={[home.thumb]} onPress={() => { navigation.navigate("Danh sách hội đồng") }}>
-                                    <MaterialIcons style={[home.icon]} name='update' size={30} color={color.green} />
-                                    <Text style={[home.infor]}>Cập nhật hồi đồng</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={[home.thumb]}>
-                                    <FontAwesome style={[home.icon]} name='remove' size={30} color={color.green} />
-                                    <Text style={[home.infor]}>Xóa hội đồng</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={[home.thumb]}>
-                                    <Entypo style={[home.icon]} name='remove-user' size={30} color={color.green} />
-                                    <Text style={[home.infor]}>Xóa thành viên</Text>
-                                </TouchableOpacity>
+                                    </View>
+                                </View>
+                                {/* quản lý hội đồng */}
+                                <View
+                                >
+                                    <Text style={[home.title]}>Quản lý hội đồng</Text>
+                                    <View style={[home.items]}>
+                                        <TouchableOpacity style={[home.thumb]} onPress={() => { navigation.navigate("Thêm hội đồng") }}>
+                                            <Entypo style={[home.icon]} name='add-to-list' size={30} color={color.green} />
+                                            <Text style={[home.infor]}>Thêm hội đồng</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity style={[home.thumb]} onPress={() => { navigation.navigate("Danh sách hội đồng") }}>
+                                            <MaterialIcons style={[home.icon]} name='update' size={30} color={color.green} />
+                                            <Text style={[home.infor]}>Cập nhật hồi đồng</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity style={[home.thumb]}>
+                                            <FontAwesome style={[home.icon]} name='remove' size={30} color={color.green} />
+                                            <Text style={[home.infor]}>Xóa hội đồng</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity style={[home.thumb]} onPress={() => { navigation.navigate("Danh sách HĐ") }}>
+                                            <Entypo style={[home.icon]} name='remove-user' size={30} color={color.green} />
+                                            <Text style={[home.infor]}>Xóa thành viên</Text>
+                                        </TouchableOpacity>
 
-                            </View>
+                                    </View>
+                                </View>
+                            </>}
                         </View>
+
 
                     </View>
                 </View>
