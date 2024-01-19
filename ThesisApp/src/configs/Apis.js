@@ -1,11 +1,11 @@
 import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const SERVER_URL = 'http://192.168.1.7:8000';
-const SERVER = "http://192.168.1.7";
+// const SERVER_URL = 'http://192.168.1.7:8000';
+// const SERVER = "http://192.168.1.7";
 
-// const SERVER_URL = 'http://10.17.50.232:8000';
-// const SERVER = "http://10.17.50.232";
+const SERVER_URL = 'http://172.16.17.180:8000';
+const SERVER = "http://172.16.17.180";
 
 // const SERVER_URL = 'http://10.17.49.245:8000';
 // const SERVER = "http://10.17.49.245";
@@ -18,6 +18,8 @@ export const endpoints = {
     "get-user-role": `${SERVER_URL}/get-users/`,//get user by id
     "update-user": (id) => `${SERVER_URL}/update-user/${id}/`,//update profile
     "check-old-password": `${SERVER_URL}/check-old-password/`,//ktra mật khẩu cũ
+    "thesis-of-user": (id) => `${SERVER_URL}/get-users/${id}/thesis`,//khóa luận mà sv tham gia ==> id sv
+    "committee-of-user": (id) => `${SERVER_URL}/get-users/${id}/committee`,//hội đồng mà gv tham gia
 
     "criteria": `${SERVER_URL}/get-criteria/`,//tiêu chí
 
@@ -25,6 +27,7 @@ export const endpoints = {
     "update-thesis": (id) => `${SERVER_URL}/update-thesis/${id}/`,
     "get-thesis": (id) => `${SERVER_URL}/get-thesis/${id}/`,
     "list-thesis": `${SERVER_URL}/get-thesis/`,//ds khóa luận,
+    "thesis-of-lecturer": `${SERVER_URL}/get-thesis/lecturer`,//ds khóa luận của gv,
 
     "list-committes": `${SERVER_URL}/get-committee/`,//ds khóa luận,
     "edit-committes": (id) => `${SERVER_URL}/get-committee/${id}/`,//edit khoa luận

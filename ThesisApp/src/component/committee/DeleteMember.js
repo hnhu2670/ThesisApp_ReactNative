@@ -37,7 +37,7 @@ const DeleteMember = ({ route, navigation }) => {
             // click ok
             callback: deleteMember,
             cancelCallback: () => {
-                Popup.hide();
+                Popup.hide();//tắt confirm
             },
         });
 
@@ -48,7 +48,7 @@ const DeleteMember = ({ route, navigation }) => {
                 console.log('Xóa thành công', data.status);
                 setShow('success')
                 setMessager("Xóa thành viên thành công")
-                await getDetail()
+                await getDetail() //gọi lại hàm get để lấy thông tin
 
 
             } catch (error) {

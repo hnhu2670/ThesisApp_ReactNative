@@ -7,6 +7,7 @@ import Search from '../layout/Search';
 import color from '../../assets/js/color';
 import { MyUserContext } from '../../../App';
 import styles from '../../assets/js/style';
+import { Root, Popup } from 'react-native-popup-confirm-toast'
 
 
 const ListCom = ({ navigation }) => {
@@ -29,6 +30,10 @@ const ListCom = ({ navigation }) => {
 
     const changeName = (id, name) => {
         navigation.navigate("Tên hội đồng", { id, name })
+    }
+    const checkName = async (id, name) => {
+        console.log('thông tin user', id, name)
+
     }
     const renderData = ({ item }) => {
         return (
@@ -84,6 +89,7 @@ const ListCom = ({ navigation }) => {
         console.log('Search text:', text);
 
     };
+
     useEffect(() => {
         getCommittees();
     }, []);

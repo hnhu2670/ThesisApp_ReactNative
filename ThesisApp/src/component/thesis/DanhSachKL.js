@@ -105,7 +105,7 @@ const list_thesis = StyleSheet.create({
     right: {
         flexDirection: "row",
         width: "100%",
-        height: 85,
+        height: 'auto',
         borderWidth: 1,
         borderColor: '#d0eacef5',
         // backgroundColor: '#e1eee0e8',
@@ -143,6 +143,7 @@ const list_thesis = StyleSheet.create({
     },
     name: {
         width: "90%",
+        height: 'auto',
         color: "#2d665f",
         // color: "black",
         fontSize: 16

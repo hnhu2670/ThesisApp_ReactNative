@@ -70,10 +70,8 @@ const UpdateThesis = ({ route, navigation }) => {
     const getList = async () => {
         const { data } = await axios.get(endpoints["get-thesis"](id))
         // console.log('thông tin--------------', data)
-        // listgv = res.data
         setListThesis(data)
-        // student = data.students[0].user.id
-        // console.log('getList', student)
+
         return data
     }
     // lấy ds giảng viên

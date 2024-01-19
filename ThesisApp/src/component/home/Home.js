@@ -41,9 +41,9 @@ const Home = ({ navigation }) => {
                                 <Text style={[home.title]}>Chức năng của tôi</Text>
                                 {current_user.role === 'student' ? <>
                                     <View style={[home.items]}>
-                                        <TouchableOpacity style={[home.thumb]}>
+                                        <TouchableOpacity style={[home.thumb]} onPress={() => navigation.navigate('Khóa luận sinh viên')}>
                                             <FontAwesome style={[home.icon]} name='group' size={30} color={color.green} />
-                                            <Text style={[home.infor]}>Khóa luận tham gia</Text>
+                                            <Text style={[home.infor]}>Xem khóa luận tham gia</Text>
                                         </TouchableOpacity>
                                         <TouchableOpacity style={[home.thumb]}>
                                             <AntDesign style={[home.icon]} name='customerservice' size={30} color={color.green} />
@@ -53,11 +53,11 @@ const Home = ({ navigation }) => {
                                 </> : <>
                                     <View style={[home.items]}>
 
-                                        <TouchableOpacity style={[home.thumb]}>
+                                        <TouchableOpacity style={[home.thumb]} onPress={() => navigation.navigate('Hội đồng tham gia')}>
                                             <AntDesign style={[home.icon]} name='customerservice' size={30} color={color.green} />
                                             <Text style={[home.infor]}>Hội đồng tham gia</Text>
                                         </TouchableOpacity>
-                                        <TouchableOpacity style={[home.thumb]}>
+                                        <TouchableOpacity style={[home.thumb]} onPress={() => navigation.navigate('Khóa luận giảng viên')}>
                                             <MaterialCommunityIcons style={[home.icon]} name='marker' size={30} color={color.green} />
                                             <Text style={[home.infor]}>Chấm điểm</Text>
                                         </TouchableOpacity>

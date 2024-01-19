@@ -26,6 +26,10 @@ import DanhSachKL from './src/component/thesis/DanhSachKL';
 import UpdateName from './src/component/committee/UpdateName';
 import DetailCom from './src/component/committee/DetailCom';
 import DeleteMember from './src/component/committee/DeleteMember';
+import MyCommittee from './src/component/committee/MyCommittee';
+import LecturerThesis from './src/component/thesis/LecturerThesis';
+import StudentThesis from './src/component/thesis/StudentThesis';
+import DetailThesis from './src/component/thesis/DetailThesis';
 
 export const MyUserContext = createContext();
 export const MyThesisContext = createContext();
@@ -57,6 +61,7 @@ function App() {
               options={{
                 title: 'Xem thông tin hội đồng',
               }} />
+            <Stack.Screen name='Hội đồng tham gia' component={MyCommittee} />
             <Stack.Screen name='Xóa thành viên' component={DeleteMember} />
             <Stack.Screen name='Thêm hội đồng' component={AddCom} />
             <Stack.Screen name='Tên hội đồng' component={UpdateName} />
@@ -67,6 +72,20 @@ function App() {
             <Stack.Screen name='Danh sách KL' component={DanhSachKL}
               options={{
                 title: 'Xem khóa luận',
+              }} />
+            <Stack.Screen name='Khóa luận giảng viên' component={LecturerThesis}
+              options={{
+                title: 'Khóa luận tham gia',
+              }}
+            />
+            <Stack.Screen name='Khóa luận sinh viên' component={StudentThesis}
+              options={{
+                title: 'Khóa luận tham gia',
+              }}
+            />
+            <Stack.Screen name='Chi tiết khóa luận' component={DetailThesis}
+              options={{
+                title: 'Xem thông tin khóa luận',
               }} />
             <Stack.Screen name='Chấm Điểm' component={AddScore} />
             {/* <Stack.Screen name='Hoi dong' component={Criteria} /> */}

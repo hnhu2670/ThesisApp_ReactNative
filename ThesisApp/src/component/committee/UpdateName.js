@@ -44,6 +44,8 @@ const UpdateName = ({ route, navigation }) => {
             [field]: value
         }));
     };
+
+
     return (
         <View style={[styles.container, { paddingTop: 0 }]}>
 
