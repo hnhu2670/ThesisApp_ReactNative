@@ -31,12 +31,7 @@ const ToastifyMessage = forwardRef(({ type = 'success', text, description, timeo
         show: showToast
     }));
 
-    // const showToast = (message) => {
-    //     setVisible(true);
-    //     setTimeout(() => {
-    //         setVisible(false);
-    //     }, message.timeout || 5000);
-    // };
+
 
     if (!visible) {
         return null;
@@ -66,7 +61,7 @@ const style = StyleSheet.create({
         padding: 20,
         position: 'absolute',
         top: '5%',
-        marginLeft: '5%',
+        marginHorizontal: '5%',
         borderRadius: 10,
         shadowColor: '#0000',
         shadowOffset: {

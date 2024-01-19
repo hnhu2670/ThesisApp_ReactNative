@@ -27,6 +27,16 @@ const DanhSachHD = ({ navigation }) => {
     const goToDelete = (id, name) => {
         navigation.navigate("Xóa thành viên", { id, name })
     }
+    const searchName = (text) => {
+        const filterName = committees.filter((item) =>
+            // toLowerCase() chuyển chữ hoa thành thường
+            item.name.toLowerCase().includes(text.toLowerCase())
+        );
+        // setCommittees(filterName);
+        setFilter(filterName)
+        console.log('Search text:', text);
+
+    };
     const renderData = ({ item }) => {
         return (
             <>
@@ -60,16 +70,7 @@ const DanhSachHD = ({ navigation }) => {
 
             </>)
     };
-    const searchName = (text) => {
-        const filterName = committees.filter((item) =>
-            // toLowerCase() chuyển chữ hoa thành thường
-            item.name.toLowerCase().includes(text.toLowerCase())
-        );
-        // setCommittees(filterName);
-        setFilter(filterName)
-        console.log('Search text:', text);
 
-    };
     useEffect(() => {
         getCommittees();
     }, []);

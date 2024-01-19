@@ -12,13 +12,14 @@ import axios from 'axios'
 import { Dropdown } from 'react-native-element-dropdown'
 import thesis from './style'
 import ToastifyMessage from '../layout/ToastifyMessage'
+import color from '../../assets/js/color'
 
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 const UpdateThesis = ({ route, navigation }) => {
-    const [show, setShow] = useState(false) //thông báo
-
+    const [show, setShow] = useState('') //thông báo
+    const [messager, setMessager] = useState('')
     const { id } = route.params;
     const [student, setStudent] = useState(null)
     const [teachers, setTeachers] = useState(null)
@@ -68,6 +69,8 @@ const UpdateThesis = ({ route, navigation }) => {
     // lấy thông tin khóa luận hiện tại
     const getList = async () => {
         const { data } = await axios.get(endpoints["get-thesis"](id))
+        // console.log('thông tin--------------', data)
+        // listgv = res.data
         setListThesis(data)
         // student = data.students[0].user.id
         // console.log('getList', student)
@@ -90,7 +93,6 @@ const UpdateThesis = ({ route, navigation }) => {
             let data = await getList() //gọi lại hàm getList
             const res = await axios.get(endpoints["list-committes"]);
 
-            listgv = res.data
             listgv.forEach(element => {
                 setData3(pre =>
                     [...pre, { value: element.id, label: `${element.name}` }]
@@ -114,7 +116,7 @@ const UpdateThesis = ({ route, navigation }) => {
             // console.log('gv1---------------------------------')
             let data = await getList() //gọi lại hàm getList
             let listTeacher = await getListTeacher()
-
+            // changeGv1.value=
             listTeacher.forEach(element => {
 
                 setData1(pre =>
@@ -165,10 +167,10 @@ const UpdateThesis = ({ route, navigation }) => {
     const change = async () => {
         const token = await AsyncStorage.getItem('token')
         const formData = new FormData()
-        formData.append("giangvien1", changeGv1.value || '')
-        formData.append("giangvien2", changeGv2.value || '')
-        formData.append("sinhvien", student || [''])
-        formData.append("committee", changeComm.value || '')
+        formData.append("giangvien1", changeGv1.value)
+        formData.append("giangvien2", changeGv2.value)
+        formData.append("sinhvien", student)
+        formData.append("committee", changeComm.value)
         console.log("form data", formData)
         try {
             const { data } = await authApiToken(token).patch(endpoints['update-thesis'](id), formData,
@@ -178,14 +180,20 @@ const UpdateThesis = ({ route, navigation }) => {
                     }
                 }
             )
-            setShow(true)
+            setShow('success')
+            setMessager("Cập nhật thành công")
             setTimeout(() => {
                 navigation.navigate('Danh sách khóa luận');
             }, 1000);
             console.log('Cập nhật thành công nhe', data)
 
         } catch (error) {
-            console.log("lỗi rồi nhe bạn ơi update thesis", error)
+            // console.log("lỗi rồi nhe bạn ơi update thesis", error)
+            console.log("lỗi rồi nhe bạn ơi update thesis..............", error.request.responseText)
+            err = error.request.responseText
+            e = JSON.parse(err)
+            setShow('error')
+            setMessager(err)
         }
 
     }
@@ -196,7 +204,15 @@ const UpdateThesis = ({ route, navigation }) => {
         getCommittee()
         getGv1()
         getGv2()
-    }, [id])
+        getIdStudent()
+        if (show !== '') {
+            const timer = setTimeout(() => {
+                setShow('');
+            }, 2000);
+            return () => clearTimeout(timer);
+        }
+        console.log(show)
+    }, [id, show])
     return (
         <View>
             <View style={style.top}>
@@ -208,7 +224,15 @@ const UpdateThesis = ({ route, navigation }) => {
 
             </View>
             <View style={style.bottom}>
-                <ScrollView style={{ height: windowHeight * 0.85, marginBottom: windowHeight * 0.05 }}>
+                <Text style={{
+                    textAlign: 'center',
+                    paddingVertical: 10,
+                    fontSize: 20,
+                    borderBottomWidth: 1,
+                    borderBottomColor: 'lightgray',
+                    color: color.green
+                }}>{listThesis?.committee?.name}</Text>
+                <ScrollView style={{ height: windowHeight * 0.85, marginBottom: windowHeight * 0.05, marginTop: windowHeight * 0.02 }}>
                     <View style={thesis.text_input}>
                         <Text style={login.text}>Danh sách sinh viên hiện tại </Text>
                         <Text style={{ marginLeft: 20, marginBottom: 0 }}>
@@ -314,11 +338,18 @@ const UpdateThesis = ({ route, navigation }) => {
                     </View>
                 </View>
             </View >
-            {show == true && (
+            {show == 'success' && (
                 <ToastifyMessage
                     type="success"
-                    text="Cập nhật thành công"
-                    description="Đăng nhập thất bại"
+                    text={messager}
+                    description="Cập nhật thành công"
+                />
+            )}
+            {show == 'error' && (
+                <ToastifyMessage
+                    type="danger"
+                    text={messager}
+                    description="Cập nhật thất bại"
                 />
             )}
         </View>
@@ -326,7 +357,7 @@ const UpdateThesis = ({ route, navigation }) => {
 }
 const style = StyleSheet.create({
     top: {
-        height: windowHeight * 0.27,
+        height: windowHeight * 0.25,
         width: windowWidth,
         // backgroundColor: 'red',
         marginBottom: windowWidth * 0.05
