@@ -9,6 +9,7 @@ import { authApi, endpoints } from '../configs/Apis';
 import { MyUserContext } from '../../App';
 import ToastifyMessage from '../component/layout/ToastifyMessage';
 import color from '../assets/js/color';
+import { AntDesign, Entypo } from '@expo/vector-icons';
 
 const Login = ({ navigation }) => {
     const [username, setUsername] = useState('');
@@ -62,6 +63,12 @@ const Login = ({ navigation }) => {
             setShow(true)
         }
     };
+
+    const [showPassword, setShowPassword] = useState(false);
+
+    const showPass = () => {
+        setShowPassword(!showPassword);
+    };
     useEffect(() => {
         // console.log('trạng thái 77777:', show)
         if (show === true) {
@@ -109,14 +116,22 @@ const Login = ({ navigation }) => {
                 </View>
                 <View style={login.text_input}>
                     <Text style={login.text}>Mật khẩu</Text>
-                    <TextInput
-                        style={login.input}
-                        placeholder='Mật khẩu'
-                        secureTextEntry
-                        value={password}
-                        onChangeText={text => setPassword(text)}
+                    <View style={[login.input, { flexDirection: 'row', alignItems: 'center' }]}>
 
-                    />
+                        <TextInput
+                            style={{ width: '90%' }}
+                            placeholder='Mật khẩu'
+                            secureTextEntry={!showPassword}
+                            value={password}
+                            onChangeText={text => setPassword(text)}
+
+                        />
+                        <TouchableOpacity onPress={showPass}>
+                            <Entypo name={showPassword ? 'lock-open' : 'lock'} size={20} color={color.green} />
+                        </TouchableOpacity>
+
+                    </View>
+
                 </View>
 
                 <View style={login.text_input}>

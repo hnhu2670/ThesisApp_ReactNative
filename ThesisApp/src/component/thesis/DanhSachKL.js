@@ -60,6 +60,11 @@ const DanhSachKL = () => {
         <View style={[styles.container, { backgroundColor: color.background, height: '80%' }]}>
             <View style={list_thesis.container}>
                 <View style={list_thesis.top}>
+                    <Text style={{
+                        marginVertical: 10,
+                        color: 'gray',
+                        fontStyle: 'italic'
+                    }}>Danh sách tất cả khóa luận !!!</Text>
                     {/* onSearch truyền từ search qua */}
                     <Search onSearch={searchName} />
                 </View>
@@ -83,16 +88,16 @@ const DanhSachKL = () => {
 
 }
 const list_thesis = StyleSheet.create({
-    container: {
-        margin: 10,
-    },
+    // container: {
+    //     margin: 10,
+    // },
     top: {
-        height: '10%',
-        marginVertical: '2%',
-        // marginHorizontal: 20
+        height: 'auto',
+        marginBottom: '3%'
     },
     bottom: {
-        height: '100%'
+        height: '90%',
+        marginVertical: '3%'
     },
     row: {
         flexDirection: "row",
@@ -100,6 +105,7 @@ const list_thesis = StyleSheet.create({
         marginTop: 10,
         justifyContent: "center",
         alignItems: "center",
+
 
     },
     right: {

@@ -6,7 +6,7 @@ import MainHeader from '../layout/MainHeader';
 import ListFunction from './ListFunction';
 import DrawerTab from './DrawerTab';
 import styles from '../../assets/js/style';
-import { AntDesign, Entypo, FontAwesome, MaterialCommunityIcons, MaterialIcons, Octicons } from '@expo/vector-icons';
+import { AntDesign, Entypo, Feather, FontAwesome, MaterialCommunityIcons, MaterialIcons, Octicons } from '@expo/vector-icons';
 import color from '../../assets/js/color';
 import { MyUserContext } from '../../../App';
 
@@ -103,6 +103,10 @@ const Home = ({ navigation }) => {
                                         <TouchableOpacity style={[home.thumb]} onPress={() => { navigation.navigate("Danh sách HĐ") }}>
                                             <Entypo style={[home.icon]} name='remove-user' size={30} color={color.green} />
                                             <Text style={[home.infor]}>Xóa thành viên</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity style={[home.thumb]} onPress={() => navigation.navigate('Khóa hội đồng')}>
+                                            <Feather style={[home.icon]} name='lock' size={30} color={color.green} />
+                                            <Text style={[home.infor]}>Khóa hội đồng</Text>
                                         </TouchableOpacity>
 
                                     </View>

@@ -98,6 +98,11 @@ const ListCom = ({ navigation }) => {
         <View style={[styles.container, { backgroundColor: color.background, height: '80%' }]}>
             <View style={hoidong.container}>
                 <View style={hoidong.top}>
+                    <Text style={{
+                        marginVertical: 10,
+                        color: 'gray',
+                        fontStyle: 'italic'
+                    }}>Lựa chọn hội đồng mà bạn cần cập nhật thông tin !!!</Text>
                     <Search onSearch={searchName} />
                 </View>
                 <View style={hoidong.bottom}>
@@ -122,16 +127,14 @@ const ListCom = ({ navigation }) => {
 };
 
 const hoidong = StyleSheet.create({
-    // container: {
-    //     margin: 20,
-    //     // backgroundColor: color.lightgreen,
-    // },
     top: {
-        height: '10%',
-        marginVertical: '2%'
+        height: 'auto',
+        marginBottom: '3%',
+        // marginHorizontal: 20
     },
     bottom: {
-        height: '100%'
+        height: '90%',
+        marginVertical: '3%'
     },
     row: {
         flexDirection: "row",

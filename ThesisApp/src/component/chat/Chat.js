@@ -1,28 +1,35 @@
 import React from 'react'
-import { Text, View } from 'react-native'
-import styles from '../../assets/js/style'
-import Header from '../layout/Header'
+import { Dimensions, Text, View } from 'react-native'
 import Search from '../layout/Search'
-import { ListUser } from './ListUser'
-
+import ListUser from './ListUser'
+import Header from '../layout/Header'
+import styles from '../../assets/js/style'
+import color from '../../assets/js/color'
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 const Chat = () => {
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, { backgroundColor: color.background, height: windowHeight }]}>
             <Header />
             <Text
                 style={{
-                    fontSize: 20,
+                    fontSize: 22,
                     textAlign: 'left',
                     width: '100%',
                     fontStyle: 'italic',
-                    marginBottom: '10%',
+                    marginBottom: '3%',
                     color: color.green
                 }}
             >Chat</Text>
-            <Search />
+            <Text style={{
+                marginVertical: 10,
+                color: 'gray',
+                fontStyle: 'italic'
+            }}>Chọn người dùng mà bạn luốn liên lạc !!!</Text>
             <ListUser />
         </View>
     )
+
 }
 
 export default Chat

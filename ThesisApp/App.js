@@ -30,6 +30,7 @@ import MyCommittee from './src/component/committee/MyCommittee';
 import LecturerThesis from './src/component/thesis/LecturerThesis';
 import StudentThesis from './src/component/thesis/StudentThesis';
 import DetailThesis from './src/component/thesis/DetailThesis';
+import CloseCommittee from './src/component/committee/CloseCommittee';
 
 export const MyUserContext = createContext();
 export const MyThesisContext = createContext();
@@ -53,6 +54,7 @@ function App() {
             <Stack.Screen name='Đổi mật khẩu' component={ChangePassword} />
             <Stack.Screen name='Cập nhật hội đồng' component={UpdateComm} />
             <Stack.Screen name='Danh sách hội đồng' component={ListCom} />
+            <Stack.Screen name='Khóa hội đồng' component={CloseCommittee} />
             <Stack.Screen name='Danh sách HĐ' component={DanhSachHD}
               options={{
                 title: 'Xem hội đồng',

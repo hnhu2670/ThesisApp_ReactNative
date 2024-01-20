@@ -20,12 +20,15 @@ const windowHeight = Dimensions.get('window').height;
 const UpdateThesis = ({ route, navigation }) => {
     const [show, setShow] = useState('') //thông báo
     const [messager, setMessager] = useState('')
-    const { id } = route.params;
+    const { id, name } = route.params;
     const [student, setStudent] = useState(null)
     const [teachers, setTeachers] = useState(null)
     // const [listStudents, setListStudents] = useState([])s
     const [listThesis, setListThesis] = useState([])
 
+    const [nameThesis, setNameThesis] = useState({
+        'name': name
+    })
     const [changeGv1, setChangeGv1] = useState([])
     const [changeGv2, setChangeGv2] = useState([])
     const [changeComm, setChangeComm] = useState([])
@@ -39,7 +42,7 @@ const UpdateThesis = ({ route, navigation }) => {
 
     // lấy id sinh viên hiện tại
     const getIdStudent = (data) => {
-        console.log('==============', data)
+        // console.log('==============', data)
         var id_student = ''
         data?.map(s => {
             console.log(s)
@@ -90,8 +93,8 @@ const UpdateThesis = ({ route, navigation }) => {
             // const { data } = await axios.get(endpoints["get-thesis"](id))
             let data = await getList() //gọi lại hàm getList
             const res = await axios.get(endpoints["list-committes"]);
-
-            listgv.forEach(element => {
+            const listComm = res.data
+            listComm.forEach(element => {
                 setData3(pre =>
                     [...pre, { value: element.id, label: `${element.name}` }]
                 )
@@ -162,13 +165,21 @@ const UpdateThesis = ({ route, navigation }) => {
         // console.log(value)
     }
     // hàm update
+    const updateName = (value, field) => {
+        setNameThesis(e => ({
+            ...e,
+            [field]: value
+        }));
+    };
+
     const change = async () => {
         const token = await AsyncStorage.getItem('token')
         const formData = new FormData()
-        formData.append("giangvien1", changeGv1.value)
-        formData.append("giangvien2", changeGv2.value)
+        formData.append("giangvien1", changeGv1.value || '')
+        formData.append("giangvien2", changeGv2.value || '')
         formData.append("sinhvien", student)
-        formData.append("committee", changeComm.value)
+        formData.append("committee", changeComm.value || '')
+        formData.append("name", nameThesis.name || '')
         console.log("form data", formData)
         try {
             const { data } = await authApiToken(token).patch(endpoints['update-thesis'](id), formData,
@@ -182,16 +193,17 @@ const UpdateThesis = ({ route, navigation }) => {
             setMessager("Cập nhật thành công")
             setTimeout(() => {
                 navigation.navigate('Danh sách khóa luận');
-            }, 1000);
+            }, 1500);
             console.log('Cập nhật thành công nhe', data)
+            await getList()
 
         } catch (error) {
             // console.log("lỗi rồi nhe bạn ơi update thesis", error)
-            console.log("lỗi rồi nhe bạn ơi update thesis..............", error.request.responseText)
-            err = error.request.responseText
-            e = JSON.parse(err)
-            setShow('error')
-            setMessager(err)
+            console.log("lỗi rồi nhe bạn ơi update thesis..............", error)
+            // err = error.request.responseText
+            // e = JSON.parse(err)
+            // setShow('error')
+            // setMessager(err)
         }
 
     }
@@ -206,7 +218,7 @@ const UpdateThesis = ({ route, navigation }) => {
         if (show !== '') {
             const timer = setTimeout(() => {
                 setShow('');
-            }, 2000);
+            }, 1000);
             return () => clearTimeout(timer);
         }
         console.log(show)
@@ -222,14 +234,18 @@ const UpdateThesis = ({ route, navigation }) => {
 
             </View>
             <View style={style.bottom}>
-                <Text style={{
+                {/* <Text style={{
                     textAlign: 'center',
                     paddingVertical: 10,
                     fontSize: 20,
                     borderBottomWidth: 1,
                     borderBottomColor: 'lightgray',
                     color: color.green
-                }}>{listThesis?.committee?.name}</Text>
+                }}>{name}</Text> */}
+
+                <TextInput style={[style.textName]}
+                    value={nameThesis.name}
+                    onChangeText={text => updateName(text, "name")} />
                 <ScrollView style={{ height: windowHeight * 0.85, marginBottom: windowHeight * 0.05, marginTop: windowHeight * 0.02 }}>
                     <View style={thesis.text_input}>
                         <Text style={login.text}>Danh sách sinh viên hiện tại </Text>
@@ -256,6 +272,7 @@ const UpdateThesis = ({ route, navigation }) => {
                             setSelected={chageMultipleSelect}
                         />
                     </View>
+                    {/* hội đồng */}
                     <View style={thesis.text_input}>
                         <Text style={login.text}>Danh sách hội đồng </Text>
 
@@ -354,6 +371,14 @@ const UpdateThesis = ({ route, navigation }) => {
     )
 }
 const style = StyleSheet.create({
+    textName: {
+        textAlign: 'center',
+        paddingVertical: 10,
+        fontSize: 18,
+        borderBottomWidth: 1,
+        borderBottomColor: 'lightgray',
+        color: color.green
+    },
     top: {
         height: windowHeight * 0.25,
         width: windowWidth,

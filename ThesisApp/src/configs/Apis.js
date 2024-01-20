@@ -29,10 +29,11 @@ export const endpoints = {
     "list-thesis": `${SERVER_URL}/get-thesis/`,//ds khóa luận,
     "thesis-of-lecturer": `${SERVER_URL}/get-thesis/lecturer`,//ds khóa luận của gv,
 
-    "list-committes": `${SERVER_URL}/get-committee/`,//ds khóa luận,
+    "list-committes": `${SERVER_URL}/get-committee/`,//ds hội đồng,
     "edit-committes": (id) => `${SERVER_URL}/get-committee/${id}/`,//edit khoa luận
+    "close-committes": (id) => `${SERVER_URL}/get-committee/${id}/close/`,//edit khoa luận
 
-    "check-old-password": `${SERVER_URL}/check-old-password/`,//kiem tra pass cu
+    "check-old-password": `${SERVER_URL}/check-old-password/`,//kiem tra pass cũ
     "forgot-password": `${SERVER_URL}/forgot-password/`,
 
     "add-all-member": `${SERVER_URL}/add-all-member/`, //add thành viên hội đồng  
@@ -44,7 +45,8 @@ export const endpoints = {
 
     "score-thesis-students": (id) => `${SERVER_URL}/get-thesis/${id}/student/`,//điểm của sv làm khóa luận
     "get-thesis-score": (id) => `${SERVER_URL}/get-thesis/${id}/score/`,
-    "add-or-update-score": `${SERVER_URL}/add-or-update-score/`
+    "add-or-update-score": `${SERVER_URL}/add-or-update-score/`,
+    "close-thesis": (id) => `${SERVER_URL}/close-thesis/${id}/`
 
 
 

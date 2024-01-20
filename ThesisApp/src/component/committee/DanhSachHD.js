@@ -10,7 +10,6 @@ import { MyUserContext } from '../../../App';
 
 const DanhSachHD = ({ navigation }) => {
     const [current_user, dispatch] = useContext(MyUserContext);
-
     const [committees, setCommittees] = useState([]);
     const [filter, setFilter] = useState([])
     const getCommittees = async () => {
@@ -79,6 +78,11 @@ const DanhSachHD = ({ navigation }) => {
         <View style={[styles.container, { backgroundColor: color.background, height: '80%' }]}>
             <View style={hoidong.container}>
                 <View style={hoidong.top}>
+                    <Text style={{
+                        marginVertical: 10,
+                        color: 'gray',
+                        fontStyle: 'italic'
+                    }}>Xem thông tin tất cả hội đồng !!!</Text>
                     <Search onSearch={searchName} />
                 </View>
                 <View style={hoidong.bottom}>
@@ -105,12 +109,15 @@ const DanhSachHD = ({ navigation }) => {
 const hoidong = StyleSheet.create({
 
     top: {
-        height: '10%',
-        marginVertical: '2%'
+        height: 'auto',
+        // marginVertical: '2%'
+        marginBottom: '3%'
     },
     bottom: {
-        height: '100%'
+        height: '90%',
+        marginVertical: '3%'
     },
+
     row: {
         flexDirection: "row",
         width: "100%",

@@ -10,7 +10,7 @@ import styles from '../../assets/js/style'
 
 const ListThesis = ({ navigation }) => {
     const [current_user, dispatch] = useContext(MyUserContext);
-
+    // const { name } = route.params;
     const [list, setList] = useState('')
     const [filter, setFilter] = useState([])
     const getListThesis = async () => {
@@ -24,8 +24,8 @@ const ListThesis = ({ navigation }) => {
             throw new Error(res.statusText);
         }
     }
-    const goToDetail = (id) => {
-        navigation.navigate("Cập nhật khóa luận", { id })
+    const goToDetail = (id, name) => {
+        navigation.navigate("Cập nhật khóa luận", { id, name })
     }
     const renderItem = ({ item }) => {
         return (
@@ -38,7 +38,7 @@ const ListThesis = ({ navigation }) => {
                             </View>
 
                             <View style={{ width: "92%" }}>
-                                <TouchableOpacity onPress={() => goToDetail(item.id)}>
+                                <TouchableOpacity onPress={() => goToDetail(item.id, item.name)}>
                                     <View style={list_thesis.right}>
                                         <Text style={list_thesis.name}>{item.name}</Text>
                                         <Text style={list_thesis.edit}>
@@ -91,6 +91,11 @@ const ListThesis = ({ navigation }) => {
         <View style={[styles.container, { backgroundColor: color.background, height: '80%' }]}>
             <View style={list_thesis.container}>
                 <View style={list_thesis.top}>
+                    <Text style={{
+                        marginVertical: 10,
+                        color: 'gray',
+                        fontStyle: 'italic'
+                    }}>Lựa chọn khóa luận mà bạn cần cập nhật thông tin !!!</Text>
                     <Search onSearch={searchName} />
                 </View>
                 <View style={list_thesis.bottom}>
@@ -113,16 +118,17 @@ const ListThesis = ({ navigation }) => {
 
 }
 const list_thesis = StyleSheet.create({
-    container: {
-        margin: 10,
-    },
+    // container: {
+    //     margin: 10,
+    // },
     top: {
-        height: '10%',
-        marginVertical: '2%',
+        height: 'auto',
+        marginBottom: '3%',
         // marginHorizontal: 20
     },
     bottom: {
-        height: '100%'
+        height: '90%',
+        marginVertical: '3%'
     },
     row: {
         flexDirection: "row",
