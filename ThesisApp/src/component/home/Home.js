@@ -111,6 +111,20 @@ const Home = ({ navigation }) => {
 
                                     </View>
                                 </View>
+                                {/* quản lý điểm */}
+                                <View >
+                                    <Text style={[home.title]}>Quản lý điểm</Text>
+                                    <View style={[home.items]}>
+                                        <TouchableOpacity style={[home.thumb]} onPress={() => navigation.navigate('Danh sách chấm điểm')}>
+                                            <MaterialIcons style={[home.icon]} name='addchart' size={30} color={color.green} />
+                                            <Text style={[home.infor]}>Nhập điểm</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity style={[home.thumb]} onPress={() => navigation.navigate('Bảng điểm')}>
+                                            <MaterialIcons style={[home.icon]} name='update' size={30} color={color.green} />
+                                            <Text style={[home.infor]}>Bản điểm trung bình</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
                             </>}
                         </View>
 

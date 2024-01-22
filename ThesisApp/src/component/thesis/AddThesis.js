@@ -137,17 +137,17 @@ const AddThesis = ({ navigation }) => {
                         />
                     </View>
                     <View style={thesis.text_input}>
-                        <Text style={login.text}>Giảng viên phản biện </Text>
+                        <Text style={login.text}>Giảng viên hướng dẫn 1 </Text>
 
                         <GetTeacher getTecher={getIdTeacher1} />
                     </View>
                     <View style={thesis.text_input}>
-                        <Text style={login.text}>Giảng viên hướng dẫn 2 </Text>
+                        <Text style={login.text}>Giảng viên hướng dẫn 2  </Text>
 
                         <GetTeacher getTecher={getIdTeacher2} />
                     </View>
                     <View style={[thesis.text_input, { paddingBottom: 20 }]}>
-                        <Text style={login.text}>Giảng viên hướng dẫn 2 </Text>
+                        <Text style={login.text}>Hội đồng bảo vệ </Text>
 
                         <GetCom getTecher={getIdCommittee} />
                     </View>

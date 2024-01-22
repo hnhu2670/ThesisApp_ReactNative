@@ -9,7 +9,7 @@ import styles from '../../assets/js/style'
 import mark from './style'
 import thesis from '../thesis/style'
 const AddScore = ({ route, navigation }) => {
-    const { id } = route.params //id khoa luan
+    const { id, name } = route.params //id khoa luan
     const [score, setScore] = useState([])
     const [student, setStudent] = useState([])
     const [defaultScore, setDefaultScore] = useState('')
@@ -32,9 +32,10 @@ const AddScore = ({ route, navigation }) => {
             const token = await AsyncStorage.getItem('token')
             // lấy hs làm khóa luận
             const { data } = await axios.get(endpoints['score-thesis-students'](id))
-            // console.log('hs thực thiện:', data)
+            console.log('hs thực thiện:', data)
             // điểm khóa luận, thông tin hs......
-            const res = await authApiToken(token).get(endpoints['get-thesis-score'](id))
+            // const res = await authApiToken(token).get(endpoints['get-thesis-score'](id))
+            const res = await axios.get(endpoints['get-thesis-score'](id))
             // console.log('thông tin :', res.data)
             const tempList = [];
 
@@ -66,7 +67,7 @@ const AddScore = ({ route, navigation }) => {
                 let res = await authApiToken(token).post(endpoints['add-or-update-score'], {
                     "score": list_Score
                 })
-
+                console.log('danh sách điểm', res.data)
                 if (res.status == 200) {
                     alert('Oke')
                     navigation.navigate('ThesisApp')
@@ -75,15 +76,15 @@ const AddScore = ({ route, navigation }) => {
                 }
 
             }
-            catch (er) {
-                console.log('error function sendscore', er)
+            catch (error) {
+                // console.log('error function sendscore', er.request.responseText)
+                console.log("lỗi..............", error.request.responseText)
+                err = error.request.responseText
+                // e = JSON.parse(err)
+                console.log("lỗi..............", err)
             }
         }
         else {
-            // let check = confirm('Ok')
-            // if (check) {
-            //     navigation.navigate('ThesisApp')
-            // }
             alert('list_Score null')
 
         }
@@ -126,11 +127,8 @@ const AddScore = ({ route, navigation }) => {
     return (
         <View style={[styles.container, mark.container]}>
             <ScrollView style={[mark.container]}>
-
-
                 {listStudent.length > 0 ? <>
                     {listStudent.map(ls => {
-
                         return <>
                             <View key={ls.id} style={[mark.score]}>
                                 <Text style={[mark.textName]}>Tên học sinh: {ls.id}- {ls.name}</Text>

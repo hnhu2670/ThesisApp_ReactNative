@@ -16,7 +16,7 @@ const LecturerThesis = ({ navigation }) => {
         setThisThesis(data)
     }
     const goAddMark = (id, name) => {
-        navigation.navigate("Chấm Điểm", { id, name })
+        navigation.navigate("Chấm điểm", { id, name })
     }
     useEffect(() => {
         getThisThesis()

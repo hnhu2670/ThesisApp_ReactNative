@@ -31,6 +31,8 @@ import LecturerThesis from './src/component/thesis/LecturerThesis';
 import StudentThesis from './src/component/thesis/StudentThesis';
 import DetailThesis from './src/component/thesis/DetailThesis';
 import CloseCommittee from './src/component/committee/CloseCommittee';
+import ListThesisForScore from './src/component/thesis/ListThesisForScore';
+import TableScore from './src/component/score/TableScore';
 
 export const MyUserContext = createContext();
 export const MyThesisContext = createContext();
@@ -89,9 +91,9 @@ function App() {
               options={{
                 title: 'Xem thông tin khóa luận',
               }} />
-            <Stack.Screen name='Chấm Điểm' component={AddScore} />
-            {/* <Stack.Screen name='Hoi dong' component={Criteria} /> */}
-
+            <Stack.Screen name='Chấm điểm' component={AddScore} />
+            <Stack.Screen name='Danh sách chấm điểm' component={ListThesisForScore} />
+            <Stack.Screen name='Bảng điểm' component={TableScore} />
           </Stack.Navigator>
         </NavigationContainer>
       </MyUserContext.Provider>

@@ -39,7 +39,7 @@ const ListThesisForScore = () => {
 
     };
     const goToScore = (id) => {
-        nav.navigate('Chấm Điểm', { id })
+        nav.navigate('Chấm điểm', { id })
     }
     const renderItem = ({ item }) => {
         return (
@@ -72,7 +72,7 @@ const ListThesisForScore = () => {
         getListThesis();
     }, [])
     return (
-        <View style={[{ backgroundColor: color.background, height: '75%', marginTop: '3%' }]}>
+        <View style={[styles.container, { backgroundColor: color.background, height: '90%', marginTop: '3%' }]}>
             <View style={list_thesis.top}>
                 {/* onSearch truyền từ search qua */}
                 <Search onSearch={searchName} />
