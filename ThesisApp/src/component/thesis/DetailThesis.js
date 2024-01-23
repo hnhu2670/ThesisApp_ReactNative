@@ -3,20 +3,29 @@ import { ActivityIndicator, Text, View } from 'react-native'
 import styles from '../../assets/js/style'
 import login from '../../login/style'
 import axios from 'axios'
-import { endpoints } from '../../configs/Apis'
+import { authApiToken, endpoints } from '../../configs/Apis'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const DetailThesis = ({ route }) => {
     const { id, name } = route.params
     // console.log(id)
     const [detail, setDetail] = useState([])
+    const [mark, setMark] = useState([])
     const getList = async () => {
         const { data } = await axios.get(endpoints["get-thesis"](id))
         // console.log('thông tin--------------', data)
         setDetail(data)
 
     }
+    const myScore = async () => {
+        const token = await AsyncStorage.getItem('token')
+        const { data } = await authApiToken(token).get(endpoints['score-of-student'](id))
+        console.log('điểm sinh viên', data)
+        setMark(data)
+    }
     useEffect(() => {
         getList()
+        myScore()
     }, [])
     return (
         <View >
@@ -71,6 +80,8 @@ const DetailThesis = ({ route }) => {
                     ))}
                 </>
             )}
+
+            <Text>Điểm của tôi: {mark.total}</Text>
         </View>
     )
 }

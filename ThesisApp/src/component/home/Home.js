@@ -45,7 +45,7 @@ const Home = ({ navigation }) => {
                                             <FontAwesome style={[home.icon]} name='group' size={30} color={color.green} />
                                             <Text style={[home.infor]}>Xem khóa luận tham gia</Text>
                                         </TouchableOpacity>
-                                        <TouchableOpacity style={[home.thumb]}>
+                                        <TouchableOpacity style={[home.thumb]} onPress={() => navigation.navigate('Điểm của tôi')}>
                                             <AntDesign style={[home.icon]} name='customerservice' size={30} color={color.green} />
                                             <Text style={[home.infor]}>Điểm của tôi</Text>
                                         </TouchableOpacity>

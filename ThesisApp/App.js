@@ -33,6 +33,7 @@ import DetailThesis from './src/component/thesis/DetailThesis';
 import CloseCommittee from './src/component/committee/CloseCommittee';
 import ListThesisForScore from './src/component/thesis/ListThesisForScore';
 import TableScore from './src/component/score/TableScore';
+import ScoreOfStudent from './src/component/score/ScoreOfStudent';
 
 export const MyUserContext = createContext();
 export const MyThesisContext = createContext();
@@ -94,6 +95,7 @@ function App() {
             <Stack.Screen name='Chấm điểm' component={AddScore} />
             <Stack.Screen name='Danh sách chấm điểm' component={ListThesisForScore} />
             <Stack.Screen name='Bảng điểm' component={TableScore} />
+            <Stack.Screen name='Điểm của tôi' component={ScoreOfStudent} />
           </Stack.Navigator>
         </NavigationContainer>
       </MyUserContext.Provider>
