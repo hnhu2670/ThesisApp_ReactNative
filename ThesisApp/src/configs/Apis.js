@@ -3,8 +3,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // const SERVER_URL = 'http://192.168.1.2:8000';
 // const SERVER = "http://192.168.1.2";
-const SERVER_URL = 'http://192.168.1.16:8000';
-const SERVER = "http://192.168.1.16";
+const SERVER_URL = 'http://192.168.1.19:8000';
+const SERVER = "http://192.168.1.19";
 // const SERVER_URL = 'http://172.16.17.180:8000';
 // const SERVER = "http://172.16.17.180";
 
@@ -48,7 +48,8 @@ export const endpoints = {
     "get-thesis-score": (id) => `${SERVER_URL}/get-thesis/${id}/score/`,
     "add-or-update-score": `${SERVER_URL}/add-or-update-score/`,
     "close-thesis": (id) => `${SERVER_URL}/close-thesis/${id}/`,
-    "score-of-student": (id) => `${SERVER_URL}/get-thesis/${id}/score-total/`
+    "score-of-student": (id) => `${SERVER_URL}/get-thesis/${id}/score-total/`,
+    "detail-score": (id) => `${SERVER_URL}/get-thesis/${id}/detail-score/`
 
 
 

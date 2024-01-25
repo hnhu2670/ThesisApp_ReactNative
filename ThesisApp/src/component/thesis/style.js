@@ -125,6 +125,58 @@ const thesis = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
         elevation: 5,
+    },
+    // detailThesis
+    row: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        // justifyContent: 'center',
+        borderWidth: 1.5,
+        borderColor: 'gray',
+        borderRadius: 10,
+        marginVertical: 10,
+        height: 'auto'
+
+    },
+    fcol: {
+        width: '50%',
+        // marginRight: 20,
+        borderRightWidth: 1.5,
+        borderRightColor: 'gray',
+        paddingHorizontal: 15,
+        paddingTop: 20,
+        alignItems: 'center',
+        backgroundColor: 'lightgray',
+        alignItems: 'center',
+        borderTopLeftRadius: 10,
+        borderBottomLeftRadius: 10
+    },
+    scol: {
+        width: '50%',
+        textAlign: 'right',
+        backgroundColor: 'lightgray',
+        paddingHorizontal: 15,
+        paddingTop: 20,
+        borderTopRightRadius: 10,
+        borderBottomRightRadius: 10
+    },
+    textName: {
+        textAlign: 'center',
+        color: color.green,
+        fontSize: 25,
+        marginVertical: '7%'
+    },
+    textTile: {
+        color: color.green,
+        borderBottomColor: 'lightgray',
+        borderBottomWidth: 1,
+        marginVertical: 10,
+        fontSize: 16,
+        paddingBottom: 10
+    },
+    inforText: {
+        // marginLeft: 10
+        paddingLeft: 30
     }
 
 });

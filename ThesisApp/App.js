@@ -91,6 +91,7 @@ function App() {
             <Stack.Screen name='Chi tiết khóa luận' component={DetailThesis}
               options={{
                 title: 'Xem thông tin khóa luận',
+                headerShown: false
               }} />
             <Stack.Screen name='Chấm điểm' component={AddScore} />
             <Stack.Screen name='Danh sách chấm điểm' component={ListThesisForScore} />

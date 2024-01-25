@@ -6,7 +6,7 @@ import { SceneMap, TabView } from 'react-native-tab-view';
 import StudentThesis from '../thesis/StudentThesis';
 
 const FirstRoute = () => (
-    <View style={{ flex: 1, backgroundColor: '#ff4081' }} />
+    <View style={{ flex: 1, backgroundColor: 'green' }} />
 );
 
 const SecondRoute = () => (
@@ -14,7 +14,7 @@ const SecondRoute = () => (
 );
 
 const renderScene = SceneMap({
-    first: StudentThesis,
+    first: FirstRoute,
     second: SecondRoute,
 });
 const ConfirmMessage = ({ navigation }) => {
