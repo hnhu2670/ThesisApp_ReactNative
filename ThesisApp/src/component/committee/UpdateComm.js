@@ -64,7 +64,7 @@ const UpdateComm = ({ route, navigation }) => {
                 navigation.navigate('ThesisApp')
             }, 1000)
         } catch (error) {
-            console.log("updateCommittee lỗi rồi", error.request)
+            console.log("updateCommittee lỗi rồi", error.request.responseText)
         }
     }
 

@@ -10,15 +10,13 @@ const styles = StyleSheet.create({
         backgroundColor: "#2d665f",
     },
     container: {
-        paddingTop: '10%',
+        paddingVertical: '5%',
         marginHorizontal: windowWidth * 0.05
     }
     ,
     text: {
         fontSize: 50,
         color: '#2d665f',
-
-
     },
     font: {
         color: "#2d665f",

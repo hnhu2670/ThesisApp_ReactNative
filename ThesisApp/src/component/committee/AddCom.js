@@ -63,7 +63,7 @@ const AddCom = ({ navigation }) => {
             }
             //member 5
             if (selectedMember2.id !== undefined) {
-                formData.append('member5', selectedMember2.id)
+                formData.append('member5', selectedMember2.id || '')
             }
             formData.append('position1', '1')
             formData.append('position2', '2')
@@ -86,7 +86,7 @@ const AddCom = ({ navigation }) => {
                 }, 3000)
                 console.log('dữ liệu mới thêm', res.data)
             } catch (error) {
-                console.log("lỗi hàm add member: ", error)
+                console.log("lỗi hàm add member: ", error.request.responseText)
                 setShow('error')
                 setError("Thêm hội đồng thất bại")
             }

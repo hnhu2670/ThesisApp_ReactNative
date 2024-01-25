@@ -6,25 +6,51 @@ import Search from '../layout/Search';
 import color from '../../assets/js/color';
 import styles from '../../assets/js/style';
 import { MyUserContext } from '../../../App';
+import ToastifyMessage from '../layout/ToastifyMessage';
 
 
 const DanhSachHD = ({ navigation }) => {
+    const [show, setShow] = useState(false)
     const [current_user, dispatch] = useContext(MyUserContext);
     const [committees, setCommittees] = useState([]);
     const [filter, setFilter] = useState([])
     const getCommittees = async () => {
         try {
             const { data } = await axios.get(endpoints['list-committes']);
+            // console.log('danh sách hội đồng', data[0])
             setCommittees(data);
+            return data
         } catch (error) {
             console.log("Lỗi rồi trang listcom", error.message);
         }
     };
-    const goToDetail = (id, name) => {
+    const goToDetail = async (id, name) => {
+        alert('lấy thành công')
+        // const data = await getCommittees()
+        // console.log('thông tin mới lấy')
         navigation.navigate("Chi tiết hội đồng", { id, name })
+
     }
-    const goToDelete = (id, name) => {
-        navigation.navigate("Xóa thành viên", { id, name })
+    const goToDelete = async (id, name) => {
+        const data = await getCommittees()
+        // console.log('số lượng', data.length)
+        console.log('id', id)
+        data.map((item) => {
+            // console.log('item', item.id)
+            if (item?.id === id) {
+                console.log('item', item.id)
+                // console.log(data[id]?.status?.name);
+                if (item?.status?.name !== 'Open')
+                    // console.log('hội đồng bị khóa', item?.status?.name);
+                    // alert('Hội đồng bị khóa ')
+                    setShow(true)
+                else {
+                    console.log('hội đồng được mở', item?.status?.name);
+                    navigation.navigate("Xóa thành viên", { id, name });
+                }
+            }
+        });
+
     }
     const searchName = (text) => {
         const filterName = committees.filter((item) =>
@@ -43,7 +69,7 @@ const DanhSachHD = ({ navigation }) => {
                     <View key={item.id} >
                         <View style={hoidong.row}>
                             <Text style={[hoidong.cell, hoidong.first, { width: "20%" }]}>
-                                Mã: {item.id}
+                                Mã : {item.id}
                             </Text>
                             <TouchableOpacity onPress={() => goToDetail(item.id, item.name)}>
                                 <Text style={[hoidong.cell, { width: "100%" }]}>{item.name}</Text>
@@ -72,7 +98,14 @@ const DanhSachHD = ({ navigation }) => {
 
     useEffect(() => {
         getCommittees();
-    }, []);
+        if (show !== false) {
+            const timer = setTimeout(() => {
+                setShow(false);
+            }, 1500);
+            return () => clearTimeout(timer);
+        }
+        console.log(show)
+    }, [show]);
 
     return (
         <View style={[styles.container, { backgroundColor: color.background, height: '80%' }]}>
@@ -101,6 +134,13 @@ const DanhSachHD = ({ navigation }) => {
                 </View>
 
             </View>
+            {show == true && (
+                <ToastifyMessage
+                    type="warning"
+                    text='Hội đồng đã được khóa'
+                    description="Hội đồng đã được khóa"
+                />
+            )}
         </View>
 
     );

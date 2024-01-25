@@ -28,7 +28,7 @@ const Home = ({ navigation }) => {
                 }}
             >
                 <View style={[styles.container]}>
-                    <ListFunction navigation={navigation} />
+
                     <View style={{
                         backgroundColor: color.background,
                         borderTopLeftRadius: 50,
@@ -38,6 +38,7 @@ const Home = ({ navigation }) => {
                     }}>
                         <View>
                             {current_user.role === 'student' || current_user.role === 'lecturer' ? <>
+                                <ListFunction navigation={navigation} />
                                 <Text style={[home.title]}>Chức năng của tôi</Text>
                                 {current_user.role === 'student' ? <>
                                     <View style={[home.items]}>
@@ -76,10 +77,10 @@ const Home = ({ navigation }) => {
                                             <MaterialIcons style={[home.icon]} name='update' size={30} color={color.green} />
                                             <Text style={[home.infor]}>Cập nhật khóa luận</Text>
                                         </TouchableOpacity>
-                                        <TouchableOpacity style={[home.thumb]}>
+                                        {/* <TouchableOpacity style={[home.thumb]}>
                                             <FontAwesome style={[home.icon]} name='remove' size={30} color={color.green} />
                                             <Text style={[home.infor]}>Loại bỏ khóa luận</Text>
-                                        </TouchableOpacity>
+                                        </TouchableOpacity> */}
 
                                     </View>
                                 </View>
@@ -96,10 +97,10 @@ const Home = ({ navigation }) => {
                                             <MaterialIcons style={[home.icon]} name='update' size={30} color={color.green} />
                                             <Text style={[home.infor]}>Cập nhật hồi đồng</Text>
                                         </TouchableOpacity>
-                                        <TouchableOpacity style={[home.thumb]}>
+                                        {/* <TouchableOpacity style={[home.thumb]}>
                                             <FontAwesome style={[home.icon]} name='remove' size={30} color={color.green} />
                                             <Text style={[home.infor]}>Xóa hội đồng</Text>
-                                        </TouchableOpacity>
+                                        </TouchableOpacity> */}
                                         <TouchableOpacity style={[home.thumb]} onPress={() => { navigation.navigate("Danh sách HĐ") }}>
                                             <Entypo style={[home.icon]} name='remove-user' size={30} color={color.green} />
                                             <Text style={[home.infor]}>Xóa thành viên</Text>

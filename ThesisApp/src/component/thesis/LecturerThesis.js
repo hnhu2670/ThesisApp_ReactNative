@@ -10,10 +10,15 @@ const LecturerThesis = ({ navigation }) => {
     const [thisThesis, setThisThesis] = useState([])
 
     const getThisThesis = async () => {
-        const token = await AsyncStorage.getItem('token')
-        const { data } = await authApiToken(token).get(endpoints['thesis-of-lecturer'])
-        console.log('thông tin user', data)
-        setThisThesis(data)
+        try {
+            const token = await AsyncStorage.getItem('token')
+            const { data } = await authApiToken(token).get(endpoints['thesis-of-lecturer'])
+            console.log('thông tin user', data)
+            setThisThesis(data)
+        } catch (error) {
+            console.log('lỗi getThisThesis', error)
+        }
+
     }
     const goAddMark = (id, name) => {
         navigation.navigate("Chấm điểm", { id, name })
