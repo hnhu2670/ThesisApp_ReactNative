@@ -1,4 +1,5 @@
 import Chat from "../chat/Chat";
+import HomeChat from "../chat/HomeChat";
 import Committee from "../committee/Committee";
 import Criteria from "../criteria/Criteria";
 import ConfirmMessage from "../layout/ConfirmMessage";
@@ -47,7 +48,7 @@ export const HomeNavigation = [
     // },
     {
         id: 2,
-        route: Chat,
+        route: HomeChat,
         name: 'Chat',
         activeIconName: 'wechat',
         typeIcon: "AntDesign",

@@ -32,6 +32,9 @@ const ListUser = () => {
         // console.log('Search text:', text);
 
     };
+
+
+
     useEffect(() => {
         getTeachers()
     }, [])

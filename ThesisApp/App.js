@@ -34,6 +34,7 @@ import CloseCommittee from './src/component/committee/CloseCommittee';
 import ListThesisForScore from './src/component/thesis/ListThesisForScore';
 import TableScore from './src/component/score/TableScore';
 import ScoreOfStudent from './src/component/score/ScoreOfStudent';
+import Chat from './src/component/chat/Chat';
 
 export const MyUserContext = createContext();
 export const MyThesisContext = createContext();
@@ -97,6 +98,7 @@ function App() {
             <Stack.Screen name='Danh sách chấm điểm' component={ListThesisForScore} />
             <Stack.Screen name='Bảng điểm' component={TableScore} />
             <Stack.Screen name='Điểm của tôi' component={ScoreOfStudent} />
+            <Stack.Screen name='Messager' component={Chat} />
           </Stack.Navigator>
         </NavigationContainer>
       </MyUserContext.Provider>
