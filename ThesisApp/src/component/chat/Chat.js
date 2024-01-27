@@ -6,7 +6,7 @@ import React, {
     useContext
 } from 'react';
 import { TouchableOpacity, Text } from 'react-native';
-import { GiftedChat } from 'react-native-gifted-chat';
+import { Bubble, GiftedChat, MessageText } from 'react-native-gifted-chat';
 import {
     collection,
     addDoc,
@@ -20,6 +20,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { AntDesign } from '@expo/vector-icons';
 import { MyUserContext } from '../../../App';
 import mess from './style';
+import color from '../../assets/js/color';
 // import { endpoints } from '../config/Apis';
 // import axios from 'axios';
 
@@ -36,26 +37,18 @@ export default function Chat() {
 
 
     const getURLChat = (id) => {
+        // ktra mình là người nhắn hay người nhận tin
         if (id > user.id)
-            setURL("ASSS/" + username + "/" + user.username);
+            setURL("ThesisApp/" + username + "/" + user.username);
         else {
-            setURL("ASSS/" + user.username + "/" + username);
+            setURL("ThesisApp/" + user.username + "/" + username);
         }
     };
-
-    const data = {
-
-    }
-
     useEffect(() => {
         getURLChat(id)
     }, [id])
 
     console.log('++++++++++++++', url_collection)
-
-    const onSignOut = () => {
-        signOut(auth).catch(error => console.log('Error logging out: ', error));
-    };
 
     // useLayoutEffect(() => {
     //     navigation.setOptions({
@@ -72,18 +65,21 @@ export default function Chat() {
     //     });
     // }, [navigation]);
 
-    useLayoutEffect(() => {
+    // gọi khi cập nhật giao diện
+    useEffect(() => {
         const collectionRef = collection(database, url_collection);
-        const q = query(collectionRef, orderBy('createdAt', 'desc'));
+        // console.log('thông tin chat', collectionRef)
+        const q = query(collectionRef, orderBy('createdAt', 'desc'));//sắp xếp theo thời gian
 
         const unsubscribe = onSnapshot(q, querySnapshot => {
             console.log('querySnapshot unsusbscribe');
+            // lưu tin nhắn
             setMessages(
                 querySnapshot.docs.map(doc => ({
-                    _id: doc.data()._id,
-                    createdAt: doc.data().createdAt.toDate(),
-                    text: doc.data().text,
-                    user: doc.data().user
+                    _id: doc.data()._id, //id user
+                    createdAt: doc.data().createdAt.toDate(),//thời gian nhắn
+                    text: doc.data().text, //nội dung nhắn
+                    user: doc.data().user //user
                 }))
             );
         });
@@ -91,11 +87,13 @@ export default function Chat() {
         return unsubscribe;
     }, [url_collection]);
 
+    // gửi tin nhắn
     const onSend = useCallback((messages = []) => {
         setMessages(previousMessages =>
             GiftedChat.append(previousMessages, messages)
         );
         const { _id, createdAt, text, user } = messages[0];
+        // lưu vào db trên firebase
         addDoc(collection(database, url_collection), {
             _id,
             createdAt,
@@ -112,14 +110,30 @@ export default function Chat() {
     }, [url_collection], user);
 
     return (
-
         <GiftedChat
             messages={messages}
+            renderBubble={props => (
+                <Bubble
+                    {...props}
+                    wrapperStyle={{
+                        left: { backgroundColor: 'lightblue', borderWidth: 1, borderColor: 'gray' },
+                        right: { backgroundColor: 'lightgreen' },
+                    }}
+                />
+            )}
+            renderMessageText={props => (
+                <MessageText {...props}
+                    textStyle={{
+                        left: { color: color.green }, // Màu sắc cho tin nhắn bên trái (người gửi tin)
+                        right: { color: 'blue' }, // Màu sắc cho tin nhắn bên phải (người nhận tin)
+                    }} />
+            )}
             showAvatarForEveryMessage={false}
             showUserAvatar={false}
             onSend={messages => onSend(messages)}
             messagesContainerStyle={{
-                backgroundColor: '#fff'
+                backgroundColor: '#fff',
+                paddingBottom: '10%'
             }}
             // nhập tin nhắn
             textInputStyle={[mess.textInput]}

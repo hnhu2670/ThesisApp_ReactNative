@@ -60,8 +60,8 @@ const mess = StyleSheet.create({
         borderWidth: 1,
         paddingHorizontal: 20,
         paddingVertical: 10,
-        marginHorizontal: 10,
-        marginVertical: 20
+        marginBottom: 20,
+        marginTop: 20
 
     }
 })
