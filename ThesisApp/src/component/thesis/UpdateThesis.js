@@ -363,6 +363,9 @@ const UpdateThesis = ({ route, navigation }) => {
 }
 const style = StyleSheet.create({
     textName: {
+        height: 'auto',
+        width: windowWidth * 0.9,
+        marginHorizontal: 20,
         textAlign: 'center',
         paddingVertical: 10,
         fontSize: 18,

@@ -60,7 +60,8 @@ const hoidong = StyleSheet.create({
     // listCom
     name: {
         width: '60%',
-        marginLeft: '2%'
+        marginLeft: '2%',
+        color: color.green
     },
     edit: {
         textAlign: "center",

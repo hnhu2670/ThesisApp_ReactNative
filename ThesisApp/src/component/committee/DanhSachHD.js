@@ -7,6 +7,8 @@ import color from '../../assets/js/color';
 import styles from '../../assets/js/style';
 import { MyUserContext } from '../../../App';
 import ToastifyMessage from '../layout/ToastifyMessage';
+import hoidong from './style';
+import { AntDesign, Entypo } from '@expo/vector-icons';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
@@ -75,12 +77,15 @@ const DanhSachHD = ({ navigation }) => {
 
                     </TouchableOpacity>
                 </> : <>
-                    <View style={hoidong.row} key={item.id}>
-                        <TouchableOpacity onPress={() => goToDelete(item.id, item.name)}>
+                    <View key={item.id}>
+                        <TouchableOpacity onPress={() => goToDelete(item.id, item.name)} style={hoidong.row}>
                             <Text style={[hoidong.first]}>
-                                STT:{index + 1}
+                                {index + 1}
                             </Text>
-                            <Text style={[hoidong.second]}>{item.name}</Text>
+                            <Text style={[hoidong.name]}>{item.name}</Text>
+                            <View style={[hoidong.edit]}>
+                                <Entypo name='remove-user' color={color.green} size={20} />
+                            </View>
                         </TouchableOpacity>
 
                     </View>

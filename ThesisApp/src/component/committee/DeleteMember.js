@@ -30,7 +30,7 @@ const DeleteMember = ({ route, navigation }) => {
         Popup.show({
             type: 'confirm',
             title: 'Xóa thành viên',
-            textBody: `Bạn có muốn xóa thành viên ${last_name} ${first_name} này không ??`,
+            textBody: `Bạn có muốn xóa thành viên "${last_name} ${first_name}" này không ??`,
             buttonText: 'Ok',
             confirmText: 'Cancel',
 
