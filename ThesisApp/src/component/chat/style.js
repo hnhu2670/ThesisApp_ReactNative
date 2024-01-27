@@ -1,4 +1,5 @@
 import { Dimensions, StyleSheet } from "react-native";
+import color from "../../assets/js/color";
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 const mess = StyleSheet.create({
@@ -14,7 +15,7 @@ const mess = StyleSheet.create({
         paddingHorizontal: 10,
         paddingVertical: 5,
         borderBottomWidth: 1,
-        borderBottomColor: 'lightgray'
+        // borderBottomColor: 'lightgray'
     },
     formImage: {
         width: '25%'
@@ -36,8 +37,32 @@ const mess = StyleSheet.create({
         color: 'gray',
         fontStyle: 'italic'
 
+    },
+    // chatbox
+    banner: {
+        backgroundColor: color.green,
+        height: windowHeight * 0.1,
+        marginTop: '10%',
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingLeft: 20
+    },
+    title: {
+        color: 'white',
+        fontSize: 30,
+        marginHorizontal: 10
+    },
+    // chat
+    textInput: {
+        backgroundColor: color.background,
+        borderRadius: 20,
+        borderColor: 'gray',
+        borderWidth: 1,
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+        marginHorizontal: 10,
+        marginVertical: 20
+
     }
-
-
 })
 export default mess

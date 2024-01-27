@@ -5,48 +5,48 @@ import axios from 'axios';
 // import profileStyle from '../constants/profileStyle';
 // import styles from '../constants/styles';
 import { useNavigation } from '@react-navigation/native';
+import mess from './style';
+import Search from '../layout/Search';
 
 const ChatBox = ({ id, navigation }) => {
   // user được chat
   const [otherUser, setUser] = useState([]);
-  // const navigation = useNavigation();
   const getUser = async () => {
-    console.log("Đây là id của thằng được chạm vào", id);
-    const res = await axios.get(endpoints["get-user"](id));
-    console.log('+++', res.data);
-    // console.log('+++');
-    setUser(res.data);
+    // console.log("id user", id);
+    const { data } = await axios.get(endpoints["get-user"](id));
+    // console.log('data', data);
+    setUser(data);
   };
 
   useEffect(() => {
     getUser()
-    // if (id) {
-    //   getUser(id);
-    // } else {
-    //   console.log("user khong ton tai");
-    // }
   }, [id]);
 
   // console.log(otherUser.username)
   return (
     <View>
-      <TouchableOpacity
-        onPress={() => navigation.navigate('Messager', { id: otherUser.id, username: otherUser.username })}
-        style={{ marginBottom: 10 }}
-      >
-        <View
-          style={{
-            alignItems: "center",
-            flexDirection: "row",
-          }}>
-          <Image
-            source={{ uri: otherUser.avatar }}
-            // style={profileStyle.profileImgList}
-            resizeMode="center"
-          />
-          <Text>{otherUser.username}</Text>
-        </View>
-      </TouchableOpacity>
+      <View>
+        <Search />
+      </View>
+      <View style={{ marginTop: 10 }}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Messager', { id: otherUser.id, username: otherUser.username })}
+          style={{ marginBottom: 10 }}
+        >
+          <View style={[mess.item]}>
+            <View style={[mess.formImage]}>
+              <Image style={[mess.image]}
+                source={{ uri: otherUser.avatar_url }} />
+            </View>
+            <View>
+              <Text style={[mess.userName]}>{otherUser.username}</Text>
+              <Text style={[mess.fullName]}>{otherUser.last_name} {otherUser.first_name}</Text>
+            </View>
+          </View>
+        </TouchableOpacity>
+      </View>
+
+
     </View>
   )
 }

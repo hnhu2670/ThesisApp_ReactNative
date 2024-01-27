@@ -19,6 +19,7 @@ import { auth, database } from '../../configs/firebase';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { AntDesign } from '@expo/vector-icons';
 import { MyUserContext } from '../../../App';
+import mess from './style';
 // import { endpoints } from '../config/Apis';
 // import axios from 'axios';
 
@@ -28,7 +29,6 @@ export default function Chat() {
     // const id = 1
     // const username = 'admin'
     const [messages, setMessages] = useState([]);
-    const navigation = useNavigation();
     const route = useRoute();
     const { id, username } = route.params;
     console.log('thông tin user', id, username)
@@ -95,7 +95,6 @@ export default function Chat() {
         setMessages(previousMessages =>
             GiftedChat.append(previousMessages, messages)
         );
-        // setMessages([...messages, ...messages]);
         const { _id, createdAt, text, user } = messages[0];
         addDoc(collection(database, url_collection), {
             _id,
@@ -103,7 +102,7 @@ export default function Chat() {
             text,
             user
         });
-
+        // lưu vào db tạm
         addDoc(collection(database, "Chat/chatbox/chats"), {
             nguoigui: user,
             nguoinhan: id,
@@ -113,6 +112,7 @@ export default function Chat() {
     }, [url_collection], user);
 
     return (
+
         <GiftedChat
             messages={messages}
             showAvatarForEveryMessage={false}
@@ -121,13 +121,10 @@ export default function Chat() {
             messagesContainerStyle={{
                 backgroundColor: '#fff'
             }}
-            textInputStyle={{
-                backgroundColor: '#fff',
-                borderRadius: 20,
-            }}
+            // nhập tin nhắn
+            textInputStyle={[mess.textInput]}
             user={{
                 _id: user.id,
-                // _id: '1',
                 avatar: user.avatar
             }}
         />

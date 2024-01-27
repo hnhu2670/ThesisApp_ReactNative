@@ -98,7 +98,12 @@ function App() {
             <Stack.Screen name='Danh sách chấm điểm' component={ListThesisForScore} />
             <Stack.Screen name='Bảng điểm' component={TableScore} />
             <Stack.Screen name='Điểm của tôi' component={ScoreOfStudent} />
-            <Stack.Screen name='Messager' component={Chat} />
+            <Stack.Screen name='Messager' component={Chat}
+              options={{
+                title: 'Chat',
+                headerShown: true
+              }}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       </MyUserContext.Provider>
