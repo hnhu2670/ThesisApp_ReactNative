@@ -13,7 +13,7 @@ const LecturerThesis = ({ navigation }) => {
         try {
             const token = await AsyncStorage.getItem('token')
             const { data } = await authApiToken(token).get(endpoints['thesis-of-lecturer'])
-            console.log('thông tin user', data)
+            // console.log('thông tin user', data)
             setThisThesis(data)
         } catch (error) {
             console.log('lỗi getThisThesis', error)
@@ -28,18 +28,19 @@ const LecturerThesis = ({ navigation }) => {
     }, [])
     return (
         <View style={[styles.container]}>
-            <Text style={[login.text]}>Số lượng khóa luận tham gia: {thisThesis.length}</Text>
+            <Text style={[login.text, { color: 'red' }]}>Số lượng khóa luận cần chấm: {thisThesis.length}</Text>
 
             {thisThesis.length < 1 ? (
                 <ActivityIndicator />
             ) : (
-                thisThesis.map(c =>
-                    <View style={hoidong.row} key={c.id}>
-                        <Text style={[hoidong.cell, hoidong.first, { width: "20%" }]}>
-                            Mã KL: {c.id}
-                        </Text>
-                        <TouchableOpacity onPress={() => goAddMark(c.id, c.name)}>
-                            <Text style={[hoidong.cell, { width: "100%" }]}>{c.name}</Text>
+                thisThesis.map((c, index) =>
+                    <View key={c.id} >
+                        <TouchableOpacity onPress={() => goAddMark(c.id, c.name)} style={[hoidong.row]}>
+                            <Text style={[hoidong.first]}>
+                                STT: {index + 1}
+                            </Text>
+
+                            <Text style={[hoidong.second]}>{c.name}</Text>
                         </TouchableOpacity>
 
                     </View>

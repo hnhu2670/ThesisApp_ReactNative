@@ -1,5 +1,7 @@
-import { StyleSheet } from "react-native";
-
+import { Dimensions, StyleSheet } from "react-native";
+import color from "../../assets/js/color";
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 const hoidong = StyleSheet.create({
 
     top: {
@@ -9,50 +11,62 @@ const hoidong = StyleSheet.create({
     bottom: {
         height: '100%'
     },
-    row: {
-        flexDirection: "row",
-        width: "100%",
+    contain_top: {
         height: 'auto',
-        // justifyContent: "space-around",
-        borderRadius: 15,
-        borderColor: color.green,
+        marginBottom: '3%',
+    },
+    contain_bottom: {
+        height: windowHeight * 0.7,
+        marginVertical: '3%'
+    },
+    row: {
+        flexDirection: 'row',
+        width: windowWidth * 0.9,
+        height: 'auto',
         borderWidth: 1,
+        marginVertical: 10,
+        // paddingHorizontal: '5%',
+        alignItems: 'center',
+        borderRadius: 10,
+        borderColor: color.green,
         backgroundColor: color.lightgreen,
-        marginTop: 10,
-        marginBottom: 10,
-        alignItems: "center",
-        shadowColor: 'black', // Màu sắc của bóng
-        shadowOpacity: 0.7, // Độ sắc nét của bóng (0-1)
+        shadowColor: 'black',
+        shadowOpacity: 0.7,
         shadowOffset: {
             width: 0,
             height: 2,
-        }, // Khoảng cách dịch chuyển theo chiều ngang và chiều dọc
-        shadowRadius: 6, // Bán kính của bóng
-        elevation: 5, // Áp dụng bóng (chỉ áp dụng cho Android)
-    },
-    cell: {
-        height: 'auto',
-        padding: 10,
-        textAlign: "left",
-        fontSize: 16,
-        color: color.green,
-        width: '80%'
-        // borderRightWidth: 2
-    },
-    text: {
-        color: color.green, fontSize: 16
+        },
+        shadowRadius: 6,
+        elevation: 5,
+
     },
     first: {
-        // backgroundColor: "green",
         textAlign: "center",
         borderRightWidth: 1,
         borderRightColor: 'lightgray',
         marginLeft: 10,
+        width: '15%',
+        color: color.green,
+        paddingVertical: 20,
+        fontSize: 16
 
+    },
+    second: {
+        width: '75%',
+        padding: 10,
+        fontSize: 15,
+        color: color.green,
+    },
+    // listCom
+    name: {
+        width: '60%',
+        marginLeft: '2%'
     },
     edit: {
         textAlign: "center",
-        padding: 10
+        padding: 10,
+        width: '15%'
+
     }
 })
 export default hoidong

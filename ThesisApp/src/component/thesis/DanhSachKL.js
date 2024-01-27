@@ -1,13 +1,14 @@
 import axios from 'axios'
 import React, { useContext, useEffect, useState } from 'react'
-import { ActivityIndicator, FlatList, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, Dimensions, FlatList, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { endpoints } from '../../configs/Apis'
 import { AntDesign } from '@expo/vector-icons'
 import Search from '../layout/Search'
 import color from '../../assets/js/color'
 import { MyUserContext } from '../../../App'
 import styles from '../../assets/js/style'
-
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 const DanhSachKL = () => {
     const [list, setList] = useState('')
     const [filter, setFilter] = useState([])
@@ -22,22 +23,17 @@ const DanhSachKL = () => {
             throw new Error(res.statusText);
         }
     }
-    const renderItem = ({ item }) => {
+    const renderItem = ({ item, index }) => {
         return (
-            <View key={item.id} style={list_thesis.coll}>
-                <View style={list_thesis.row}>
-                    <View style={list_thesis.left}>
-                        <Text style={list_thesis.text}>{item.id}</Text>
-                    </View>
-
-                    <View style={{ width: "92%" }}>
-                        <View style={list_thesis.right}>
-                            <Text style={list_thesis.name}>{item.name}</Text>
-                        </View>
-                    </View>
-
-
+            <View style={list_thesis.row} key={item.id}>
+                <View style={list_thesis.left}>
+                    <Text style={list_thesis.text}>{index + 1}</Text>
                 </View>
+                <View style={list_thesis.right}>
+                    <Text style={list_thesis.name}>{item.name}</Text>
+                </View>
+
+
             </View>
         )
     }
@@ -57,31 +53,27 @@ const DanhSachKL = () => {
         getListThesis();
     }, []);
     return (
-        <View style={[styles.container, { backgroundColor: color.background, height: '80%' }]}>
-            <View style={list_thesis.container}>
-                <View style={list_thesis.top}>
-                    <Text style={{
-                        marginVertical: 10,
-                        color: 'gray',
-                        fontStyle: 'italic'
-                    }}>Danh sách tất cả khóa luận !!!</Text>
-                    {/* onSearch truyền từ search qua */}
-                    <Search onSearch={searchName} />
-                </View>
-                <View style={list_thesis.bottom}>
-                    {list.length < 1 ? (
-                        // <Text>Chưa có dữ liệu</Text>
-                        <ActivityIndicator size={30} color={color.green} />
-                    ) : (<FlatList
-                        data={filter.length > 0 ? filter : list}
-                        keyExtractor={(item) => item.id.toString()}
-                        renderItem={renderItem}
-                    />
-                    )}
-                </View>
-
+        <View style={[styles.container, { backgroundColor: color.background }]}>
+            <View style={list_thesis.top}>
+                <Text style={{
+                    marginVertical: 10,
+                    color: 'gray',
+                    fontStyle: 'italic'
+                }}>Danh sách tất cả khóa luận !!!</Text>
+                {/* onSearch truyền từ search qua */}
+                <Search onSearch={searchName} />
             </View>
-
+            <View style={list_thesis.bottom}>
+                {list.length < 1 ? (
+                    // <Text>Chưa có dữ liệu</Text>
+                    <ActivityIndicator size={30} color={color.green} />
+                ) : (<FlatList
+                    data={filter.length > 0 ? filter : list}
+                    keyExtractor={(item) => item.id.toString()}
+                    renderItem={renderItem}
+                />
+                )}
+            </View>
         </View>
 
     )
@@ -96,7 +88,7 @@ const list_thesis = StyleSheet.create({
         marginBottom: '3%'
     },
     bottom: {
-        height: '90%',
+        height: windowHeight * 0.7,
         marginVertical: '3%'
     },
     row: {
@@ -105,12 +97,10 @@ const list_thesis = StyleSheet.create({
         marginTop: 10,
         justifyContent: "center",
         alignItems: "center",
-
-
     },
     right: {
         flexDirection: "row",
-        width: "100%",
+        width: windowWidth * 0.8,
         height: 'auto',
         borderWidth: 1,
         borderColor: '#d0eacef5',
@@ -130,7 +120,7 @@ const list_thesis = StyleSheet.create({
         elevation: 5,
     },
     left: {
-        width: "10%",
+        width: windowWidth * 0.1,
         height: 80,
         marginRight: -15,
         position: 'relative',

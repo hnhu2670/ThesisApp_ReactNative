@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Dimensions, FlatList, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import axios from 'axios';
 import { endpoints } from '../../configs/Apis';
 import Search from '../layout/Search';
@@ -7,7 +7,8 @@ import color from '../../assets/js/color';
 import styles from '../../assets/js/style';
 import { MyUserContext } from '../../../App';
 import ToastifyMessage from '../layout/ToastifyMessage';
-
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 const DanhSachHD = ({ navigation }) => {
     const [show, setShow] = useState(false)
@@ -25,9 +26,7 @@ const DanhSachHD = ({ navigation }) => {
         }
     };
     const goToDetail = async (id, name) => {
-        alert('lấy thành công')
-        // const data = await getCommittees()
-        // console.log('thông tin mới lấy')
+
         navigation.navigate("Chi tiết hội đồng", { id, name })
 
     }
@@ -62,33 +61,27 @@ const DanhSachHD = ({ navigation }) => {
         console.log('Search text:', text);
 
     };
-    const renderData = ({ item }) => {
+    const renderData = ({ item, index }) => {
         return (
             <>
                 {current_user.role === 'student' || current_user.role === 'lecturer' ? <>
-                    <View key={item.id} >
-                        <View style={hoidong.row}>
-                            <Text style={[hoidong.cell, hoidong.first, { width: "20%" }]}>
-                                Mã : {item.id}
-                            </Text>
-                            <TouchableOpacity onPress={() => goToDetail(item.id, item.name)}>
-                                <Text style={[hoidong.cell, { width: "100%" }]}>{item.name}</Text>
-                            </TouchableOpacity>
+                    <TouchableOpacity style={hoidong.row} key={item.id}
+                        onPress={() => goToDetail(item.id, item.name)}
+                    >
+                        <Text style={[hoidong.first]}>
+                            {index + 1}
+                        </Text>
+                        <Text style={[hoidong.second]}>{item.name}</Text>
 
-                        </View>
-
-                    </View>
+                    </TouchableOpacity>
                 </> : <>
-                    <View key={item.id} >
-                        <View style={hoidong.row}>
-                            <Text style={[hoidong.cell, hoidong.first, { width: "20%" }]}>
-                                Mã: {item.id}
+                    <View style={hoidong.row} key={item.id}>
+                        <TouchableOpacity onPress={() => goToDelete(item.id, item.name)}>
+                            <Text style={[hoidong.first]}>
+                                STT:{index + 1}
                             </Text>
-                            <TouchableOpacity onPress={() => goToDelete(item.id, item.name)}>
-                                <Text style={[hoidong.cell, { width: "100%" }]}>{item.name}</Text>
-                            </TouchableOpacity>
-
-                        </View>
+                            <Text style={[hoidong.second]}>{item.name}</Text>
+                        </TouchableOpacity>
 
                     </View>
                 </>}
@@ -108,31 +101,28 @@ const DanhSachHD = ({ navigation }) => {
     }, [show]);
 
     return (
-        <View style={[styles.container, { backgroundColor: color.background, height: '80%' }]}>
-            <View style={hoidong.container}>
-                <View style={hoidong.top}>
-                    <Text style={{
-                        marginVertical: 10,
-                        color: 'gray',
-                        fontStyle: 'italic'
-                    }}>Xem thông tin tất cả hội đồng !!!</Text>
-                    <Search onSearch={searchName} />
-                </View>
-                <View style={hoidong.bottom}>
-                    {committees.length < 1 ? (
-                        // <Text>Chưa có dữ liệu</Text>
-                        <ActivityIndicator size={30} color={color.green} />
-                    ) : (
+        <View style={[styles.container, { backgroundColor: color.background }]}>
+            <View style={hoidong.contain_top}>
+                <Text style={{
+                    marginVertical: 10,
+                    color: 'gray',
+                    fontStyle: 'italic'
+                }}>Xem thông tin tất cả hội đồng !!!</Text>
+                <Search onSearch={searchName} />
+            </View>
+            <View style={hoidong.contain_bottom}>
+                {committees.length < 1 ? (
+                    // <Text>Chưa có dữ liệu</Text>
+                    <ActivityIndicator size={30} color={color.green} />
+                ) : (
 
-                        <FlatList
-                            // data={committees}
-                            data={filter.length > 0 ? filter : committees}
-                            keyExtractor={(item) => item.id.toString()}
-                            renderItem={renderData}
-                        />
-                    )}
-                </View>
-
+                    <FlatList
+                        // data={committees}
+                        data={filter.length > 0 ? filter : committees}
+                        keyExtractor={(item) => item.id.toString()}
+                        renderItem={renderData}
+                    />
+                )}
             </View>
             {show == true && (
                 <ToastifyMessage
@@ -146,60 +136,63 @@ const DanhSachHD = ({ navigation }) => {
     );
 };
 
-const hoidong = StyleSheet.create({
+// const hoidong = StyleSheet.create({
 
-    top: {
-        height: 'auto',
-        // marginVertical: '2%'
-        marginBottom: '3%'
-    },
-    bottom: {
-        height: '90%',
-        marginVertical: '3%'
-    },
+//     top: {
+//         height: 'auto',
+//         marginBottom: '3%'
+//     },
+//     bottom: {
+//         height: windowHeight * 0.7,
+//         marginVertical: '3%'
+//     },
 
-    row: {
-        flexDirection: "row",
-        width: "100%",
-        height: 80,
-        // justifyContent: "space-around",
-        borderRadius: 15,
-        borderColor: color.green,
-        borderWidth: 1,
-        backgroundColor: color.lightgreen,
-        marginTop: 10,
-        marginBottom: 10,
-        alignItems: "center",
-        shadowColor: 'black', // Màu sắc của bóng
-        shadowOpacity: 0.7, // Độ sắc nét của bóng (0-1)
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        }, // Khoảng cách dịch chuyển theo chiều ngang và chiều dọc
-        shadowRadius: 6, // Bán kính của bóng
-        elevation: 5, // Áp dụng bóng (chỉ áp dụng cho Android)
-    },
-    cell: {
-        // height: "auto",
-        padding: 10,
-        textAlign: "left",
-        fontSize: 16,
-        color: color.green,
-        width: '100%'
-        // borderRightWidth: 2
-    },
-    first: {
-        // backgroundColor: "green",
-        textAlign: "center",
-        borderRightWidth: 1,
-        borderRightColor: 'lightgray',
-        marginLeft: 10,
+//     row: {
+//         flexDirection: "row",
+//         width: '100%',
+//         height: 'auto',
+//         // justifyContent: "space-around",
+//         borderRadius: 15,
+//         // paddingVertical: 15,
+//         borderColor: color.green,
+//         borderWidth: 1,
+//         backgroundColor: color.lightgreen,
+//         marginTop: 10,
+//         marginBottom: 10,
+//         alignItems: "center",
+//         shadowColor: 'black',
+//         shadowOpacity: 0.7,
+//         shadowOffset: {
+//             width: 0,
+//             height: 2,
+//         },
+//         shadowRadius: 6,
+//         elevation: 5,
+//     },
+//     first: {
+//         // backgroundColor: "green",
+//         textAlign: "center",
+//         borderRightWidth: 1,
+//         borderRightColor: 'lightgray',
+//         marginLeft: 10,
+//         width: '20%',
+//         color: color.green,
+//         paddingVertical: 20,
+//         fontSize: 16
 
-    },
-    edit: {
-        textAlign: "center",
-        padding: 10
-    }
+//     },
+//     second: {
+//         width: '75%',
+//         color: color.green,
+//         paddingVertical: 20,
+//         fontSize: 16,
+//         marginLeft: 20
 
-})
+//     },
+//     edit: {
+//         textAlign: "center",
+//         padding: 10
+//     }
+
+// })
 export default DanhSachHD;

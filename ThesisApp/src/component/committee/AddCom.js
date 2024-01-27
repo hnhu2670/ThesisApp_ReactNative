@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Dimensions, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import login from '../../login/style';
 import { AntDesign } from '@expo/vector-icons';
 import { authApiToken, endpoints } from '../../configs/Apis';
@@ -9,7 +9,8 @@ import styles from '../thesis/style';
 import axios from 'axios';
 import color from '../../assets/js/color';
 import ToastifyMessage from '../layout/ToastifyMessage';
-
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 const AddCom = ({ navigation }) => {
     const [nameComm, setNameComm] = useState('')
     const [member, setMember] = useState([])
@@ -105,7 +106,7 @@ const AddCom = ({ navigation }) => {
     }, [show]);
     return (
         <View style={[{ backgroundColor: color.background }]}>
-            <ScrollView style={{ height: "90%", marginBottom: 10 }}>
+            <ScrollView style={{ marginBottom: 10, height: windowHeight * 0.8 }}>
                 <View style={login.text_input} >
                     <Text style={[login.text]}>Tên hội đồng</Text>
                     <TextInput
@@ -261,15 +262,4 @@ const AddCom = ({ navigation }) => {
         </View>
     );
 };
-
-const comm = StyleSheet.create({
-    plus: {
-        marginLeft: 20,
-        padding: 5,
-        borderWidth: 1,
-        color: "green",
-        borderRadius: 10,
-        textAlign: "center"
-    }
-})
 export default AddCom;

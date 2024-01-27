@@ -234,15 +234,6 @@ const UpdateThesis = ({ route, navigation }) => {
 
             </View>
             <View style={style.bottom}>
-                {/* <Text style={{
-                    textAlign: 'center',
-                    paddingVertical: 10,
-                    fontSize: 20,
-                    borderBottomWidth: 1,
-                    borderBottomColor: 'lightgray',
-                    color: color.green
-                }}>{name}</Text> */}
-
                 <TextInput style={[style.textName]}
                     value={nameThesis.name}
                     onChangeText={text => updateName(text, "name")} />

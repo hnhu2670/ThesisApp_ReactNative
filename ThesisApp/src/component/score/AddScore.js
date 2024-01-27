@@ -8,7 +8,11 @@ import login from '../../login/style'
 import styles from '../../assets/js/style'
 import mark from './style'
 import thesis from '../thesis/style'
+import { Popup } from 'react-native-popup-confirm-toast'
+import ToastifyMessage from '../layout/ToastifyMessage'
 const AddScore = ({ route, navigation }) => {
+    const [show, setShow] = useState('')
+    const [error, setError] = useState('')
     const { id, name } = route.params //id khoa luan
     const [score, setScore] = useState([])
     const [student, setStudent] = useState([])
@@ -29,7 +33,7 @@ const AddScore = ({ route, navigation }) => {
     const getScore = async () => {
         try {
             // console.log('id khoa luan', id)
-            const token = await AsyncStorage.getItem('token')
+            // const token = await AsyncStorage.getItem('token')
             // lấy hs làm khóa luận
             const { data } = await axios.get(endpoints['score-thesis-students'](id))
             console.log('hs thực thiện:', data)
@@ -58,23 +62,52 @@ const AddScore = ({ route, navigation }) => {
         }
 
     }
-
     const sendScore = async () => {
+        const token = await AsyncStorage.getItem('token')
         if (list_Score.length > 0) {
             try {
-                console.log('list_Score', list_Score)
-                const token = await AsyncStorage.getItem('token')
-                let res = await authApiToken(token).post(endpoints['add-or-update-score'], {
-                    "score": list_Score
-                })
-                console.log('danh sách điểm', res.data)
-                if (res.status == 200) {
-                    alert('Oke')
-                    navigation.navigate('ThesisApp')
-                } else {
-                    alert('error!!!')
-                }
+                console.log('list_Score', list_Score)//không có sự thay đổi điểm
 
+                Popup.show({
+
+                    type: 'confirm',
+                    title: 'Chấm điểm',
+                    textBody: `Bạn có chắc chắn muốn cập nhật điểm ??`,
+                    buttonText: 'Ok',
+                    confirmText: 'Cancel',
+
+                    // click ok
+                    callback: addScore,
+                    cancelCallback: () => {
+                        Popup.hide();//tắt confirm
+                    },
+                });
+
+                async function addScore() {
+                    try {
+                        Popup.hide();
+                        let res = await authApiToken(token).post(endpoints['add-or-update-score'], {
+                            "score": list_Score
+                        })
+                        console.log('danh sách điểm', res.data)
+
+                        if (res.status == 200) {
+                            setShow('success')
+                            setError('Chấm điểm thành công')
+                            // alert('thành công')
+                            // navigation.navigate('ThesisApp')
+                        } else {
+                            setShow('danger')
+                            setError('Chấm điểm thất bại')
+                            alert('error!!!')
+                        }
+                    } catch (error) {
+                        // Xử lý khi xảy ra lỗi
+                        console.error('Lỗi sendScore ', error);
+                        setShow('error')
+                        setError("Xóa thành viên thất bại")
+                    }
+                }
             }
             catch (error) {
                 // console.log('error function sendscore', er.request.responseText)
@@ -82,14 +115,14 @@ const AddScore = ({ route, navigation }) => {
                 err = error.request.responseText
                 // e = JSON.parse(err)
                 console.log("lỗi..............", err)
+                setShow('error')
+                setError(err)
             }
         }
         else {
             alert('list_Score null')
 
         }
-
-
     }
 
     const getcriteria = async () => {
@@ -103,8 +136,6 @@ const AddScore = ({ route, navigation }) => {
             console.log(error)
         }
     }
-
-
 
     const addScore = (value, idhs, idcriteria, idthesis) => {
         let score_check = list_Score.find(score => score['student'] == idhs && score['criteria'] == idcriteria && score['thesis'] == idthesis) ?? undefined
@@ -122,8 +153,14 @@ const AddScore = ({ route, navigation }) => {
     useEffect(() => {
         getcriteria();
         getScore();
-        // viewScore()
-    }, [id])
+        if (show !== '') {
+            const timer = setTimeout(() => {
+                setShow('');
+            }, 2000);
+            return () => clearTimeout(timer);
+        }
+        console.log(show)
+    }, [id, show])
     return (
         <View style={[styles.container, mark.container]}>
             <ScrollView style={[mark.container]}>
@@ -169,7 +206,20 @@ const AddScore = ({ route, navigation }) => {
                 </TouchableOpacity>
 
             </View>
-
+            {show === 'error' && (
+                <ToastifyMessage
+                    type="danger"
+                    text={error}
+                    description="Thêm thất bại"
+                />
+            )}
+            {show === 'success' && (
+                <ToastifyMessage
+                    type="success"
+                    text={error}
+                    description="Thêm thành công"
+                />
+            )}
         </View>
     )
 }
