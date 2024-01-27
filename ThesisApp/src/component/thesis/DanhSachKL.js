@@ -1,11 +1,9 @@
 import axios from 'axios'
-import React, { useContext, useEffect, useState } from 'react'
-import { ActivityIndicator, Dimensions, FlatList, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { ActivityIndicator, Dimensions, FlatList, StyleSheet, Text, View } from 'react-native'
 import { endpoints } from '../../configs/Apis'
-import { AntDesign } from '@expo/vector-icons'
 import Search from '../layout/Search'
 import color from '../../assets/js/color'
-import { MyUserContext } from '../../../App'
 import styles from '../../assets/js/style'
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;

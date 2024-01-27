@@ -4,6 +4,47 @@ import color from "../../assets/js/color";
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 const thesis = StyleSheet.create({
+    top: {
+        height: windowHeight * 0.22,
+        width: windowWidth,
+        // backgroundColor: 'red',
+        marginBottom: '5%'
+    },
+    bottom: {
+        height: windowHeight * 0.65,
+        backgroundColor: color.background,
+    },
+    img: {
+        position: 'absolute',
+        width: 160,
+        height: 160,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 100,
+        backgroundColor: color.lightgreen,
+        // backgroundColor: 'red',
+        // padding: 20,
+        marginVertical: '2%',
+        marginHorizontal: '28%'
+    },
+    image: {
+        width: 140,
+        height: 140,
+        padding: 10,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    inputName: {
+        height: 'auto',
+        width: windowWidth * 0.9,
+        marginHorizontal: 20,
+        textAlign: 'center',
+        paddingVertical: 10,
+        fontSize: 18,
+        borderBottomWidth: 1,
+        borderBottomColor: 'lightgray',
+        color: color.green
+    },
     container: {
 
         marginVertical: '10%',
@@ -91,7 +132,6 @@ const thesis = StyleSheet.create({
     text_input: {
         marginTop: 10,
         marginLeft: 30,
-        // width: "%"
     },
     select: {
         width: windowWidth * 0.9,

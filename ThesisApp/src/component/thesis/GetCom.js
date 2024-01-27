@@ -17,7 +17,8 @@ const GetCom = (props) => {
 
     const getCommittee = async () => {
         try {
-            const { data } = await axios.get(endpoints["list-committes"]);
+            const { data } = await axios.get(endpoints["list-committes"] + '?status=Open');
+            console.log('data', data)
             setCommittee(data)
         } catch (error) {
             console.log("Lỗi trang getcom:", error);

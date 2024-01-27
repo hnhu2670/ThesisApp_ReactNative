@@ -26,7 +26,6 @@ const DetailThesis = ({ route, navigation }) => {
 
         return (
             <View>
-
                 <View style={login.text_input}>
                     <Text style={[thesis.textTile]}>Hội đồng chấm</Text>
                     <Text style={[thesis.inforText]}>{detail?.committee?.name}</Text>

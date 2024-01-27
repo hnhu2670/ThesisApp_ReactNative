@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { ActivityIndicator, FlatList, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, Dimensions, FlatList, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { authApiToken, endpoints } from '../../configs/Apis'
 import { AntDesign } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
@@ -19,7 +19,7 @@ const ListThesisForScore = () => {
         const token = await AsyncStorage.getItem('token')
 
         const res = await authApiToken(token).get(endpoints["list-thesis"])
-        console.log('danh sách khóa luận được chấm điểm', res.data.length)
+        // console.log('danh sách khóa luận được chấm điểm', res.data.length)
         if (res.status === 200) {
             const result = await res.data;
             setList(result);
@@ -44,24 +44,18 @@ const ListThesisForScore = () => {
     const renderItem = ({ item }) => {
         return (
             <>
-                <View key={item.id} style={list_thesis.coll}>
+                <View key={item.id}>
                     <View style={list_thesis.row}>
                         <View style={list_thesis.left}>
                             <Text style={list_thesis.text}>{item.id}</Text>
                         </View>
 
-                        <View style={{ width: "95%" }}>
-                            <TouchableOpacity onPress={() => goToScore(item.id)}>
-                                <View style={list_thesis.right}>
-                                    <Text style={list_thesis.name}>{item.name}</Text>
-                                    <Text style={list_thesis.edit}>
-                                        <AntDesign color="#2d665f" name="right" size={20} />
-                                    </Text>
-                                </View>
-                            </TouchableOpacity>
-                        </View>
-
-
+                        <TouchableOpacity onPress={() => goToScore(item.id)} style={list_thesis.right}>
+                            <Text style={list_thesis.name}>{item.name}</Text>
+                            <Text style={list_thesis.edit}>
+                                <AntDesign color="#2d665f" name="right" size={20} />
+                            </Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
 
@@ -72,29 +66,47 @@ const ListThesisForScore = () => {
         getListThesis();
     }, [])
     return (
-        <View style={[styles.container, { backgroundColor: color.background, height: '90%', marginTop: '3%' }]}>
-            <View style={list_thesis.top}>
-                {/* onSearch truyền từ search qua */}
-                <Search onSearch={searchName} />
-            </View>
+        <View style={[styles.container, { backgroundColor: color.background, height: '80%' }]}>
             <View style={list_thesis.container}>
-                {list.length < 1 ? (
-                    // <Text>Chưa có dữ liệu</Text>
-                    <ActivityIndicator />
-                ) : (<FlatList
+                <View style={list_thesis.top}>
+                    <Text style={{
+                        marginVertical: 10,
+                        color: 'gray',
+                        fontStyle: 'italic'
+                    }}>Lựa chọn khóa luận mà bạn cần chấm điểm !!!</Text>
+                    <Search onSearch={searchName} />
+                </View>
+                <View style={list_thesis.bottom}>
+                    {list.length < 1 ? (
+                        // <Text>Chưa có dữ liệu</Text>
+                        <ActivityIndicator size={30} color={color.green} />
+                    ) : (<FlatList
+                        data={filter.length > 0 ? filter : list}
+                        keyExtractor={(item) => item.id.toString()}
+                        renderItem={renderItem}
+                    />
+                    )}
+                </View>
 
-                    data={filter.length > 0 ? filter : list} //kiểm tra dữ liệu có được tìm thấy không
-                    keyExtractor={(item) => item.id.toString()}
-                    renderItem={renderItem}
-                />
-                )}
             </View>
+
         </View>
     )
 }
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 const list_thesis = StyleSheet.create({
     container: {
         margin: 10,
+    },
+    top: {
+        height: 'auto',
+        marginBottom: '3%',
+        // marginHorizontal: 20
+    },
+    bottom: {
+        height: windowHeight * 0.7,
+        marginVertical: '3%'
     },
     row: {
         flexDirection: "row",
@@ -102,12 +114,12 @@ const list_thesis = StyleSheet.create({
         marginTop: 10,
         justifyContent: "center",
         alignItems: "center",
-
+        width: windowWidth * 0.85,
     },
     right: {
-        flexDirection: "row",
-        width: "100%",
-        height: 85,
+        flexDirection: 'row',
+        width: '90%',
+        height: 'auto',
         borderWidth: 1,
         borderColor: '#d0eacef5',
         // backgroundColor: '#e1eee0e8',
@@ -126,7 +138,7 @@ const list_thesis = StyleSheet.create({
         elevation: 5,
     },
     left: {
-        width: "10%",
+        width: "13%",
         height: 80,
         marginRight: -15,
         position: 'relative',

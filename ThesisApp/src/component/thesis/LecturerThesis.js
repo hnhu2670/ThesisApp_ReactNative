@@ -13,7 +13,7 @@ const LecturerThesis = ({ navigation }) => {
         try {
             const token = await AsyncStorage.getItem('token')
             const { data } = await authApiToken(token).get(endpoints['thesis-of-lecturer'])
-            // console.log('thông tin user', data)
+            console.log('thông tin user', data)
             setThisThesis(data)
         } catch (error) {
             console.log('lỗi getThisThesis', error)
@@ -37,7 +37,7 @@ const LecturerThesis = ({ navigation }) => {
                     <View key={c.id} >
                         <TouchableOpacity onPress={() => goAddMark(c.id, c.name)} style={[hoidong.row]}>
                             <Text style={[hoidong.first]}>
-                                STT: {index + 1}
+                                {index + 1}
                             </Text>
 
                             <Text style={[hoidong.second]}>{c.name}</Text>

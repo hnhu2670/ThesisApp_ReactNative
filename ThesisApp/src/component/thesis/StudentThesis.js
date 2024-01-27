@@ -32,18 +32,14 @@ const StudentThesis = ({ navigation }) => {
             {thisThesis.length < 1 ? (
                 <ActivityIndicator />
             ) : (
-                thisThesis.map(c =>
-                    <View style={hoidong.row} key={c.id}>
-                        <Text style={[hoidong.cell, hoidong.first, { width: "20%" }]}>
-                            Mã KL: {c.id}
+                thisThesis.map((c, index) =>
+                    <TouchableOpacity onPress={() => goToDetail(c.id, c.name)} style={hoidong.row}>
+                        <Text style={[hoidong.first]}>
+                            {index + 1}
                         </Text>
-                        <TouchableOpacity onPress={() => { goToDetail(c.id, c.name) }}
-                            style={[hoidong.cell,]}
-                        >
-                            <Text style={[hoidong.text]}>{c.name}</Text>
-                        </TouchableOpacity>
+                        <Text style={[hoidong.second]}>{c.name}</Text>
 
-                    </View>
+                    </TouchableOpacity>
                 )
             )}
         </View>

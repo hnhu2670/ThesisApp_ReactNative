@@ -92,7 +92,7 @@ const UpdateThesis = ({ route, navigation }) => {
         try {
             // const { data } = await axios.get(endpoints["get-thesis"](id))
             let data = await getList() //gọi lại hàm getList
-            const res = await axios.get(endpoints["list-committes"]);
+            const res = await axios.get(endpoints["list-committes"] + '?status=Open');
             const listComm = res.data
             listComm.forEach(element => {
                 setData3(pre =>
@@ -225,19 +225,19 @@ const UpdateThesis = ({ route, navigation }) => {
     }, [id, show])
     return (
         <View>
-            <View style={style.top}>
-                <View style={style.img}>
+            <View style={thesis.top}>
+                <View style={thesis.img}>
                     <Image
-                        style={style.image}
+                        style={thesis.image}
                         source={{ uri: 'https://res.cloudinary.com/dhdca9ibd/image/upload/v1704853796/tpkzdjwc1xtfmx7ov6ym.png' }} />
                 </View>
 
             </View>
-            <View style={style.bottom}>
-                <TextInput style={[style.textName]}
+            <View style={thesis.bottom}>
+                <TextInput style={[thesis.inputName]}
                     value={nameThesis.name}
                     onChangeText={text => updateName(text, "name")} />
-                <ScrollView style={{ height: windowHeight * 0.85, marginBottom: windowHeight * 0.05, marginTop: windowHeight * 0.02 }}>
+                <ScrollView >
                     <View style={thesis.text_input}>
                         <Text style={login.text}>Danh sách sinh viên hiện tại </Text>
                         <Text style={{ marginLeft: 20, marginBottom: 0 }}>
@@ -334,14 +334,12 @@ const UpdateThesis = ({ route, navigation }) => {
                         />
                     </View>
                 </ScrollView>
-                <View style={{ height: windowHeight * 0.12 }}>
-                    <View style={[thesis.text_input, { marginTop: -25 }]} >
-                        <TouchableOpacity onPress={change}>
-                            <Text style={login.button}
-                            >CẬP NHẬT KHÓA LUẬN</Text>
-                        </TouchableOpacity>
+                <View style={[thesis.text_input, { marginTop: -25 }]} >
+                    <TouchableOpacity onPress={change}>
+                        <Text style={login.button}
+                        >CẬP NHẬT KHÓA LUẬN</Text>
+                    </TouchableOpacity>
 
-                    </View>
                 </View>
             </View >
             {show == 'success' && (
@@ -361,51 +359,51 @@ const UpdateThesis = ({ route, navigation }) => {
         </View>
     )
 }
-const style = StyleSheet.create({
-    textName: {
-        height: 'auto',
-        width: windowWidth * 0.9,
-        marginHorizontal: 20,
-        textAlign: 'center',
-        paddingVertical: 10,
-        fontSize: 18,
-        borderBottomWidth: 1,
-        borderBottomColor: 'lightgray',
-        color: color.green
-    },
-    top: {
-        height: windowHeight * 0.25,
-        width: windowWidth,
-        // backgroundColor: 'red',
-        marginBottom: windowWidth * 0.05
-    },
-    bottom: {
-        paddingTop: 20,
-        height: windowHeight * 0.7,
-        backgroundColor: color.background,
-        borderTopLeftRadius: 30,
-        borderTopRightRadius: 30,
-        // borderTopWidth: 1,
-        // borderTopColor: 'gray'
-    },
-    img: {
-        position: 'absolute',
-        width: 190,
-        height: 190,
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 150,
-        backgroundColor: color.lightgreen,
-        // padding: 20,
-        marginVertical: '3%',
-        marginHorizontal: '25%'
-    },
-    image: {
-        width: 140,
-        height: 140,
-        padding: 10,
-        justifyContent: 'center',
-        alignItems: 'center'
-    }
-})
+// const style = StyleSheet.create({
+//     inputName: {
+//         height: 'auto',
+//         width: windowWidth * 0.9,
+//         marginHorizontal: 20,
+//         textAlign: 'center',
+//         paddingVertical: 10,
+//         fontSize: 18,
+//         borderBottomWidth: 1,
+//         borderBottomColor: 'lightgray',
+//         color: color.green
+//     },
+//     top: {
+//         height: windowHeight * 0.25,
+//         width: windowWidth,
+//         // backgroundColor: 'red',
+//         marginBottom: windowWidth * 0.05
+//     },
+//     bottom: {
+//         paddingTop: 20,
+//         height: windowHeight * 0.7,
+//         backgroundColor: color.background,
+//         borderTopLeftRadius: 30,
+//         borderTopRightRadius: 30,
+//         // borderTopWidth: 1,
+//         // borderTopColor: 'gray'
+//     },
+//     img: {
+//         position: 'absolute',
+//         width: 190,
+//         height: 190,
+//         justifyContent: 'center',
+//         alignItems: 'center',
+//         borderRadius: 150,
+//         backgroundColor: color.lightgreen,
+//         // padding: 20,
+//         marginVertical: '3%',
+//         marginHorizontal: '25%'
+//     },
+//     image: {
+//         width: 140,
+//         height: 140,
+//         padding: 10,
+//         justifyContent: 'center',
+//         alignItems: 'center'
+//     }
+// })
 export default UpdateThesis

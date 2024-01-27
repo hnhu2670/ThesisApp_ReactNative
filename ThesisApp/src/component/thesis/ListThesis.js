@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useContext, useEffect, useState } from 'react'
-import { ActivityIndicator, FlatList, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, Dimensions, FlatList, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { endpoints } from '../../configs/Apis'
 import { AntDesign } from '@expo/vector-icons'
 import Search from '../layout/Search'
@@ -24,53 +24,22 @@ const ListThesis = ({ navigation }) => {
             throw new Error(res.statusText);
         }
     }
-    const goToDetail = (id, name) => {
-        navigation.navigate("Cập nhật khóa luận", { id, name })
-    }
     const renderItem = ({ item }) => {
         return (
             <>
-                {current_user.role === 'admin' || current_user.role === 'universityadministrator' ? <>
-                    <View key={item.id} style={list_thesis.coll}>
-                        <View style={list_thesis.row}>
-                            <View style={list_thesis.left}>
-                                <Text style={list_thesis.text}>{item.id}</Text>
-                            </View>
-
-                            <View style={{ width: "92%" }}>
-                                <TouchableOpacity onPress={() => goToDetail(item.id, item.name)}>
-                                    <View style={list_thesis.right}>
-                                        <Text style={list_thesis.name}>{item.name}</Text>
-                                        <Text style={list_thesis.edit}>
-                                            <AntDesign color="#2d665f" name="right" size={20} />
-                                        </Text>
-                                    </View>
-                                </TouchableOpacity>
-                            </View>
-
-
+                <View key={item.id} style={list_thesis.coll}>
+                    <View style={list_thesis.row}>
+                        <View style={list_thesis.left}>
+                            <Text style={list_thesis.text}>{item.id}</Text>
                         </View>
-                    </View>
 
-                </> : <>
-                    <View key={item.id} style={list_thesis.coll}>
-                        <View style={list_thesis.row}>
-                            <View style={list_thesis.left}>
-                                <Text style={list_thesis.text}>{item.id}</Text>
-                            </View>
-
-                            <View style={{ width: "92%" }}>
-                                <View style={list_thesis.right}>
-                                    <Text style={list_thesis.name}>{item.name}</Text>
-                                </View>
-                            </View>
-
-
+                        <View style={list_thesis.right}>
+                            <Text style={list_thesis.name}>{item.name}</Text>
                         </View>
+
+
                     </View>
-                </>}
-
-
+                </View>
             </>
         );
     }
@@ -117,17 +86,19 @@ const ListThesis = ({ navigation }) => {
     )
 
 }
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 const list_thesis = StyleSheet.create({
-    // container: {
-    //     margin: 10,
-    // },
+    container: {
+        margin: 10,
+    },
     top: {
         height: 'auto',
         marginBottom: '3%',
         // marginHorizontal: 20
     },
     bottom: {
-        height: '90%',
+        height: windowHeight * 0.7,
         marginVertical: '3%'
     },
     row: {
@@ -136,12 +107,12 @@ const list_thesis = StyleSheet.create({
         marginTop: 10,
         justifyContent: "center",
         alignItems: "center",
-
+        width: windowWidth * 0.85,
     },
     right: {
-        flexDirection: "row",
-        width: "100%",
-        height: 85,
+        flexDirection: 'row',
+        width: '90%',
+        height: 'auto',
         borderWidth: 1,
         borderColor: '#d0eacef5',
         // backgroundColor: '#e1eee0e8',
@@ -153,14 +124,14 @@ const list_thesis = StyleSheet.create({
         shadowColor: '#000',
         shadowOffset: {
             width: 0,
-            height: 5,
+            height: 2,
         },
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
         elevation: 5,
     },
     left: {
-        width: "10%",
+        width: "13%",
         height: 80,
         marginRight: -15,
         position: 'relative',

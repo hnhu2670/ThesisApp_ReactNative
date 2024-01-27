@@ -8,7 +8,6 @@ import GetCom from './GetCom'
 import { authApiToken, endpoints } from '../../configs/Apis'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import thesis from './style'
-import color from '../../assets/js/color'
 import ToastifyMessage from '../layout/ToastifyMessage'
 const AddThesis = ({ navigation }) => {
     const [listthesis, setThesis] = useState('')
@@ -80,9 +79,9 @@ const AddThesis = ({ navigation }) => {
                     console.log("thành công-----------", data)
                     setShow('success')
                     setError('Thêm khóa luận thành công')
-                    setTimeout(() => {
-                        navigation.navigate('ThesisApp')
-                    }, 4000)
+                    // setTimeout(() => {
+                    //     navigation.navigate('ThesisApp')
+                    // }, 4000)
                 } catch (error) {
                     console.log("lỗi..............", error.request.responseText)
                     err = error.request.responseText
@@ -97,7 +96,6 @@ const AddThesis = ({ navigation }) => {
         else {
             setShow('error')
             setError('Nhập tên khóa luận')
-            // alert("tên khóa luận không được rỗng") }
         }
     }
     useEffect(() => {
@@ -111,15 +109,15 @@ const AddThesis = ({ navigation }) => {
     }, [show]);
     return (
         <View>
-            <View style={style.top}>
-                <View style={style.img}>
+            <View style={thesis.top}>
+                <View style={thesis.img}>
                     <Image
-                        style={style.image}
+                        style={thesis.image}
                         source={{ uri: 'https://res.cloudinary.com/dhdca9ibd/image/upload/v1704853796/tpkzdjwc1xtfmx7ov6ym.png' }} />
                 </View>
 
             </View>
-            <View style={style.bottom}>
+            <View style={thesis.bottom}>
                 <ScrollView >
                     <View style={[thesis.text_input]}>
                         <Text style={login.text}>Tên khóa luận mới </Text>
@@ -180,35 +178,35 @@ const AddThesis = ({ navigation }) => {
 
     )
 }
-const style = StyleSheet.create({
-    top: {
-        height: '27%',
-        width: '100%',
-        // backgroundColor: 'red',
-        marginBottom: '5%'
-    },
-    bottom: {
-        height: '70%',
-        backgroundColor: color.background
-    },
-    img: {
-        position: 'absolute',
-        width: 190,
-        height: 190,
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 150,
-        backgroundColor: color.lightgreen,
-        // padding: 20,
-        marginVertical: '3%',
-        marginHorizontal: '25%'
-    },
-    image: {
-        width: 140,
-        height: 140,
-        padding: 10,
-        justifyContent: 'center',
-        alignItems: 'center'
-    }
-})
+// const style = StyleSheet.create({
+//     top: {
+//         height: '27%',
+//         width: '100%',
+//         // backgroundColor: 'red',
+//         marginBottom: '5%'
+//     },
+//     bottom: {
+//         height: '70%',
+//         backgroundColor: color.background
+//     },
+//     img: {
+//         position: 'absolute',
+//         width: 190,
+//         height: 190,
+//         justifyContent: 'center',
+//         alignItems: 'center',
+//         borderRadius: 150,
+//         backgroundColor: color.lightgreen,
+//         // padding: 20,
+//         marginVertical: '3%',
+//         marginHorizontal: '25%'
+//     },
+//     image: {
+//         width: 140,
+//         height: 140,
+//         padding: 10,
+//         justifyContent: 'center',
+//         alignItems: 'center'
+//     }
+// })
 export default AddThesis

@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#2d665f",
     },
     container: {
-        paddingVertical: '5%',
+        paddingVertical: '10%',
         marginHorizontal: windowWidth * 0.05
     }
     ,

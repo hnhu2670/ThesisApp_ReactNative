@@ -35,7 +35,7 @@ const MyCommittee = ({ navigation }) => {
                     <View key={c.id} >
                         <TouchableOpacity onPress={() => goToDetail(c.id, c.name)} style={[hoidong.row]}>
                             <Text style={[hoidong.first]}>
-                                STT: {index + 1}
+                                {index + 1}
                             </Text>
 
                             <Text style={[hoidong.second]}>{c.name}</Text>
