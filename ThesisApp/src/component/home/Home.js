@@ -113,7 +113,7 @@ const Home = ({ navigation }) => {
                                     </View>
                                 </View>
                                 {/* quản lý điểm */}
-                                <View >
+                                {/* <View >
                                     <Text style={[home.title]}>Quản lý điểm</Text>
                                     <View style={[home.items]}>
                                         <TouchableOpacity style={[home.thumb]} onPress={() => navigation.navigate('Danh sách chấm điểm')}>
@@ -125,7 +125,7 @@ const Home = ({ navigation }) => {
                                             <Text style={[home.infor]}>Bản điểm trung bình</Text>
                                         </TouchableOpacity>
                                     </View>
-                                </View>
+                                </View> */}
                             </>}
                         </View>
 

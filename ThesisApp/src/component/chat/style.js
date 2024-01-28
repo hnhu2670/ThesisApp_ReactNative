@@ -5,7 +5,7 @@ const windowHeight = Dimensions.get('window').height;
 const mess = StyleSheet.create({
     container: {
         marginVertical: 20,
-        height: windowHeight * 0.63,
+        height: windowHeight * 0.65,
         marginBottomBottom: windowHeight * 0.05
     },
     item: {
@@ -15,7 +15,7 @@ const mess = StyleSheet.create({
         paddingHorizontal: 10,
         paddingVertical: 5,
         borderBottomWidth: 1,
-        // borderBottomColor: 'lightgray'
+        borderBottomColor: 'lightgray'
     },
     formImage: {
         width: '25%'
@@ -23,10 +23,10 @@ const mess = StyleSheet.create({
     image: {
         width: 65,
         height: 65,
-        backgroundColor: 'lightblue',
+        // backgroundColor: 'lightblue',
         borderRadius: 33,
         borderWidth: 1,
-        borderColor: 'gray'
+        borderColor: color.green
     },
     userName: {
         fontSize: 17,
@@ -61,7 +61,8 @@ const mess = StyleSheet.create({
         paddingHorizontal: 20,
         paddingVertical: 10,
         marginBottom: 20,
-        marginTop: 20
+        marginTop: 20,
+
 
     }
 })

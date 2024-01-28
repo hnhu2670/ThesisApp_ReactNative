@@ -24,29 +24,25 @@ const ChatBox = ({ id, navigation }) => {
 
   // console.log(otherUser.username)
   return (
-    <View>
-      <View>
-        <Search />
-      </View>
-      <View style={{ marginTop: 10 }}>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('Messager', { id: otherUser.id, username: otherUser.username })}
-          style={{ marginBottom: 10 }}
-        >
-          <View style={[mess.item]}>
-            <View style={[mess.formImage]}>
-              <Image style={[mess.image]}
-                source={{ uri: otherUser.avatar_url }} />
-            </View>
-            <View>
-              <Text style={[mess.userName]}>{otherUser.username}</Text>
-              <Text style={[mess.fullName]}>{otherUser.last_name} {otherUser.first_name}</Text>
-            </View>
+
+    <View style={{ marginTop: 10 }}>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('Messager', { id: otherUser.id, username: otherUser.username })}
+        style={{ marginBottom: 10 }}
+      // onPress={() => navigation.navigate('Messager', { id: 2, username: 'hieu' })}
+      // style={{ marginBottom: 10 }}
+      >
+        <View style={[mess.item]}>
+          <View style={[mess.formImage]}>
+            <Image style={[mess.image]}
+              source={{ uri: otherUser.avatar_url }} />
           </View>
-        </TouchableOpacity>
-      </View>
-
-
+          <View>
+            <Text style={[mess.userName]}>{otherUser.username}</Text>
+            <Text style={[mess.fullName]}>{otherUser.last_name} {otherUser.first_name}</Text>
+          </View>
+        </View>
+      </TouchableOpacity>
     </View>
   )
 }

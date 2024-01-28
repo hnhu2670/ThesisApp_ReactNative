@@ -5,7 +5,7 @@ import React, {
     useCallback,
     useContext
 } from 'react';
-import { TouchableOpacity, Text } from 'react-native';
+import { TouchableOpacity, Text, View, ActivityIndicator } from 'react-native';
 import { Bubble, GiftedChat, MessageText } from 'react-native-gifted-chat';
 import {
     collection,
@@ -50,22 +50,6 @@ export default function Chat() {
 
     console.log('++++++++++++++', url_collection)
 
-    // useLayoutEffect(() => {
-    //     navigation.setOptions({
-    //         headerRight: () => (
-    //             <TouchableOpacity
-    //                 style={{
-    //                     marginRight: 10
-    //                 }}
-    //                 onPress={onSignOut}
-    //             >
-    //                 <AntDesign name="logout" size={24} style={{ marginRight: 10 }} />
-    //             </TouchableOpacity>
-    //         )
-    //     });
-    // }, [navigation]);
-
-    // gọi khi cập nhật giao diện
     useEffect(() => {
         const collectionRef = collection(database, url_collection);
         // console.log('thông tin chat', collectionRef)
@@ -100,7 +84,7 @@ export default function Chat() {
             text,
             user
         });
-        // lưu vào db tạm
+        // lưu db chưa thông tin chat của 2 người
         addDoc(collection(database, "Chat/chatbox/chats"), {
             nguoigui: user,
             nguoinhan: id,
@@ -110,37 +94,43 @@ export default function Chat() {
     }, [url_collection], user);
 
     return (
+
         <GiftedChat
             messages={messages}
             renderBubble={props => (
                 <Bubble
                     {...props}
                     wrapperStyle={{
-                        left: { backgroundColor: 'lightblue', borderWidth: 1, borderColor: 'gray' },
-                        right: { backgroundColor: 'lightgreen' },
+                        left: { backgroundColor: '#e3e8e5' },
+                        right: {
+                            backgroundColor: '#3b965e'
+                        },
                     }}
                 />
             )}
             renderMessageText={props => (
                 <MessageText {...props}
                     textStyle={{
-                        left: { color: color.green }, // Màu sắc cho tin nhắn bên trái (người gửi tin)
-                        right: { color: 'blue' }, // Màu sắc cho tin nhắn bên phải (người nhận tin)
+                        left: { color: 'black' }, // Màu sắc cho tin nhắn bên trái (người gửi tin)
+                        right: { color: 'white' }, // Màu sắc cho tin nhắn bên phải (người nhận tin)
                     }} />
             )}
-            showAvatarForEveryMessage={false}
-            showUserAvatar={false}
+            showAvatarForEveryMessage={true}
+            showUserAvatar={true}
             onSend={messages => onSend(messages)}
             messagesContainerStyle={{
                 backgroundColor: '#fff',
-                paddingBottom: '10%'
+                paddingVertical: '10%',
+                paddingHorizontal: 10
             }}
             // nhập tin nhắn
             textInputStyle={[mess.textInput]}
+            // ktra tin nhắn gửi hay nhận
             user={{
                 _id: user.id,
                 avatar: user.avatar
             }}
         />
+
     );
 }

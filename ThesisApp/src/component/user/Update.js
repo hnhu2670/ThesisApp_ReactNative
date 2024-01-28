@@ -10,12 +10,15 @@ import DateTimePicker from '@react-native-community/datetimepicker'
 import moment from 'moment';
 import { Fontisto } from '@expo/vector-icons';
 import styles from '../../assets/js/style';
+import ToastifyMessage from '../layout/ToastifyMessage';
 
 
 
 const Update = ({ navigation }) => {
 
     const [show, setShow] = useState(false)
+    const [form, setForm] = useState('')
+    const [message, setMessage] = useState('')
     const showMode = () => {
         setShow(true)
     }
@@ -35,14 +38,10 @@ const Update = ({ navigation }) => {
         "last_name": current_user.last_name,
         "email": current_user.email,
         "phone": current_user.phone,
-        // "gender": current_user.gender,
         "address": current_user.address,
-        // "date_of_birth": date.toISOString().split("T")[0]
         "date_of_birth": date.toISOString().split("T")[0]
     })
-    // let date = new Date(current_user.date_of_birth)
-
-    console.log("thông tin user: ", date.toISOString())
+    // console.log("thông tin user: ", date.toISOString())
     const change = (value, field) => {
         setMyUser(user => ({
             ...user,
@@ -67,21 +66,30 @@ const Update = ({ navigation }) => {
                         "Content-Type": "multipart/form-data"
                     }
                 })
-
+                setForm('success')
+                setMessage('Cập nhật thành công')
                 // lưu lại thông tin user vào AsyncStorage
                 await AsyncStorage.setItem('user', JSON.stringify(response.data));
 
                 dispatch({ type: 'login', payload: response.data });
-                alert("Cập nhật thành công")
+                // alert("Cập nhật thành công")
             } catch (err) {
                 console.log("lỗi", err.request);
+                setForm('error')
+                setMessage('Cập nhật thất bại')
             }
         }
         process()
     }
-    // useEffect(() => {
-    //     updateUser()
-    // }, [])
+    useEffect(() => {
+        if (form !== '') {
+            const timer = setTimeout(() => {
+                setForm('');
+            }, 1500);
+            return () => clearTimeout(timer);
+        }
+        console.log(show)
+    }, [form])
     return (
         <View >
             <ScrollView style={{ height: '85%' }}>
@@ -195,7 +203,20 @@ const Update = ({ navigation }) => {
                 </View>
 
             </View>
-
+            {form === 'error' && (
+                <ToastifyMessage
+                    type="danger"
+                    text={message}
+                    description="Thêm thành công"
+                />
+            )}
+            {form === 'success' && (
+                <ToastifyMessage
+                    type="success"
+                    text={message}
+                    description="Thêm thất bại"
+                />
+            )}
         </View>
 
     )

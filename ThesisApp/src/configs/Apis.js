@@ -16,7 +16,7 @@ export const endpoints = {
     'login': `${SERVER_URL}/o/token/`,//quyền đn
     "current-user": `${SERVER_URL}/get-user-by-token/`,//user đăng nhập
     "get-user": (id) => `${SERVER_URL}/get-users/${id}/`,//get user by id
-    "get-user-role": `${SERVER_URL}/get-users/`,//get user by id
+    "get-user-role": `${SERVER_URL}/get-users/`,//get user 
     "update-user": (id) => `${SERVER_URL}/update-user/${id}/`,//update profile
     "check-old-password": `${SERVER_URL}/check-old-password/`,//ktra mật khẩu cũ
     "thesis-of-user": (id) => `${SERVER_URL}/get-users/${id}/thesis`,//khóa luận mà sv tham gia ==> id sv

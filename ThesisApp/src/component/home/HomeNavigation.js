@@ -55,13 +55,13 @@ export const HomeNavigation = [
         activeSize: 25,
         unactiveSize: 15,
     },
-    {
-        id: 3,
-        route: ConfirmMessage,
-        name: 'Confirm',
-        activeIconName: 'wechat',
-        typeIcon: "AntDesign",
-        activeSize: 25,
-        unactiveSize: 15,
-    }
+    // {
+    //     id: 3,
+    //     route: ConfirmMessage,
+    //     name: 'Confirm',
+    //     activeIconName: 'wechat',
+    //     typeIcon: "AntDesign",
+    //     activeSize: 25,
+    //     unactiveSize: 15,
+    // }
 ];

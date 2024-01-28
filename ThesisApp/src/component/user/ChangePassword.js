@@ -88,12 +88,8 @@ const ChangePassword = ({ navigation }) => {
                 }
             })
             console.log('Cập nhật thành công:');
-            // alert("Đăng nhập lại sau 3s")
             setShow('success')
             setErr('Đổi mật khẩu thành công')
-            setTimeout(() => {
-                navigation.navigate("Login");
-            }, 3000); // Thời gian chờ 3 giây 
         } catch (error) {
             console.log('Lỗi khi thay đổi mật khẩu:', error);
         }
@@ -113,10 +109,6 @@ const ChangePassword = ({ navigation }) => {
     return (
 
         <View>
-
-            <View style={[profile.topChange]}>
-                <Text style={[profile.tile]}>Thay đổi mật khẩu</Text>
-            </View>
             <KeyboardAvoidingView
                 style={[profile.bottomChange]}
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -129,6 +121,7 @@ const ChangePassword = ({ navigation }) => {
                         placeholder='Nhập mật khẩu cũ'
                         value={old_password}
                         onChangeText={text => setPassword(text)}
+                        secureTextEntry
                     />
 
                 </View>
@@ -139,6 +132,7 @@ const ChangePassword = ({ navigation }) => {
                         placeholder='Nhập mật khẩu mới'
                         value={newPassword}
                         onChangeText={text => setNewPassword(text)}
+                        secureTextEntry
                     />
                 </View>
                 <View style={login.text_input}>
@@ -148,6 +142,7 @@ const ChangePassword = ({ navigation }) => {
                         placeholder='Nhập lại mật khẩu mới'
                         value={confirmNewPassword}
                         onChangeText={text => setConfirmNewPassword(text)}
+                        secureTextEntry
                     />
                 </View>
                 <View style={login.text_input}>

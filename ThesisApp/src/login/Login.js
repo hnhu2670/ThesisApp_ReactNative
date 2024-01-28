@@ -77,7 +77,7 @@ const Login = ({ navigation }) => {
             }, 2000);
             return () => clearTimeout(timer);
         }
-        console.log(show)
+        // console.log(show)
     }, [show]);
 
     return (
