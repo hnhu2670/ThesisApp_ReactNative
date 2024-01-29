@@ -35,14 +35,6 @@ const ChangeAvatar = ({ navigation }) => {
         const formData = new FormData();
         formData.append('avatar', { uri: localUri, name: filename, type });
 
-        // const formData = new FormData();
-        // formData.append('avatar',
-        //     {
-        //         uri: localUri,
-        //         name: result.assets[0].fileName,
-        //         type: result.assets[0].type
-        //     });
-
         try {
             // Gọi API để truyền ảnh xuống server
             const res = await authApiToken(token).patch(endpoints['update-user'](current_user.id),
@@ -80,7 +72,7 @@ const ChangeAvatar = ({ navigation }) => {
 
             </View>
             <View style={profile.name}>
-                <Text style={[styles.font, { fontSize: 25 }]}>
+                <Text style={[{ fontSize: 25, color: 'white' }]}>
                     {current_user.first_name} {current_user.last_name}
                 </Text>
                 <Text style={profile.text}>

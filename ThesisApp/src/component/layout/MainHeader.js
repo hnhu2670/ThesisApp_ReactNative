@@ -15,21 +15,19 @@ const windowHeight = Dimensions.get('window').height;
 
 const MainHeader = ({ navigation }) => {
     const [current_user, dispatch] = useContext(MyUserContext);
-    const goToProfile = () => {
-        navigation.navigate('Profile');
-    };
+    // const goToProfile = () => {
+    //     navigation.navigate('Profile');
+    // };
 
     return (
         <View style={[header.background]}>
             <Text style={header.bannerName}>ThesisApp</Text>
 
             <View style={[header.bottom]}>
-                <TouchableOpacity onPress={goToProfile}>
-                    <Image
-                        style={header.avatar}
-                        source={{ uri: current_user?.avatar_url }}
-                    />
-                </TouchableOpacity>
+                <Image
+                    style={header.avatar}
+                    source={{ uri: current_user?.avatar_url }}
+                />
                 <View style={{ justifyContent: 'flex-end' }}>
                     <Text style={header.text}>
                         {/* <AntDesign name='smileo' size={20} /> */}

@@ -9,7 +9,7 @@ import { authApi, endpoints } from '../configs/Apis';
 import { MyUserContext } from '../../App';
 import ToastifyMessage from '../component/layout/ToastifyMessage';
 import color from '../assets/js/color';
-import { AntDesign, Entypo } from '@expo/vector-icons';
+import { AntDesign, Entypo, Feather, FontAwesome } from '@expo/vector-icons';
 
 const Login = ({ navigation }) => {
     const [username, setUsername] = useState('');
@@ -107,17 +107,22 @@ const Login = ({ navigation }) => {
             >
                 <View style={login.text_input}>
                     <Text style={[login.text]}>Tên đăng nhập</Text>
-                    <TextInput
-                        style={login.input}
-                        placeholder='Tên đăng nhập'
-                        value={username}
-                        onChangeText={text => setUsername(text)}
-                    />
+                    <View style={[login.input, { flexDirection: 'row', alignItems: 'center' }]}>
+                        <FontAwesome style={{ width: '15%' }} name='user' size={20} color={color.green} />
+                        <TextInput
+                            style={{ width: '90%' }}
+                            placeholder='Tên đăng nhập'
+                            value={username}
+                            onChangeText={text => setUsername(text)}
+                        />
+                    </View>
                 </View>
                 <View style={login.text_input}>
                     <Text style={login.text}>Mật khẩu</Text>
                     <View style={[login.input, { flexDirection: 'row', alignItems: 'center' }]}>
-
+                        <TouchableOpacity onPress={showPass} style={{ width: '15%' }}>
+                            <Entypo name={showPassword ? 'lock-open' : 'lock'} size={20} color={color.green} />
+                        </TouchableOpacity>
                         <TextInput
                             style={{ width: '90%' }}
                             placeholder='Mật khẩu'
@@ -126,9 +131,7 @@ const Login = ({ navigation }) => {
                             onChangeText={text => setPassword(text)}
 
                         />
-                        <TouchableOpacity onPress={showPass}>
-                            <Entypo name={showPassword ? 'lock-open' : 'lock'} size={20} color={color.green} />
-                        </TouchableOpacity>
+
 
                     </View>
 

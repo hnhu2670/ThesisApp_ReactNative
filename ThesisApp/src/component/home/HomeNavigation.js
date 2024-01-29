@@ -6,6 +6,7 @@ import ConfirmMessage from "../layout/ConfirmMessage";
 import ModalConfirm from "../layout/ModalConfirm";
 // import Criteria from "../criteria/Criteria";
 import Thesis from "../thesis/Thesis";
+import Profile from "../user/Profile";
 import Home from "./Home";
 
 
@@ -55,13 +56,13 @@ export const HomeNavigation = [
         activeSize: 25,
         unactiveSize: 15,
     },
-    // {
-    //     id: 3,
-    //     route: ConfirmMessage,
-    //     name: 'Confirm',
-    //     activeIconName: 'wechat',
-    //     typeIcon: "AntDesign",
-    //     activeSize: 25,
-    //     unactiveSize: 15,
-    // }
+    {
+        id: 3,
+        route: Profile,
+        name: 'Thông tin cá nhân',
+        activeIconName: 'edit',
+        typeIcon: "AntDesign",
+        activeSize: 25,
+        unactiveSize: 15,
+    }
 ];

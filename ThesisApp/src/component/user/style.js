@@ -7,7 +7,7 @@ const profile = StyleSheet.create({
         borderRadius: 20,
         width: 200,
         height: 200,
-        borderColor: "green",
+        borderColor: "white",
         borderWidth: 2,
         marginTop: 20
     },
@@ -15,35 +15,26 @@ const profile = StyleSheet.create({
         marginBottom: 25
     },
     item: {
-        backgroundColor: color.lightgreen,
+        // backgroundColor: 'lightgray',
         marginTop: 10,
         marginLeft: 20,
         marginRight: 10,
         width: "90%",
         height: 70,
-        borderColor: '#d0eacef5',
+        borderColor: color.green,
         borderWidth: 2,
         alignItems: "center",
-        paddingLeft: 20,
+        paddingLeft: 10,
         marginBottom: 10,
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 5,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
-
+        borderRadius: 10
     },
     link: {
         fontSize: 16,
-        width: "85%"
+        width: "75%"
     },
     icon: {
-        width: "12%",
-        marginRight: 10,
-        textAlign: "right",
+        width: "10%",
+        textAlign: "center",
     },
     content: {
         fontSize: 20,
@@ -52,7 +43,7 @@ const profile = StyleSheet.create({
     text: {
         textAlign: "center",
         fontSize: 15,
-        color: "gray",
+        color: "white",
         marginBottom: 20,
         marginTop: 20
     },
@@ -61,7 +52,7 @@ const profile = StyleSheet.create({
         width: 50,
         height: 50,
         borderRadius: 50,
-        borderColor: "#2d665f",
+        borderColor: "white",
         borderWidth: 2,
         padding: 10,
         justifyContent: "center",
@@ -86,7 +77,36 @@ const profile = StyleSheet.create({
         textAlign: 'center',
         paddingVertical: 30,
         justifyContent: 'center'
+    },
+    // profile
+    top: {
+        height: windowHeight * 0.55,
+        paddingVertical: windowHeight * 0.05,
+        backgroundColor: color.green
+    },
+    bottom: {
+        height: windowHeight * 0.45,
+        paddingVertical: windowHeight * 0.05,
+        backgroundColor: 'white',
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20
+    },
+    // update
+    scroll: {
+        height: windowHeight * 0.75,
+
+    },
+    text_input: {
+        textAlign: 'center',
+        marginVertical: 10
+    },
+    input: {
+        width: '100%',
+        borderBottomWidth: 1,
+        borderColor: 'gray',
+        padding: 10
     }
+
 
 });
 export default profile;

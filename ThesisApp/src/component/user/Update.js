@@ -11,6 +11,7 @@ import moment from 'moment';
 import { Fontisto } from '@expo/vector-icons';
 import styles from '../../assets/js/style';
 import ToastifyMessage from '../layout/ToastifyMessage';
+import profile from './style';
 
 
 
@@ -91,52 +92,41 @@ const Update = ({ navigation }) => {
         console.log(show)
     }, [form])
     return (
-        <View >
-            <ScrollView style={{ height: '85%' }}>
-                <View style={login.text_input} >
+        <View style={[styles.container]}>
+            <ScrollView style={[profile.scroll]}>
+                <View style={[profile.text_input, { marginTop: 0 }]} >
                     <Text style={[login.text]}> Tên đăng nhập </Text>
                     < TextInput
-                        style={login.input}
+                        style={profile.input}
                         placeholder='Tên đăng nhập'
                         value={current_user.username}
                         editable={false}
 
                     />
                 </View>
-
                 <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
-                    < View style={[login.text_input, { width: '45%' }]} >
+                    < View style={[profile.text_input, { width: '45%' }]} >
                         <Text style={[login.text]}> Họ </Text>
                         < TextInput
-                            style={login.input}
+                            style={profile.input}
                             placeholder='Họ'
                             value={myuser.first_name}
                             onChangeText={text => change(text, "first_name")} />
                     </View>
-                    < View style={[login.text_input, { width: '45%', marginLeft: 0 }]} >
+                    < View style={[profile.text_input, { width: '45%', marginLeft: 0 }]} >
                         <Text style={[login.text]}> Tên </Text>
                         <TextInput
-                            style={login.input}
+                            style={profile.input}
                             placeholder='Tên'
                             value={myuser.last_name}
                             onChangeText={text => change(text, "last_name")} />
                     </View>
 
                 </View>
-                {/* < View style={login.text_input} >
-                    <Text style={[login.text]}> Giới tính </Text>
-                    < TextInput
-                        style={login.input}
-                        placeholder='Giới tính'
-                        value={myuser.gender}
-                        onChangeText={text => change(text, "gender")}
-
-                    />
-                </View> */}
-                < View style={login.text_input} >
+                < View style={profile.text_input} >
                     <Text style={[login.text]}>Ngày sinh</Text>
                     <TouchableOpacity onPress={() => showMode()}>
-                        <View style={[login.input, {
+                        <View style={[profile.input, {
                             flexDirection: 'row',
                             alignItems: 'center', justifyContent: 'space-around'
                         }]}>
@@ -153,29 +143,29 @@ const Update = ({ navigation }) => {
                         )}
                     </TouchableOpacity>
                 </View>
-                < View style={login.text_input} >
+                < View style={profile.text_input} >
                     <Text style={[login.text]}> Địa chỉ</Text>
                     < TextInput
-                        style={login.input}
+                        style={profile.input}
                         placeholder='Địa chỉ'
                         value={myuser.address}
                         onChangeText={text => change(text, "address")} />
                 </View>
 
-                < View style={login.text_input} >
+                < View style={profile.text_input} >
                     <Text style={[login.text]}> Điện thoại </Text>
                     < TextInput
-                        style={login.input}
+                        style={profile.input}
                         placeholder='Điện thoại'
                         value={myuser.phone || ""}
                         onChangeText={text => change(text, "phone")}
 
                     />
                 </View>
-                < View style={login.text_input} >
+                < View style={profile.text_input} >
                     <Text style={[login.text]}> Email </Text>
                     < TextInput
-                        style={login.input}
+                        style={profile.input}
                         placeholder='email'
                         value={myuser.email}
                         onChangeText={text => change(text, "email")}
@@ -183,25 +173,10 @@ const Update = ({ navigation }) => {
                     />
                 </View>
             </ScrollView>
-
-            <View style={[login.text_input, { flexDirection: "row" }]} >
-                < View style={{ width: '50%' }}>
-                    <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
-                        <Text style={login.button}
-
-                        > RỜI KHỎI</Text>
-                    </TouchableOpacity>
-
-                </View>
-                < View style={{ width: '50%' }}>
-                    <TouchableOpacity>
-                        <Text style={login.button}
-                            onPress={updateUser}
-                        > CẬP NHẬT </Text>
-                    </TouchableOpacity>
-
-                </View>
-
+            <View style={login.text_input}>
+                <TouchableOpacity onPress={updateUser}>
+                    <Text style={login.button} >THAY ĐỔI</Text>
+                </TouchableOpacity>
             </View>
             {form === 'error' && (
                 <ToastifyMessage

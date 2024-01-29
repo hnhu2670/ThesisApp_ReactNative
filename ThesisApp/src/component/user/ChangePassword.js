@@ -5,7 +5,7 @@ import login from '../../login/style';
 import { authApi, authApiToken, endpoints } from '../../configs/Apis';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign, Entypo } from '@expo/vector-icons';
 import ToastifyMessage from '../layout/ToastifyMessage';
 import styles from '../../assets/js/style';
 import profile from './style';
@@ -95,7 +95,11 @@ const ChangePassword = ({ navigation }) => {
         }
 
     };
+    const [showPassword, setShowPassword] = useState(false);
 
+    const showPass = () => {
+        setShowPassword(!showPassword);
+    };
     useEffect(() => {
         if (show !== '') {
             const timer = setTimeout(() => {
@@ -108,37 +112,42 @@ const ChangePassword = ({ navigation }) => {
 
     return (
 
-        <View>
+        <View style={[styles.container]}>
             <KeyboardAvoidingView
-                style={[profile.bottomChange]}
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
             // keyboardVerticalOffset={500}
             >
-                <View style={login.text_input}>
+                <View style={profile.text_input}>
                     <Text style={[login.text]}>Mật khẩu cũ</Text>
-                    <TextInput
-                        style={login.input}
-                        placeholder='Nhập mật khẩu cũ'
-                        value={old_password}
-                        onChangeText={text => setPassword(text)}
-                        secureTextEntry
-                    />
+                    <View style={[profile.input, { flexDirection: 'row', alignItems: 'center' }]}>
+                        <TextInput
+                            style={{ width: '90%' }}
+                            placeholder='Nhập mật khẩu cũ'
+                            value={old_password}
+                            onChangeText={text => setPassword(text)}
+                            secureTextEntry={!showPassword}
+
+                        />
+                        <TouchableOpacity onPress={showPass}>
+                            <Entypo name={showPassword ? 'lock-open' : 'lock'} size={20} color={color.green} />
+                        </TouchableOpacity>
+                    </View>
 
                 </View>
-                <View style={login.text_input}>
+                <View style={profile.text_input}>
                     <Text style={[login.text]}>Mật khẩu mới</Text>
                     <TextInput
-                        style={login.input}
+                        style={profile.input}
                         placeholder='Nhập mật khẩu mới'
                         value={newPassword}
                         onChangeText={text => setNewPassword(text)}
                         secureTextEntry
                     />
                 </View>
-                <View style={login.text_input}>
+                <View style={profile.text_input}>
                     <Text style={[login.text]}>Nhập lại mật khẩu mới</Text>
                     <TextInput
-                        style={login.input}
+                        style={profile.input}
                         placeholder='Nhập lại mật khẩu mới'
                         value={confirmNewPassword}
                         onChangeText={text => setConfirmNewPassword(text)}
@@ -167,18 +176,7 @@ const ChangePassword = ({ navigation }) => {
                     />
                 )}
             </>}
-            {/* {show === 'error'? (
-                <ToastifyMessage
-                    type="danger"
-                    text={err}
-                    description="Đổi mk thất bại"
-                />
-            ):
-            (
 
-                    { show==='success'}
-            )
-            } */}
         </View>
     )
 }

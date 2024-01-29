@@ -4,7 +4,7 @@ import { MyUserContext } from '../../../App';
 import styles from '../../assets/js/style';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign, Entypo, MaterialIcons } from '@expo/vector-icons';
 import profile from './style';
 import ChangeAvatar from './ChangeAvatar';
 import { Button } from 'react-native';
@@ -29,16 +29,15 @@ const Profile = ({ navigation }) => {
         // console.log("url avatar", current_user.avatar)
     }, [])
     return (
-        <View style={{ backgroundColor: color.background }}>
-            <View >
+        <View style={[{ backgroundColor: color.green }]}>
+            <View style={[profile.top]}>
                 <ChangeAvatar />
-
             </View>
-
-            <View style={{ marginTop: 20 }}>
+            <View style={[profile.bottom]}>
                 <View
                     style={[profile.item, { flexDirection: "row" }]}>
                     <TouchableOpacity style={{ flexDirection: "row" }} onPress={update}>
+                        <AntDesign style={[profile.icon, { marginRight: 15 }]} color="gray" name="profile" size={20} />
                         <Text
 
                             style={[styles.font, profile.link]}>Cập nhật thông tin cá nhân
@@ -46,14 +45,13 @@ const Profile = ({ navigation }) => {
                         <AntDesign style={profile.icon} color="gray" name="right" size={20} />
 
                     </TouchableOpacity>
-
-
                 </View>
                 <View
                     style={[profile.item, { flexDirection: "row" }]}>
                     <TouchableOpacity style={{ flexDirection: "row" }} onPress={change}>
-                        <Text
+                        <Entypo style={[profile.icon, { marginRight: 15 }]} color="gray" name="lock" size={20} />
 
+                        <Text
                             style={[styles.font, profile.link]}>Thay đổi mật khẩu
                         </Text>
                         <AntDesign style={profile.icon} color="gray" name="right" size={20} />
@@ -65,8 +63,9 @@ const Profile = ({ navigation }) => {
                 <View
                     style={[profile.item, { flexDirection: "row" }]}>
                     <TouchableOpacity style={{ flexDirection: "row" }} onPress={logout}>
-                        <Text
+                        <AntDesign style={[profile.icon, { marginRight: 15 }]} color="gray" name="logout" size={20} />
 
+                        <Text
                             style={[styles.font, profile.link]}>Đăng xuất
                         </Text>
                         <AntDesign style={profile.icon} color="gray" name="right" size={20} />
