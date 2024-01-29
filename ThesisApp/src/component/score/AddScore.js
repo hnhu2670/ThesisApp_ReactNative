@@ -38,7 +38,6 @@ const AddScore = ({ route, navigation }) => {
             const { data } = await axios.get(endpoints['score-thesis-students'](id))
             console.log('hs thực thiện:', data)
             // điểm khóa luận, thông tin hs......
-            // const res = await authApiToken(token).get(endpoints['get-thesis-score'](id))
             const res = await axios.get(endpoints['get-thesis-score'](id))
             // console.log('thông tin :', res.data)
             const tempList = [];

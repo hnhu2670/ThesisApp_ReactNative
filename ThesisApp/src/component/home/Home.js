@@ -77,10 +77,10 @@ const Home = ({ navigation }) => {
                                             <MaterialIcons style={[home.icon]} name='update' size={30} color={color.green} />
                                             <Text style={[home.infor]}>Cập nhật khóa luận</Text>
                                         </TouchableOpacity>
-                                        {/* <TouchableOpacity style={[home.thumb]}>
+                                        <TouchableOpacity style={[home.thumb]} onPress={() => navigation.navigate('Tạo file')}>
                                             <FontAwesome style={[home.icon]} name='remove' size={30} color={color.green} />
-                                            <Text style={[home.infor]}>Loại bỏ khóa luận</Text>
-                                        </TouchableOpacity> */}
+                                            <Text style={[home.infor]}>Xuất điểm</Text>
+                                        </TouchableOpacity>
 
                                     </View>
                                 </View>

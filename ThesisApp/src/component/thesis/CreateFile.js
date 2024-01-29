@@ -7,8 +7,10 @@ import Search from '../layout/Search'
 import color from '../../assets/js/color'
 import { MyUserContext } from '../../../App'
 import styles from '../../assets/js/style'
+import WebView from 'react-native-webview'
+import InAppBrowser from 'react-native-inappbrowser-reborn'
 
-const ListThesis = ({ navigation }) => {
+const CreateFile = ({ navigation }) => {
     const [current_user, dispatch] = useContext(MyUserContext);
     // const { name } = route.params;
     const [list, setList] = useState('')
@@ -24,23 +26,39 @@ const ListThesis = ({ navigation }) => {
             throw new Error(res.statusText);
         }
     }
-    const update = async (id) => {
-        navigation.navigate('Cập nhật khóa luận', { id })
-    }
+    // const createPdf = async (id) => {
+    //     // const res = await axios.get(endpoints["pdf"](id))
+    //     // console.log('data', res.data)
+    //     // // alert(
+
+    //     // //     <TouchableOpacity>
+    //     // //         res.data
+    //     // //     </TouchableOpacity>
+    //     // // )
+    //     navigation.navigate('Xuất file', { id })
+
+    // }
+    const [file, setFile] = useState(null)
+
     const createPdf = async (id) => {
         const res = await axios.get(endpoints["pdf"](id))
         console.log('data', res.data)
-        alert(
-
-            <TouchableOpacity>
-                res.data
-            </TouchableOpacity>
-        )
+        // setFile(res.data)
+        try {
+            await InAppBrowser.open('http://192.168.1.2:8000/static/media/thesis1.pdf', {
+                // Các tùy chọn có thể được cấu hình tại đây
+                // Ví dụ: toolbarColor, showTitle
+            });
+            console.log('thành công')
+        } catch (error) {
+            console.error('Lỗi mở trình duyệt:', error.message);
+        }
+        // return res.data
     }
     const renderItem = ({ item }) => {
         return (
             <>
-                <TouchableOpacity key={item.id} onPress={() => { update(item.id) }}>
+                <TouchableOpacity key={item.id} onPress={() => { createPdf(item.id) }}>
                     <View style={list_thesis.row}>
                         <View style={list_thesis.left}>
                             <Text style={list_thesis.text}>{item.id}</Text>
@@ -52,21 +70,22 @@ const ListThesis = ({ navigation }) => {
 
                     </View>
                 </TouchableOpacity>
-                {/* <TouchableOpacity key={item.id} onPress={() => { createPdf(item.id) }}>
-                    <View style={list_thesis.row}>
-                        <View style={list_thesis.left}>
-                            <Text style={list_thesis.text}>{item.id}</Text>
-                        </View>
-                        <View style={list_thesis.right}>
-                            <Text style={list_thesis.name}>{item.name}</Text>
-                        </View>
-
-
-                    </View>
-                </TouchableOpacity> */}
             </>
         );
     }
+    const handlePress = async () => {
+        const data = await createPdf()
+        console.log(data)
+        try {
+            await InAppBrowser.open(data, {
+                // Các tùy chọn có thể được cấu hình tại đây
+                // Ví dụ: toolbarColor, showTitle
+            });
+            console.log('thành công')
+        } catch (error) {
+            console.error('Lỗi mở trình duyệt:', error.message);
+        }
+    };
     const searchName = (text) => {
         const filterName = list.filter((item) =>
             // toLowerCase() chuyá»ƒn chá»¯ hoa thÃ nh thÆ°á»ng
@@ -79,9 +98,16 @@ const ListThesis = ({ navigation }) => {
     };
     useEffect(() => {
         getListThesis();
+        // createPdf()
     }, []);
     return (
         <View style={[styles.container, { backgroundColor: color.background, height: '80%' }]}>
+            <View>
+                <TouchableOpacity onPress={handlePress}>
+                    <Text>Mở trang web</Text>
+                </TouchableOpacity>
+            </View>
+
             <View style={list_thesis.container}>
                 <View style={list_thesis.top}>
                     <Text style={{
@@ -93,7 +119,6 @@ const ListThesis = ({ navigation }) => {
                 </View>
                 <View style={list_thesis.bottom}>
                     {list.length < 1 ? (
-                        // <Text>ChÆ°a cÃ³ dá»¯ liá»‡u</Text>
                         <ActivityIndicator size={30} color={color.green} />
                     ) : (<FlatList
                         data={filter.length > 0 ? filter : list}
@@ -183,4 +208,4 @@ const list_thesis = StyleSheet.create({
         justifyContent: "center",
     }
 })
-export default ListThesis
+export default CreateFile

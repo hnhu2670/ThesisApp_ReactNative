@@ -35,6 +35,8 @@ import ListThesisForScore from './src/component/thesis/ListThesisForScore';
 import TableScore from './src/component/score/TableScore';
 import ScoreOfStudent from './src/component/score/ScoreOfStudent';
 import Chat from './src/component/chat/Chat';
+import Pdf from './src/component/thesis/Pdf';
+import CreateFile from './src/component/thesis/CreateFile';
 
 export const MyUserContext = createContext();
 export const MyThesisContext = createContext();
@@ -104,6 +106,8 @@ function App() {
                 headerShown: true
               }}
             />
+            <Stack.Screen name='Tạo file' component={CreateFile} />
+            <Stack.Screen name='Xuất file' component={Pdf} />
           </Stack.Navigator>
         </NavigationContainer>
       </MyUserContext.Provider>

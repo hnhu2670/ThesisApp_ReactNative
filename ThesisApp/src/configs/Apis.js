@@ -50,7 +50,8 @@ export const endpoints = {
     "add-or-update-score": `${SERVER_URL}/add-or-update-score/`,
     "close-thesis": (id) => `${SERVER_URL}/close-thesis/${id}/`,
     "score-of-student": (id) => `${SERVER_URL}/get-thesis/${id}/score-total/`,
-    "detail-score": (id) => `${SERVER_URL}/get-thesis/${id}/detail-score/`
+    "detail-score": (id) => `${SERVER_URL}/get-thesis/${id}/detail-score/`,
+    "pdf": (id) => `${SERVER_URL}/get-thesis-detail/${id}/pdf/`,
 
 
 

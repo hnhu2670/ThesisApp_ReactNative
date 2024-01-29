@@ -7,7 +7,6 @@ const TableScore = () => {
 
     return (
         <View>
-            <Text>file</Text>
 
         </View>
     );
