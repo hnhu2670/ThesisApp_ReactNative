@@ -37,16 +37,22 @@ import ScoreOfStudent from './src/component/score/ScoreOfStudent';
 import Chat from './src/component/chat/Chat';
 import Pdf from './src/component/thesis/Pdf';
 import CreateFile from './src/component/thesis/CreateFile';
+import MyThesisReducer from './src/reducers/MyThesisReducer';
 
 export const MyUserContext = createContext();
 export const MyThesisContext = createContext();
 const Stack = createNativeStackNavigator();
 function App() {
   const [user, dispatch] = useReducer(MyUserReducer, AsyncStorage.getItem("user") || null)
+  const [thesis, dispatch1] = useReducer(MyThesisReducer, '')
+
+
   return (
     <PopupRootProvider>
       <MyUserContext.Provider value={[user, dispatch]}>
+        {/* <MyThesisReducer.Provider value={[thesis, dispatch1]}></MyThesisReducer.Provider> */}
         <NavigationContainer>
+
           <Stack.Navigator initialRouteName='Login'>
             <Stack.Screen name='ThesisApp' component={Main}
               options={{
@@ -74,6 +80,7 @@ function App() {
             <Stack.Screen name='Thêm hội đồng' component={AddCom} />
             <Stack.Screen name='Tên hội đồng' component={UpdateName} />
             <Stack.Screen name='Quên mật khẩu' component={ForgotPassword} options={{ headerShown: false }} />
+
             <Stack.Screen name='Thêm khóa luận' component={AddThesis} />
             <Stack.Screen name='Cập nhật khóa luận' component={UpdateThesis} />
             <Stack.Screen name='Danh sách khóa luận' component={ListThesis} />
@@ -100,6 +107,7 @@ function App() {
             <Stack.Screen name='Danh sách chấm điểm' component={ListThesisForScore} />
             <Stack.Screen name='Bảng điểm' component={TableScore} />
             <Stack.Screen name='Điểm của tôi' component={ScoreOfStudent} />
+
             <Stack.Screen name='Messager' component={Chat}
               options={{
                 title: 'Chat',
@@ -110,8 +118,9 @@ function App() {
             <Stack.Screen name='Xuất file' component={Pdf} />
           </Stack.Navigator>
         </NavigationContainer>
+
       </MyUserContext.Provider>
-    </PopupRootProvider>
+    </PopupRootProvider >
   )
 }
 

@@ -24,8 +24,8 @@ const ListThesis = ({ navigation }) => {
             throw new Error(res.statusText);
         }
     }
-    const update = async (id) => {
-        navigation.navigate('Cập nhật khóa luận', { id })
+    const update = async (id, name) => {
+        navigation.navigate('Cập nhật khóa luận', { id, name })
     }
     const createPdf = async (id) => {
         const res = await axios.get(endpoints["pdf"](id))
@@ -40,7 +40,7 @@ const ListThesis = ({ navigation }) => {
     const renderItem = ({ item }) => {
         return (
             <>
-                <TouchableOpacity key={item.id} onPress={() => { update(item.id) }}>
+                <TouchableOpacity key={item.id} onPress={() => { update(item.id, item.name) }}>
                     <View style={list_thesis.row}>
                         <View style={list_thesis.left}>
                             <Text style={list_thesis.text}>{item.id}</Text>

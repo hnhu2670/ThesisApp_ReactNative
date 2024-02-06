@@ -2,6 +2,7 @@ import Chat from "../chat/Chat";
 import HomeChat from "../chat/HomeChat";
 import Committee from "../committee/Committee";
 import Criteria from "../criteria/Criteria";
+import CreateFile from "../file_pdf/CreateFile";
 import ConfirmMessage from "../layout/ConfirmMessage";
 import ModalConfirm from "../layout/ModalConfirm";
 // import Criteria from "../criteria/Criteria";
@@ -60,6 +61,15 @@ export const HomeNavigation = [
         id: 3,
         route: Profile,
         name: 'Thông tin cá nhân',
+        activeIconName: 'edit',
+        typeIcon: "AntDesign",
+        activeSize: 25,
+        unactiveSize: 15,
+    },
+    {
+        id: 4,
+        route: CreateFile,
+        name: 'PDF',
         activeIconName: 'edit',
         typeIcon: "AntDesign",
         activeSize: 25,

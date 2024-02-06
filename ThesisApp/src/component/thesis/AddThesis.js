@@ -1,6 +1,6 @@
 // update theo id
 import React, { useEffect, useState } from 'react'
-import { Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import GetStudent from './GetStudent'
 import GetTeacher from './GetTeacher'
 import login from '../../login/style'
@@ -16,6 +16,7 @@ const AddThesis = ({ navigation }) => {
     const [teacher2, setTeacher2] = useState(null)
     const [comm, setComm] = useState(null)
 
+    const [loading, setLoading] = useState(false)
     const [show, setShow] = useState('')
     const [error, setError] = useState('')
     const getIdStudent = (data) => {
@@ -70,6 +71,7 @@ const AddThesis = ({ navigation }) => {
                 setError('Phải chọn giảng viên hướng dẫn')
             } else {
                 try {
+                    setLoading(true)
                     const { data } = await authApiToken(token).post(endpoints["add-thesis"], formData, {
                         headers: {
                             "Content-Type": "multipart/form-data"
@@ -79,9 +81,7 @@ const AddThesis = ({ navigation }) => {
                     console.log("thành công-----------", data)
                     setShow('success')
                     setError('Thêm khóa luận thành công')
-                    // setTimeout(() => {
-                    //     navigation.navigate('ThesisApp')
-                    // }, 4000)
+                    setLoading(false)
                 } catch (error) {
                     console.log("lỗi..............", error.request.responseText)
                     err = error.request.responseText
@@ -89,6 +89,7 @@ const AddThesis = ({ navigation }) => {
                     // alert(e.error)
                     setShow('error')
                     setError(err)
+                    setLoading(false)
                 }
             }
 
@@ -151,13 +152,16 @@ const AddThesis = ({ navigation }) => {
                     </View>
 
                 </ScrollView>
-                <View style={[thesis.text_input]}>
-                    <TouchableOpacity onPress={addNewThesis}>
-                        <Text style={login.button}
-                        >THÊM KHÓA LUẬN MỚI</Text>
-                    </TouchableOpacity>
+                {loading === true ? <><ActivityIndicator /></> : <>
+                    <View style={[thesis.text_input]}>
+                        <TouchableOpacity onPress={addNewThesis}>
+                            <Text style={login.button}
+                            >THÊM KHÓA LUẬN MỚI</Text>
+                        </TouchableOpacity>
 
-                </View>
+                    </View>
+                </>}
+
             </View >
             {show === 'error' && (
                 <ToastifyMessage

@@ -29,6 +29,7 @@ const UpdateThesis = ({ route, navigation }) => {
     const [nameThesis, setNameThesis] = useState({
         'name': name
     })
+    // console.log('name', name)
     const [changeGv1, setChangeGv1] = useState([])
     const [changeGv2, setChangeGv2] = useState([])
     const [changeComm, setChangeComm] = useState([])

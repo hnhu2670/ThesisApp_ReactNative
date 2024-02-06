@@ -1,5 +1,5 @@
 import React, { useContext, useRef, useState } from 'react';
-import { Image, Text, TextInput, View, StyleSheet, Alert, Button, TouchableOpacity, KeyboardAvoidingView } from 'react-native'
+import { Image, Text, TextInput, View, StyleSheet, Alert, Button, TouchableOpacity, KeyboardAvoidingView, ActivityIndicator } from 'react-native'
 import { useEffect } from 'react';
 import axios, { Axios } from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -14,6 +14,7 @@ import { AntDesign, Entypo, Feather, FontAwesome } from '@expo/vector-icons';
 const Login = ({ navigation }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [loading, setLoading] = useState(false)
     const [error, setError] = useState('');
     const [current_user, dispatch] = useContext(MyUserContext);
     const [show, setShow] = useState(false)
@@ -21,7 +22,7 @@ const Login = ({ navigation }) => {
     const loginUser = async () => {
         // Tạo form data để gửi trong yêu cầu
         const formData = new FormData();
-        formData.append('username', username);
+        formData.append('username', username.toLowerCase());
         formData.append('password', password);
         try {
             if (!username || !password) {
@@ -35,6 +36,7 @@ const Login = ({ navigation }) => {
                 return;
             }
             else {
+                setLoading(true)
                 let response = await axios.post(endpoints['login'], formData, {
                     headers: {
                         "Content-Type": "multipart/form-data",
@@ -55,12 +57,14 @@ const Login = ({ navigation }) => {
                     "type": "login",
                     "payload": data.data
                 });
+                setLoading(false)
             }
 
         } catch (error) {
             console.log('Lỗi:', error);
             setError('Tên đăng nhập hoặc mật khẩu sai');
             setShow(true)
+            setLoading(false)
         }
     };
 
@@ -136,19 +140,15 @@ const Login = ({ navigation }) => {
                     </View>
 
                 </View>
+                {loading === true ? <><ActivityIndicator size={25} color={color.green} /></> : <>
+                    <View style={login.text_input}>
+                        <TouchableOpacity onPress={() => { loginUser() }}>
+                            <Text style={login.button}>ĐĂNG NHẬP</Text>
+                        </TouchableOpacity>
 
-                <View style={login.text_input}>
-                    <TouchableOpacity onPress={() => {
-                        loginUser();
-                        // setShow(true);
-                        // Báo Như
-                    }}>
-                        <Text style={login.button}
+                    </View>
+                </>}
 
-                        >ĐĂNG NHẬP</Text>
-                    </TouchableOpacity>
-
-                </View>
 
                 <View style={[login.text_input, login.link]}>
                     <TouchableOpacity onPress={() => { navigation.navigate("Quên mật khẩu") }}>
