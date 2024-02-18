@@ -18,9 +18,9 @@ import color from '../../assets/js/color'
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 const UpdateThesis = ({ route, navigation }) => {
+    const { id, name } = route.params;
     const [show, setShow] = useState('') //thông báo
     const [messager, setMessager] = useState('')
-    const { id, name } = route.params;
     const [student, setStudent] = useState(null)
     const [teachers, setTeachers] = useState(null)
     // const [listStudents, setListStudents] = useState([])s
@@ -360,51 +360,5 @@ const UpdateThesis = ({ route, navigation }) => {
         </View>
     )
 }
-// const style = StyleSheet.create({
-//     inputName: {
-//         height: 'auto',
-//         width: windowWidth * 0.9,
-//         marginHorizontal: 20,
-//         textAlign: 'center',
-//         paddingVertical: 10,
-//         fontSize: 18,
-//         borderBottomWidth: 1,
-//         borderBottomColor: 'lightgray',
-//         color: color.green
-//     },
-//     top: {
-//         height: windowHeight * 0.25,
-//         width: windowWidth,
-//         // backgroundColor: 'red',
-//         marginBottom: windowWidth * 0.05
-//     },
-//     bottom: {
-//         paddingTop: 20,
-//         height: windowHeight * 0.7,
-//         backgroundColor: color.background,
-//         borderTopLeftRadius: 30,
-//         borderTopRightRadius: 30,
-//         // borderTopWidth: 1,
-//         // borderTopColor: 'gray'
-//     },
-//     img: {
-//         position: 'absolute',
-//         width: 190,
-//         height: 190,
-//         justifyContent: 'center',
-//         alignItems: 'center',
-//         borderRadius: 150,
-//         backgroundColor: color.lightgreen,
-//         // padding: 20,
-//         marginVertical: '3%',
-//         marginHorizontal: '25%'
-//     },
-//     image: {
-//         width: 140,
-//         height: 140,
-//         padding: 10,
-//         justifyContent: 'center',
-//         alignItems: 'center'
-//     }
-// })
+
 export default UpdateThesis

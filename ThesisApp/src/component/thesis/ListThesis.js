@@ -27,16 +27,7 @@ const ListThesis = ({ navigation }) => {
     const update = async (id, name) => {
         navigation.navigate('Cập nhật khóa luận', { id, name })
     }
-    const createPdf = async (id) => {
-        const res = await axios.get(endpoints["pdf"](id))
-        console.log('data', res.data)
-        alert(
 
-            <TouchableOpacity>
-                res.data
-            </TouchableOpacity>
-        )
-    }
     const renderItem = ({ item }) => {
         return (
             <>

@@ -35,22 +35,18 @@ import ListThesisForScore from './src/component/thesis/ListThesisForScore';
 import TableScore from './src/component/score/TableScore';
 import ScoreOfStudent from './src/component/score/ScoreOfStudent';
 import Chat from './src/component/chat/Chat';
-import Pdf from './src/component/thesis/Pdf';
-import CreateFile from './src/component/thesis/CreateFile';
-import MyThesisReducer from './src/reducers/MyThesisReducer';
+import CreateFile from './src/component/file_pdf/CreateFile';
+import Pdf from './src/component/file_pdf/Pdf';
 
 export const MyUserContext = createContext();
 export const MyThesisContext = createContext();
 const Stack = createNativeStackNavigator();
 function App() {
   const [user, dispatch] = useReducer(MyUserReducer, AsyncStorage.getItem("user") || null)
-  const [thesis, dispatch1] = useReducer(MyThesisReducer, '')
-
 
   return (
     <PopupRootProvider>
       <MyUserContext.Provider value={[user, dispatch]}>
-        {/* <MyThesisReducer.Provider value={[thesis, dispatch1]}></MyThesisReducer.Provider> */}
         <NavigationContainer>
 
           <Stack.Navigator initialRouteName='Login'>
@@ -114,8 +110,8 @@ function App() {
                 headerShown: true
               }}
             />
-            <Stack.Screen name='Tạo file' component={CreateFile} />
-            <Stack.Screen name='Xuất file' component={Pdf} />
+            <Stack.Screen name='Tạo file' component={Pdf} />
+            <Stack.Screen name='Xuất file' component={CreateFile} />
           </Stack.Navigator>
         </NavigationContainer>
 

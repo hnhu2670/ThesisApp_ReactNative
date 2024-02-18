@@ -66,13 +66,5 @@ export const HomeNavigation = [
         activeSize: 25,
         unactiveSize: 15,
     },
-    {
-        id: 4,
-        route: CreateFile,
-        name: 'PDF',
-        activeIconName: 'edit',
-        typeIcon: "AntDesign",
-        activeSize: 25,
-        unactiveSize: 15,
-    }
+
 ];
