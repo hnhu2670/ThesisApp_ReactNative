@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { ActivityIndicator, Dimensions, FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, Dimensions, FlatList, Linking, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { endpoints } from '../../configs/Apis'
 import Search from '../layout/Search'
 import color from '../../assets/js/color'
@@ -24,9 +24,20 @@ const Pdf = ({ navigation }) => {
     const createfile = async (id, name) => {
         navigation.navigate('Xuất file', { id, name })
     }
+    const createFile = async (id) => {
+        const res = await axios.get(endpoints["pdf"](id))
+        console.log('link file', res.data)
+        return res.data
+
+    }
+    const openPDF = async (id) => {
+        const linkFile = await createFile(id)
+        console.log('link==================', linkFile)
+        Linking.openURL(linkFile);
+    };
     const renderItem = ({ item, index }) => {
         return (
-            <TouchableOpacity key={item.id} onPress={() => { createfile(item.id, item.name) }}>
+            <TouchableOpacity key={item.id} onPress={() => { openPDF(item.id) }}>
                 <View style={list_thesis.row}>
                     <View style={list_thesis.left}>
                         <Text style={list_thesis.text}>{index + 1}</Text>

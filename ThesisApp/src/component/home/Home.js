@@ -62,7 +62,12 @@ const Home = ({ navigation }) => {
                                             <MaterialCommunityIcons style={[home.icon]} name='marker' size={30} color={color.green} />
                                             <Text style={[home.infor]}>Chấm điểm</Text>
                                         </TouchableOpacity>
+                                        <TouchableOpacity style={[home.thumb]} onPress={() => navigation.navigate('Tạo file')}>
+                                            <FontAwesome style={[home.icon]} name='remove' size={30} color={color.green} />
+                                            <Text style={[home.infor]}>Xuất điểm</Text>
+                                        </TouchableOpacity>
                                     </View>
+
                                 </>}
                             </> : <>
                                 {/* quản lý khóa luận */}
