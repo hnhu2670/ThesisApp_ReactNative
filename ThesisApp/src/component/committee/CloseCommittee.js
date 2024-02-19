@@ -15,7 +15,7 @@ const CloseCommittee = () => {
     const [committees, setCommittees] = useState([]);
     const [close, setClose] = useState(false)
     const [selected, setSelected] = useState(false)
-    const [filter, setFilter] = useState([])
+    // const [filter, setFilter] = useState([])
     const getCommittees = async () => {
         try {
             const { data } = await axios.get(endpoints['list-committes']);
@@ -46,15 +46,15 @@ const CloseCommittee = () => {
             const data = await getCommittees()
             data.map(async (item) => {
                 if (item?.id === id) {
-                    console.log('item', item.id)
+                    // kiểm tra trạng thái của hội đồng
+                    // 1: Hội đồng đã khóa ==> xuất thông báo
                     if (item?.status?.name !== 'Open') {
                         Popup.hide();
                         setShow('warning')
                         setMessager('Hội đồng đã được khóa')
                     }
                     else {
-                        console.log('hội đồng được mở', item?.status?.name);
-                        // alert('mở')
+                        // 2: hội đồng chưa khóa ==> gọi hàm khóa hội đồng
                         await closeCommittee()
 
                     }
@@ -96,7 +96,7 @@ const CloseCommittee = () => {
             }, 1500);
             return () => clearTimeout(timer);
         }
-        console.log(show)
+        // console.log(show)
     }, [show])
     return (
         <View style={[styles.container, { backgroundColor: color.background, height: '80%' }]}>
@@ -122,7 +122,8 @@ const CloseCommittee = () => {
                                     </Text>
 
                                     <Text style={[hoidong.name]}>{item.name}</Text>
-                                    {close === true && selected === item.id ? <>
+                                    {/* hội đồng được khóa */}
+                                    {item.status.name !== 'Open' ? <>
                                         <TouchableOpacity onPress={() => closeComm(item.id, item.name)}
                                             style={[hoidong.edit]}
                                         >
@@ -131,6 +132,7 @@ const CloseCommittee = () => {
                                             </Text>
                                         </TouchableOpacity>
                                     </> : <>
+                                        {/* hội đồng chưa khóa */}
                                         <TouchableOpacity onPress={() => closeComm(item.id, item.name)}
                                             style={[hoidong.edit]}
                                         >
@@ -171,57 +173,5 @@ const CloseCommittee = () => {
         </View>
     )
 }
-// const hoidong = StyleSheet.create({
-//     top: {
-//         height: 'auto',
-//         marginBottom: '3%',
-//         // marginHorizontal: 20
-//     },
-//     bottom: {
-//         height: '90%',
-//         marginVertical: '3%'
-//     },
-//     row: {
-//         flexDirection: "row",
-//         width: "100%",
-//         height: 80,
-//         justifyContent: "space-around",
-//         borderRadius: 15,
-//         borderColor: color.green,
-//         borderWidth: 1,
-//         backgroundColor: color.lightgreen,
-//         marginTop: 10,
-//         marginBottom: 10,
-//         alignItems: "center",
-//         shadowColor: 'black', // Màu sắc của bóng
-//         shadowOpacity: 0.7, // Độ sắc nét của bóng (0-1)
-//         shadowOffset: {
-//             width: 0,
-//             height: 2,
-//         }, // Khoảng cách dịch chuyển theo chiều ngang và chiều dọc
-//         shadowRadius: 6, // Bán kính của bóng
-//         elevation: 5, // Áp dụng bóng (chỉ áp dụng cho Android)
-//     },
-//     cell: {
-//         height: "auto",
-//         padding: 10,
-//         textAlign: "left",
-//         fontSize: 16,
-//         color: color.green,
-//         // borderRightWidth: 2
-//     },
-//     first: {
-//         // backgroundColor: "green",
-//         textAlign: "center",
-//         borderRightWidth: 1,
-//         borderRightColor: 'lightgray',
-//         marginLeft: 10,
 
-//     },
-//     edit: {
-//         textAlign: "center",
-//         padding: 10
-//     }
-
-// })
 export default CloseCommittee

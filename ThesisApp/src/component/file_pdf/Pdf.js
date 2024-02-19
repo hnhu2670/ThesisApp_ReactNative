@@ -5,6 +5,10 @@ import { endpoints } from '../../configs/Apis'
 import Search from '../layout/Search'
 import color from '../../assets/js/color'
 import styles from '../../assets/js/style'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { Popup } from 'react-native-popup-confirm-toast';
+import { Ionicons } from '@expo/vector-icons'
+
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 const Pdf = ({ navigation }) => {
@@ -16,34 +20,66 @@ const Pdf = ({ navigation }) => {
         if (res.status === 200) {
             const result = await res.data;
             setList(result);
+            return result
 
         } else {
             throw new Error(res.statusText);
         }
     }
-    const createfile = async (id, name) => {
-        navigation.navigate('Xuất file', { id, name })
-    }
-    const createFile = async (id) => {
-        const res = await axios.get(endpoints["pdf"](id))
-        console.log('link file', res.data)
-        return res.data
+    // const createfile = async (id, name) => {
+    //     navigation.navigate('Xuất file', { id, name })
+    // }
+    // const createFile = async (id) => {
+    //     const res = await axios.get(endpoints["pdf"](id))
+    //     console.log('link file', res.data)
+    //     return res.data
 
+    // }
+    // const openPDF = async (id) => {
+    //     const linkFile = await createFile(id)
+    //     console.log('link==================', linkFile)
+    //     Linking.openURL(linkFile);
+    // };
+    const downloadFile = async (id) => {
+        console.log(id)
+        Popup.show({
+            type: 'confirm',
+            title: 'Xuất điểm',
+            textBody: `Bạn có muốn xuất điểm này không ??`,
+            buttonText: 'Ok',
+            confirmText: 'Cancel',
+
+            // click ok
+            callback: openPDF,
+            cancelCallback: () => {
+                Popup.hide();//tắt confirm
+            },
+        });
+        async function openPDF() {
+            Popup.hide();
+            const data = await getListThesis()
+            data.map(async (item) => {
+                // ktra id có phải là id của khóa luận đang được lick vào không
+                if (item?.id === id) {
+                    const res = await axios.get(endpoints["pdf"](item.id))
+                    console.log('link file', res.data)
+                    Linking.openURL(res.data);
+                }
+
+            })
+
+        };
     }
-    const openPDF = async (id) => {
-        const linkFile = await createFile(id)
-        console.log('link==================', linkFile)
-        Linking.openURL(linkFile);
-    };
     const renderItem = ({ item, index }) => {
         return (
-            <TouchableOpacity key={item.id} onPress={() => { openPDF(item.id) }}>
+            <TouchableOpacity key={item.id} onPress={() => { downloadFile(item.id) }}>
                 <View style={list_thesis.row}>
                     <View style={list_thesis.left}>
                         <Text style={list_thesis.text}>{index + 1}</Text>
                     </View>
                     <View style={list_thesis.right}>
                         <Text style={list_thesis.name}>{item.name}</Text>
+                        <Ionicons name='create' color={color.green} size={25} />
                     </View>
                 </View>
             </TouchableOpacity>

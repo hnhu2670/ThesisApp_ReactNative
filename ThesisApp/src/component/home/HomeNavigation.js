@@ -1,12 +1,4 @@
-import Chat from "../chat/Chat";
 import HomeChat from "../chat/HomeChat";
-import Committee from "../committee/Committee";
-import Criteria from "../criteria/Criteria";
-import CreateFile from "../file_pdf/CreateFile";
-import ConfirmMessage from "../layout/ConfirmMessage";
-import ModalConfirm from "../layout/ModalConfirm";
-// import Criteria from "../criteria/Criteria";
-import Thesis from "../thesis/Thesis";
 import Profile from "../user/Profile";
 import Home from "./Home";
 
