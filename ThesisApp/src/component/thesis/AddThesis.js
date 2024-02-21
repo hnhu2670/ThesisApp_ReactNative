@@ -82,6 +82,10 @@ const AddThesis = ({ navigation }) => {
                     setShow('success')
                     setError('Thêm khóa luận thành công')
                     setLoading(false)
+                    setTimeout(() => {
+                        navigation.navigate('ThesisApp')
+                    }, 1500)
+
                 } catch (error) {
                     console.log("lỗi..............", error.request.responseText)
                     err = error.request.responseText
@@ -182,35 +186,5 @@ const AddThesis = ({ navigation }) => {
 
     )
 }
-// const style = StyleSheet.create({
-//     top: {
-//         height: '27%',
-//         width: '100%',
-//         // backgroundColor: 'red',
-//         marginBottom: '5%'
-//     },
-//     bottom: {
-//         height: '70%',
-//         backgroundColor: color.background
-//     },
-//     img: {
-//         position: 'absolute',
-//         width: 190,
-//         height: 190,
-//         justifyContent: 'center',
-//         alignItems: 'center',
-//         borderRadius: 150,
-//         backgroundColor: color.lightgreen,
-//         // padding: 20,
-//         marginVertical: '3%',
-//         marginHorizontal: '25%'
-//     },
-//     image: {
-//         width: 140,
-//         height: 140,
-//         padding: 10,
-//         justifyContent: 'center',
-//         alignItems: 'center'
-//     }
-// })
+
 export default AddThesis

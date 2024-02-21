@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import React, { useEffect, useState } from 'react'
-import { Image, ScrollView, StyleSheet, TextInput, TouchableOpacity, View, Dimensions } from 'react-native'
+import { Image, ScrollView, StyleSheet, TextInput, TouchableOpacity, View, Dimensions, ActivityIndicator } from 'react-native'
 import { Text } from 'react-native'
 import { authApiToken, endpoints } from '../../configs/Apis'
 import GetStudent from './GetStudent'
@@ -15,14 +15,14 @@ import ToastifyMessage from '../layout/ToastifyMessage'
 import color from '../../assets/js/color'
 
 
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
+
 const UpdateThesis = ({ route, navigation }) => {
     const { id, name } = route.params;
     const [show, setShow] = useState('') //thông báo
     const [messager, setMessager] = useState('')
     const [student, setStudent] = useState(null)
     const [teachers, setTeachers] = useState(null)
+    const [loading, setLoading] = useState(false)
     // const [listStudents, setListStudents] = useState([])s
     const [listThesis, setListThesis] = useState([])
 
@@ -183,6 +183,7 @@ const UpdateThesis = ({ route, navigation }) => {
         formData.append("name", nameThesis.name || '')
         console.log("form data", formData)
         try {
+            setLoading(true)
             const { data } = await authApiToken(token).patch(endpoints['update-thesis'](id), formData,
                 {
                     headers: {
@@ -192,15 +193,17 @@ const UpdateThesis = ({ route, navigation }) => {
             )
             setShow('success')
             setMessager("Cập nhật thành công")
+            setLoading(false)
             setTimeout(() => {
                 navigation.navigate('Danh sách khóa luận');
             }, 1500);
-            console.log('Cập nhật thành công nhe', data)
+            // console.log('Cập nhật thành công nhe', data)
             await getList()
 
         } catch (error) {
             // console.log("lỗi rồi nhe bạn ơi update thesis", error)
             console.log("lỗi rồi nhe bạn ơi update thesis..............", error)
+            setLoading(false)
             // err = error.request.responseText
             // e = JSON.parse(err)
             // setShow('error')
@@ -335,13 +338,15 @@ const UpdateThesis = ({ route, navigation }) => {
                         />
                     </View>
                 </ScrollView>
-                <View style={[thesis.text_input, { marginTop: -25 }]} >
-                    <TouchableOpacity onPress={change}>
-                        <Text style={login.button}
-                        >CẬP NHẬT KHÓA LUẬN</Text>
-                    </TouchableOpacity>
+                {loading === true ? <><ActivityIndicator /></> : <>
+                    <View style={[thesis.text_input, { marginTop: -25 }]} >
+                        <TouchableOpacity onPress={change}>
+                            <Text style={login.button}
+                            >CẬP NHẬT KHÓA LUẬN</Text>
+                        </TouchableOpacity>
 
-                </View>
+                    </View>
+                </>}
             </View >
             {show == 'success' && (
                 <ToastifyMessage

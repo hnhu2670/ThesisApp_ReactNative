@@ -41,8 +41,8 @@ const mess = StyleSheet.create({
     // chatbox
     banner: {
         backgroundColor: color.green,
-        height: windowHeight * 0.1,
-        marginTop: '10%',
+        height: windowHeight * 0.15,
+        paddingTop: '10%',
         flexDirection: 'row',
         alignItems: 'center',
         paddingLeft: 20
@@ -54,7 +54,7 @@ const mess = StyleSheet.create({
     },
     // chat
     textInput: {
-        backgroundColor: color.background,
+        // backgroundColor: color.background,
         borderRadius: 20,
         borderColor: 'gray',
         borderWidth: 1,

@@ -94,40 +94,7 @@ const ListCom = ({ navigation }) => {
                     </View>
 
                 </View>
-                {/* {current_user.role === 'admin' || current_user.role === 'universityadministrator' ? <>
-                    <View key={item.id} >
-                        <View style={hoidong.row}>
-                            <Text style={[hoidong.first,]}>
-                                {index + 1}
-                            </Text>
-                            <TouchableOpacity style={[hoidong.name]}
-                                onPress={() => changeName(item.id, item.name)}>
-                                <Text style={{ color: color.green, fontSize: 16 }}>{item.name}</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                onPress={() => goToDetail(item.id)}
-                                style={[hoidong.edit]}
-                            >
-                                <Text>
-                                    <AntDesign color="gray" name="edit" size={25} />
-                                </Text>
-                            </TouchableOpacity>
-                        </View>
 
-                    </View>
-                </> : <>
-                    <View key={item.id} >
-                        <View style={hoidong.row}>
-                            <Text style={[hoidong.cell, hoidong.first, { width: "15%" }]}>
-                                {item.id}
-                            </Text>
-                            <Text style={[hoidong.cell, { width: "65%" }]}>{item.name}</Text>
-                        </View>
-
-                    </View>
-                </>
-
-                } */}
             </>
 
 
@@ -151,8 +118,8 @@ const ListCom = ({ navigation }) => {
             }, 1500);
             return () => clearTimeout(timer);
         }
-        console.log(show)
-    }, [show]); //nếu truyền committee thì sẽ lặp quài, không truyền thì sẽ không cập nhật được giá trị
+        // console.log(show)
+    }, [show, committees]); //nếu truyền committee thì sẽ lặp quài, không truyền thì sẽ không cập nhật được giá trị
 
     return (
         <View style={[styles.container,]}>

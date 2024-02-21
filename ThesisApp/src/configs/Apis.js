@@ -40,8 +40,10 @@ export const endpoints = {
     "add-all-member": `${SERVER_URL}/add-all-member/`, //add thành viên hội đồng  
     "get-member": `${SERVER_URL}/get-member-of-committee/`,//edit hội đồng
     "get-member-of-committee": (id) => `${SERVER_URL}/get-member-of-committee/${id}/`,//id này của ai ??????
-    // "update-committes": (id) => `${SERVER_URL}/update-committee-and-member/${id}/`,
-    "update-committes": (id) => `${SERVER_URL}/get-committee/${id}/update-member/`,
+    // "update-committes": (id) => `${SERVER_URL}/update-member-of-committee/${id}/`,
+    "update-committes": (id) => `${SERVER_URL}/update-committee-and-member/${id}/`,
+    // "update-committes": (id) => `${SERVER_URL}/get-committee/${id}/update-member/`,
+
     "update-name-committes": (id) => `${SERVER_URL}/update-committee/${id}/`,
     "delete-member-of-committee": (id) => `${SERVER_URL}/delete-member-of-committee/${id}/`,
 

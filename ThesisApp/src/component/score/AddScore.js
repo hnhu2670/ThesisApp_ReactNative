@@ -93,6 +93,9 @@ const AddScore = ({ route, navigation }) => {
                         if (res.status == 200) {
                             setShow('success')
                             setError('Chấm điểm thành công')
+                            setTimeout(() => {
+                                navigation.navigate('ThesisApp')
+                            }, 500)
                             // alert('thành công')
                             // navigation.navigate('ThesisApp')
                         } else {

@@ -6,7 +6,6 @@ import axios from 'axios';
 // import styles from '../constants/styles';
 import { useNavigation } from '@react-navigation/native';
 import mess from './style';
-import Search from '../layout/Search';
 
 const ChatBox = ({ id, navigation }) => {
   // user được chat

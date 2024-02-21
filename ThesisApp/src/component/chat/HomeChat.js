@@ -47,7 +47,7 @@ const HomeChat = () => {
         <View style={{ backgroundColor: color.background }}>
             <View style={[mess.banner]}>
                 <Fontisto name='hipchat' size={25} color='white' />
-                <Text style={[mess.title]}>Chat ....</Text>
+                <Text style={[mess.title]}>Messager </Text>
             </View>
             <View style={[styles.container]}>
                 <View>

@@ -121,7 +121,7 @@ export default function Chat() {
             messagesContainerStyle={{
                 backgroundColor: '#fff',
                 paddingVertical: '10%',
-                paddingHorizontal: 10
+                // paddingHorizontal: 10
             }}
             // nhập tin nhắn
             textInputStyle={[mess.textInput]}

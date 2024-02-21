@@ -65,12 +65,12 @@ const UpdateComm = ({ route, navigation }) => {
                     "Content-Type": "multipart/form-data"
                 }
             })
-            console.log("du liệu thêm thành công", data)
+            console.log("thành công", data)
             setShow('success')
             setMessage('Cập nhật thành công')
-            // setTimeout(() => {
-            //     navigation.navigate('ThesisApp')
-            // }, 1000)
+            setTimeout(() => {
+                navigation.navigate('ThesisApp')
+            }, 300)
         } catch (error) {
             console.log("updateCommittee lỗi rồi", error)
             setShow('error')
@@ -213,7 +213,7 @@ const UpdateComm = ({ route, navigation }) => {
         if (show !== '') {
             const timer = setTimeout(() => {
                 setShow('');
-            }, 1500);
+            }, 500);
             return () => clearTimeout(timer);
         }
         console.log(show)
@@ -231,6 +231,7 @@ const UpdateComm = ({ route, navigation }) => {
                     {thisComm[0]?.Committee.name}</Text>
             </View>
             <ScrollView style={{ height: windowHeight * 0.65 }}>
+
                 {/* chủ tịch */}
                 <View style={styles.text_input}>
                     <Text style={login.text}>Chủ tịch </Text>
@@ -334,6 +335,7 @@ const UpdateComm = ({ route, navigation }) => {
                 {/* tv2 */}
                 <View style={styles.text_input}>
                     <Text style={login.text}>Thành viên 2</Text>
+
                     <Dropdown
                         style={styles.dropdown}
                         placeholderStyle={styles.placeholderStyle}
@@ -358,6 +360,7 @@ const UpdateComm = ({ route, navigation }) => {
                     />
 
                 </View>
+
             </ScrollView>
 
             <View style={[login.text_input]}>
