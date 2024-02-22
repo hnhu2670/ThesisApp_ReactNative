@@ -56,7 +56,6 @@ function App() {
               }}
             />
             <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} />
-            <Stack.Screen name='Profile' component={Profile} />
             <Stack.Screen name='Cập nhật thông tin' component={Update} />
             <Stack.Screen name='Đổi mật khẩu' component={ChangePassword} />
             <Stack.Screen name='Cập nhật hội đồng' component={UpdateComm} />

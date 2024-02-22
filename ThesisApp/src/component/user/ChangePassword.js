@@ -62,6 +62,7 @@ const ChangePassword = ({ navigation }) => {
             console.log('Vui lòng nhập đầy đủ thông tin');
             setShow('error')
             setErr('Vui lòng nhập đầy đủ thông tin')
+
             return;
         }
         if (oldPass !== true) {
@@ -90,6 +91,9 @@ const ChangePassword = ({ navigation }) => {
             console.log('Cập nhật thành công:');
             setShow('success')
             setErr('Đổi mật khẩu thành công')
+            setTimeout(() => {
+                navigation.navigate('Login');
+            }, 2000);
         } catch (error) {
             console.log('Lỗi khi thay đổi mật khẩu:', error);
         }

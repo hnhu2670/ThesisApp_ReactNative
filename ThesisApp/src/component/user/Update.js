@@ -70,9 +70,12 @@ const Update = ({ navigation }) => {
                 setForm('success')
                 setMessage('Cập nhật thành công')
                 // lưu lại thông tin user vào AsyncStorage
-                await AsyncStorage.setItem('user', JSON.stringify(response.data));
+                // await AsyncStorage.setItem('user', JSON.stringify(response.data));
 
                 dispatch({ type: 'login', payload: response.data });
+                setTimeout(() => {
+                    navigation.navigate('ThesisApp')
+                }, 1300)
                 // alert("Cập nhật thành công")
             } catch (err) {
                 console.log("lỗi", err.request);

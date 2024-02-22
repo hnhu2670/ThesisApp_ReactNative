@@ -82,7 +82,8 @@ const profile = StyleSheet.create({
     top: {
         height: windowHeight * 0.55,
         paddingVertical: windowHeight * 0.05,
-        backgroundColor: color.green
+        backgroundColor: color.green,
+        paddingTop: windowHeight * 0.11
     },
     bottom: {
         height: windowHeight * 0.45,
