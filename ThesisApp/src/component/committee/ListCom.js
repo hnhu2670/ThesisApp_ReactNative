@@ -16,59 +16,50 @@ const ListCom = ({ navigation }) => {
     const [show, setShow] = useState(false)
     const [committees, setCommittees] = useState([]);
     const [filter, setFilter] = useState([])
-    const getCommittees = async () => {
+    const [page, setPage] = useState(1)
+    const [pageSize, setPageSize] = useState(null)
+    const getCommittees = async (pageNumber) => {
         try {
-            const { data } = await axios.get(endpoints['list-committes']);
-            // console.log("ds hội đồng", data);
-            setCommittees(data);
-            return (data)
+
+            const { data } = await axios.get(endpoints['list-committes'](pageNumber));
+            setPage(pageNumber)
+            console.log('trabf', pageNumber)
+            console.log("ds hội đồng", data.results);
+            setCommittees((prevPostSurveyList) => [...prevPostSurveyList, ...data.results]);
+            setPageSize(data.count)
+            // setPostSurveyList((prevPostSurveyList) => [...prevPostSurveyList, ...res.data.results]);
+            return data.results
         } catch (error) {
             console.log("Lỗi rồi trang listcom", error.message);
         }
     };
 
-    const goToDetail = async (id) => {
-        const data = await getCommittees()
-        console.log('id', id)
-        data.map((item) => {
-            // console.log('item', item.id)
-            if (item?.id === id) {
-                console.log('item', item.id)
-                // console.log(data[id]?.status?.name);
-                if (item?.status?.name !== 'Open') {
-                    console.log('hội đồng bị khóa', item?.status?.name);
-                    // alert('Hội đồng bị khóa ')
-                    setShow(true)
-                }
-                else {
-                    console.log('hội đồng được mở', item?.status?.name);
-                    navigation.navigate("Cập nhật hội đồng", { id })
-                }
-            }
-        });
 
+    const goToDetail = async (id, name) => {
+        // console.log('data-------------------', id, name)
+        const item = committees.find(item => item.id === id);
+        if (item) {
+            if (item.status.name !== 'Open') {
+                console.log('Hội đồng bị khóa', item.status.name);
+                setShow(true);
+            } else {
+                console.log('Hội đồng được mở', item.status.name);
+                navigation.navigate("Cập nhật hội đồng", { id, name })
+            }
+        }
     }
-
     const changeName = async (id, name) => {
-        const data = await getCommittees()
-        console.log('id', id)
-        data.map((item) => {
-            // console.log('item', item.id)
-            if (item?.id === id) {
-                console.log('item', item.id)
-                // console.log(data[id]?.status?.name);
-                if (item?.status?.name !== 'Open') {
-                    console.log('hội đồng bị khóa', item?.status?.name);
-                    // alert('Hội đồng bị khóa ')
-                    setShow(true)
-                }
-                else {
-                    console.log('hội đồng được mở', item?.status?.name);
-                    navigation.navigate("Tên hội đồng", { id, name })
-
-                }
+        console.log('data2-------------------', id, name)
+        const item = committees.find(item => item.id === id);
+        if (item) {
+            if (item.status.name !== 'Open') {
+                console.log('Hội đồng bị khóa', item.status.name);
+                setShow(true);
+            } else {
+                console.log('Hội đồng được mở', item.status.name);
+                navigation.navigate("Tên hội đồng", { id, name })
             }
-        });
+        }
     }
 
     const renderData = ({ item, index }) => {
@@ -84,7 +75,7 @@ const ListCom = ({ navigation }) => {
                             <Text style={{ color: color.green, fontSize: 16 }}>{item.name}</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
-                            onPress={() => goToDetail(item.id)}
+                            onPress={() => goToDetail(item.id, item.name)}
                             style={[hoidong.edit]}
                         >
                             <Text>
@@ -109,9 +100,32 @@ const ListCom = ({ navigation }) => {
         console.log('Search text:', text);
 
     };
+    const handleScroll = async (event) => {
+
+        event.persist();
+        const { layoutMeasurement, contentOffset, contentSize } = event?.nativeEvent || {};
+        // layoutMeasurement(kthuoc hiện tại => nd được hiển thị) + contentOffset(vtri hiện tại) contentSize(kthuoc toàn bộ)
+        //    cao của nội dung trừ chiều cao của vùng hiển thị
+        const isEndOfScrollView = contentOffset.y >= (contentSize.height - layoutMeasurement.height - 1);
+
+        // ktra đã scroll đến cuối chưa
+        if (!isEndOfScrollView) return;
+        try {
+            // ktra còn data để load hong
+            const hasMoreData = committees.length > 0 && committees.length < pageSize;
+
+            if (hasMoreData) {
+                const nextPage = page + 1;
+                // lấy data từ page tiếp theo
+                getCommittees(nextPage);
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     useEffect(() => {
-        getCommittees();
+        getCommittees(1);
         if (show !== false) {
             const timer = setTimeout(() => {
                 setShow(false);
@@ -119,7 +133,7 @@ const ListCom = ({ navigation }) => {
             return () => clearTimeout(timer);
         }
         // console.log(show)
-    }, [show, committees]); //nếu truyền committee thì sẽ lặp quài, không truyền thì sẽ không cập nhật được giá trị
+    }, [show]); //nếu truyền committee thì sẽ lặp quài, không truyền thì sẽ không cập nhật được giá trị
 
     return (
         <View style={[styles.container,]}>
@@ -136,11 +150,12 @@ const ListCom = ({ navigation }) => {
                     <ActivityIndicator size={30} color={color.green} />
                 ) : (
 
-                    <FlatList
+                    <FlatList onScroll={handleScroll} scrollEventThrottle={16}
                         data={filter.length > 0 ? filter : committees}
                         keyExtractor={(item) => item.id.toString()}
                         renderItem={renderData}
                     />
+
                 )}
             </View>
             {show == true && (

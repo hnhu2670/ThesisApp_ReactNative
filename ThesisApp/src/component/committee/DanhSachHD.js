@@ -17,12 +17,19 @@ const DanhSachHD = ({ navigation }) => {
     const [current_user, dispatch] = useContext(MyUserContext);
     const [committees, setCommittees] = useState([]);
     const [filter, setFilter] = useState([])
-    const getCommittees = async () => {
+    const [page, setPage] = useState(1)
+    const [pageSize, setPageSize] = useState(null)
+    const getCommittees = async (pageNumber) => {
         try {
-            const { data } = await axios.get(endpoints['list-committes']);
-            // console.log('danh sách hội đồng', data[0])
-            setCommittees(data);
-            return data
+
+            const { data } = await axios.get(endpoints['list-committes'](pageNumber));
+            setPage(pageNumber)
+            console.log('trabf', pageNumber)
+            console.log("ds hội đồng", data.results);
+            setCommittees((prevPostSurveyList) => [...prevPostSurveyList, ...data.results]);
+            setPageSize(data.count)
+            // setPostSurveyList((prevPostSurveyList) => [...prevPostSurveyList, ...res.data.results]);
+            return data.results
         } catch (error) {
             console.log("Lỗi rồi trang listcom", error.message);
         }
@@ -33,24 +40,16 @@ const DanhSachHD = ({ navigation }) => {
 
     }
     const goToDelete = async (id, name) => {
-        const data = await getCommittees()
-        // console.log('số lượng', data.length)
-        console.log('id', id)
-        data.map((item) => {
-            // console.log('item', item.id)
-            if (item?.id === id) {
-                console.log('item', item.id)
-                // console.log(data[id]?.status?.name);
-                if (item?.status?.name !== 'Open')
-                    // console.log('hội đồng bị khóa', item?.status?.name);
-                    // alert('Hội đồng bị khóa ')
-                    setShow(true)
-                else {
-                    console.log('hội đồng được mở', item?.status?.name);
-                    navigation.navigate("Xóa thành viên", { id, name });
-                }
+        const item = committees.find(item => item.id === id);
+        if (item) {
+            if (item.status.name !== 'Open') {
+                console.log('Hội đồng bị khóa', item.status.name);
+                setShow(true);
+            } else {
+                console.log('Hội đồng được mở', item.status.name);
+                navigation.navigate("Xóa thành viên", { id, name });
             }
-        });
+        }
 
     }
     const searchName = (text) => {
@@ -93,9 +92,27 @@ const DanhSachHD = ({ navigation }) => {
 
             </>)
     };
+    const handleScroll = async (event) => {
 
+        event.persist();
+        const { layoutMeasurement, contentOffset, contentSize } = event?.nativeEvent || {};
+
+        const isEndOfScrollView = contentOffset.y >= (contentSize.height - layoutMeasurement.height - 1);
+
+        if (!isEndOfScrollView) return;
+        try {
+            const hasMoreData = committees.length > 0 && committees.length < pageSize;
+
+            if (hasMoreData) {
+                const nextPage = page + 1;
+                getCommittees(nextPage);
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
     useEffect(() => {
-        getCommittees();
+        getCommittees(1);
         if (show !== false) {
             const timer = setTimeout(() => {
                 setShow(false);
@@ -121,8 +138,7 @@ const DanhSachHD = ({ navigation }) => {
                     <ActivityIndicator size={30} color={color.green} />
                 ) : (
 
-                    <FlatList
-                        // data={committees}
+                    <FlatList onScroll={handleScroll} scrollEventThrottle={16}
                         data={filter.length > 0 ? filter : committees}
                         keyExtractor={(item) => item.id.toString()}
                         renderItem={renderData}

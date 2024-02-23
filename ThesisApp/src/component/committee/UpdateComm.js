@@ -15,7 +15,9 @@ const UpdateComm = ({ route, navigation }) => {
     // const [loading, setLoading] = useState(false)
     const [message, setMessage] = useState('')
     const [show, setShow] = useState('')
-    const { id } = route.params; //id truyền từ trang danh sách qua
+    const [loading, setLoading] = useState(false)
+    const { id, name } = route.params; //id truyền từ trang danh sách qua
+    console.log(id, name)
     // chủ tịch
     const [data1, setData1] = useState([])
     // thư ký
@@ -104,6 +106,8 @@ const UpdateComm = ({ route, navigation }) => {
     }
     // kiểm tra chức vụ
     const checkMember = async () => {
+        // setLoading(true)
+
         let data = await getTeacher()//callback gọi lại hàm lấy ds gv
         let memb = await getThisComm()
         var count = 0
@@ -112,7 +116,9 @@ const UpdateComm = ({ route, navigation }) => {
             setDataNew(pre => [...pre, { value: c.id, label: `${c.last_name} ${c.first_name}` }])
         })
         setGetDefault('')
+
         for (let i = 0; i < memb.length; i++) {
+            // console.log('loading', loading)
             switch (memb[i]?.position.id) {
                 case 1:
                     // console.log('chức vụ chủ tịch--- ', i)
@@ -194,8 +200,12 @@ const UpdateComm = ({ route, navigation }) => {
                     break;
                 default: console.log('chọn thành viên mới đi', i)
 
+
             }
+
         }
+        // setLoading(false)
+
     }
     const defaultSelet = (itemValue) => {
         setGetDefault(itemValue)
@@ -228,10 +238,9 @@ const UpdateComm = ({ route, navigation }) => {
                     fontSize: 25, textAlign: 'center', fontStyle: 'italic',
                     marginRight: 25, padding: 10, borderBottomWidth: 1, borderColor: 'lightgray'
                 }]}>
-                    {thisComm[0]?.Committee.name}</Text>
+                    {name}</Text>
             </View>
             <ScrollView style={{ height: windowHeight * 0.65 }}>
-
                 {/* chủ tịch */}
                 <View style={styles.text_input}>
                     <Text style={login.text}>Chủ tịch </Text>

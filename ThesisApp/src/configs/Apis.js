@@ -1,8 +1,8 @@
 import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const SERVER_URL = 'http://192.168.1.2:8000';
-const SERVER = "http://192.168.1.2";
+const SERVER_URL = 'http://192.168.1.9:8000';
+const SERVER = "http://192.168.1.9";
 // const SERVER_URL = 'http://192.168.1.19:8000';
 // const SERVER = "http://192.168.1.19";
 // const SERVER_URL = 'http://172.16.17.180:8000';
@@ -30,7 +30,7 @@ export const endpoints = {
     "list-thesis": `${SERVER_URL}/get-thesis/`,//ds khóa luận,
     "thesis-of-lecturer": `${SERVER_URL}/get-thesis/lecturer`,//ds khóa luận của gv,
 
-    "list-committes": `${SERVER_URL}/get-committee/`,//ds hội đồng,
+    "list-committes": (page) => `${SERVER_URL}/get-committee/?page=${page}`,//ds hội đồng,
     "edit-committes": (id) => `${SERVER_URL}/get-committee/${id}/`,//edit khoa luận
     "close-committes": (id) => `${SERVER_URL}/get-committee/${id}/close/`,//edit khoa luận
 
