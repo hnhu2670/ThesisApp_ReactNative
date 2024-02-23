@@ -5,7 +5,7 @@ const windowHeight = Dimensions.get('window').height;
 const mess = StyleSheet.create({
     container: {
         marginVertical: 20,
-        height: windowHeight * 0.65,
+        height: windowHeight * 0.60,
         marginBottomBottom: windowHeight * 0.05
     },
     item: {
@@ -40,17 +40,28 @@ const mess = StyleSheet.create({
     },
     // chatbox
     banner: {
+        // backgroundColor: color.green,
+        // height: windowHeight * 0.15,
+        // paddingTop: '10%',
+        // flexDirection: 'row',
+        // alignItems: 'center',
+        // paddingLeft: 20
+        paddingVertical: '13%',
+        paddingHorizontal: '5%',
         backgroundColor: color.green,
-        height: windowHeight * 0.15,
-        paddingTop: '10%',
-        flexDirection: 'row',
-        alignItems: 'center',
-        paddingLeft: 20
+        height: windowHeight * 0.25,
+    },
+    nameApp: {
+        color: 'white',
+        fontSize: 35,
+        textAlign: 'right',
     },
     title: {
         color: 'white',
         fontSize: 30,
-        marginHorizontal: 10
+        marginTop: 30,
+        marginHorizontal: 10,
+        fontSize: 30
     },
     // chat
     textInput: {

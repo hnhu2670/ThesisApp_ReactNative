@@ -24,7 +24,7 @@ const GetTeacher = (props) => {
         const token = await AsyncStorage.getItem('token')
 
         try {
-            const { data } = await authApiToken(token).get(endpoints['get-user-role'] + '?role=lecturer');
+            const { data } = await authApiToken(token).get(`${endpoints["get-user-role"]("all")}&role=lecturer`);
             setTeachers(data);
         } catch (error) {
             console.log("Lỗi:", error);

@@ -42,6 +42,7 @@ const UpdateThesis = ({ route, navigation }) => {
     const [getDefault3, setGetDefault3] = useState(null)
 
     // lấy id sinh viên hiện tại
+
     const getIdStudent = (data) => {
         // console.log('==============', data)
         var id_student = ''
@@ -56,6 +57,7 @@ const UpdateThesis = ({ route, navigation }) => {
         setStudent(id_student)
         console.log("student", id_student)
     }
+
     // thay đổi giá trị sinh viên
     const chageMultipleSelect = (values) => {
         var id_student = ''
@@ -82,18 +84,20 @@ const UpdateThesis = ({ route, navigation }) => {
     const getListTeacher = async () => {
         const token = await AsyncStorage.getItem('token')
 
-        const { data } = await authApiToken(token).get(endpoints['get-user-role'] + '?role=lecturer');
+        const { data } = await authApiToken(token).get(`${endpoints["get-user-role"]("all")}&role=lecturer`);
         setTeachers(data);
         // console.log('getList', data)
 
         return data
     }
     // lấy thông tin hội đồng ==> để hiển thị tên
+
     const getCommittee = async () => {
         try {
-            // const { data } = await axios.get(endpoints["get-thesis"](id))
             let data = await getList() //gọi lại hàm getList
-            const res = await axios.get(endpoints["list-committes"] + '?status=Open');
+            const res = await axios.get(`${endpoints["list-committes"]("all")}&status=Open`);
+
+            // console.log("res.data", res.data)
             const listComm = res.data
             listComm.forEach(element => {
                 setData3(pre =>
@@ -118,6 +122,7 @@ const UpdateThesis = ({ route, navigation }) => {
             // console.log('gv1---------------------------------')
             let data = await getList() //gọi lại hàm getList
             let listTeacher = await getListTeacher()
+            // console.log('teacher', listTeacher)
             // changeGv1.value=
             listTeacher.forEach(element => {
 
@@ -142,6 +147,7 @@ const UpdateThesis = ({ route, navigation }) => {
             // console.log('gv2---------------------------------')
             let data = await getList() //gọi lại hàm getList
             let listTeacher = await getListTeacher()
+            // console.log('gv2', listTeacher)
             listTeacher.forEach(element => {
 
                 setData2(pre =>
@@ -196,14 +202,15 @@ const UpdateThesis = ({ route, navigation }) => {
             setLoading(false)
             setTimeout(() => {
                 navigation.navigate('Danh sách khóa luận');
-            }, 1500);
+            }, 800);
             // console.log('Cập nhật thành công nhe', data)
             await getList()
 
         } catch (error) {
-            // console.log("lỗi rồi nhe bạn ơi update thesis", error)
             console.log("lỗi rồi nhe bạn ơi update thesis..............", error)
             setLoading(false)
+            setShow('error')
+            setMessager("Đã xảy ra lỗi")
             // err = error.request.responseText
             // e = JSON.parse(err)
             // setShow('error')

@@ -14,32 +14,17 @@ const windowHeight = Dimensions.get('window').height;
 const Pdf = ({ navigation }) => {
     const [list, setList] = useState('')
     const [filter, setFilter] = useState([])
-    const getListThesis = async () => {
-        const res = await axios.get(endpoints["list-thesis"])
+    const [page, setPage] = useState(1)
+    const [pageSize, setPageSize] = useState(null)
+    const getListThesis = async (pageNumber) => {
+        const { data } = await axios.get(endpoints["list-thesis"](pageNumber))
+        setPage(pageNumber)
+        setList((prevPostSurveyList) => [...prevPostSurveyList, ...data.results]);
+        setPageSize(data.count)
+        return data.results
 
-        if (res.status === 200) {
-            const result = await res.data;
-            setList(result);
-            return result
-
-        } else {
-            throw new Error(res.statusText);
-        }
     }
-    // const createfile = async (id, name) => {
-    //     navigation.navigate('Xuất file', { id, name })
-    // }
-    // const createFile = async (id) => {
-    //     const res = await axios.get(endpoints["pdf"](id))
-    //     console.log('link file', res.data)
-    //     return res.data
 
-    // }
-    // const openPDF = async (id) => {
-    //     const linkFile = await createFile(id)
-    //     console.log('link==================', linkFile)
-    //     Linking.openURL(linkFile);
-    // };
     const downloadFile = async (id) => {
         console.log(id)
         Popup.show({
@@ -57,17 +42,13 @@ const Pdf = ({ navigation }) => {
         });
         async function openPDF() {
             Popup.hide();
-            const data = await getListThesis()
-            data.map(async (item) => {
-                // ktra id có phải là id của khóa luận đang được lick vào không
-                if (item?.id === id) {
-                    const res = await axios.get(endpoints["pdf"](item.id))
-                    console.log('link file', res.data)
-                    Linking.openURL(res.data);
-                }
-
-            })
-
+            // const data = await getListThesis()
+            const item = list.find(item => item.id === id);
+            if (item) {
+                const res = await axios.get(endpoints["pdf"](item.id))
+                console.log('link file', res.data)
+                Linking.openURL(res.data);
+            }
         };
     }
     const renderItem = ({ item, index }) => {
@@ -97,8 +78,31 @@ const Pdf = ({ navigation }) => {
         console.log('Search text:', text);
 
     };
+    const handleScroll = async (event) => {
+
+        event.persist();
+        const { layoutMeasurement, contentOffset, contentSize } = event?.nativeEvent || {};
+        // layoutMeasurement(kthuoc hiện tại => nd được hiển thị) + contentOffset(vtri hiện tại) contentSize(kthuoc toàn bộ)
+        //    cao của nội dung trừ chiều cao của vùng hiển thị
+        const isEndOfScrollView = contentOffset.y >= (contentSize.height - layoutMeasurement.height - 1);
+
+        // ktra đã scroll đến cuối chưa
+        if (!isEndOfScrollView) return;
+        try {
+            // ktra còn data để load hong
+            const hasMoreData = list.length > 0 && list.length < pageSize;
+
+            if (hasMoreData) {
+                const nextPage = page + 1;
+                // lấy data từ page tiếp theo
+                getListThesis(nextPage);
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
     useEffect(() => {
-        getListThesis();
+        getListThesis(1);
     }, []);
     return (
         <View style={[styles.container, { backgroundColor: color.background }]}>
@@ -115,7 +119,7 @@ const Pdf = ({ navigation }) => {
                 {list.length < 1 ? (
                     // <Text>Chưa có dữ liệu</Text>
                     <ActivityIndicator size={30} color={color.green} />
-                ) : (<FlatList
+                ) : (<FlatList onScroll={handleScroll} scrollEventThrottle={16}
                     data={filter.length > 0 ? filter : list}
                     keyExtractor={(item) => item.id.toString()}
                     renderItem={renderItem}

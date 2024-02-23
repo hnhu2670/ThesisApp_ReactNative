@@ -1,8 +1,8 @@
 import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const SERVER_URL = 'http://192.168.1.9:8000';
-const SERVER = "http://192.168.1.9";
+const SERVER_URL = 'http:///192.168.1.11:8000';
+const SERVER = "http://192.168.1.11";
 // const SERVER_URL = 'http://192.168.1.19:8000';
 // const SERVER = "http://192.168.1.19";
 // const SERVER_URL = 'http://172.16.17.180:8000';
@@ -16,7 +16,7 @@ export const endpoints = {
     'login': `${SERVER_URL}/o/token/`,//quyền đn
     "current-user": `${SERVER_URL}/get-user-by-token/`,//user đăng nhập
     "get-user": (id) => `${SERVER_URL}/get-users/${id}/`,//get user by id
-    "get-user-role": `${SERVER_URL}/get-users/`,//get user 
+    "get-user-role": (page) => `${SERVER_URL}/get-users/?page=${page}`,//get user 
     "update-user": (id) => `${SERVER_URL}/update-user/${id}/`,//update profile
     "check-old-password": `${SERVER_URL}/check-old-password/`,//ktra mật khẩu cũ
     "thesis-of-user": (id) => `${SERVER_URL}/get-users/${id}/thesis`,//khóa luận mà sv tham gia ==> id sv
@@ -27,7 +27,7 @@ export const endpoints = {
     "add-thesis": `${SERVER_URL}/add-thesis/`,
     "update-thesis": (id) => `${SERVER_URL}/update-thesis/${id}/`,
     "get-thesis": (id) => `${SERVER_URL}/get-thesis/${id}/`,
-    "list-thesis": `${SERVER_URL}/get-thesis/`,//ds khóa luận,
+    "list-thesis": (page) => `${SERVER_URL}/get-thesis/?page=${page}`,//ds khóa luận,
     "thesis-of-lecturer": `${SERVER_URL}/get-thesis/lecturer`,//ds khóa luận của gv,
 
     "list-committes": (page) => `${SERVER_URL}/get-committee/?page=${page}`,//ds hội đồng,

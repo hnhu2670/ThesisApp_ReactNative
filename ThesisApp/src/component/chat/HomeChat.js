@@ -22,18 +22,46 @@ const HomeChat = () => {
     const navigation = useNavigation();
     const [chatBox, setAllbox] = useState([]);
     const [filter, setFilter] = useState([])
+    const [page, setPage] = useState(1)
+    const [pageSize, setPageSize] = useState(null)
 
-    useEffect(() => {
-        const fetchDataAsync = async () => {
-            try {
-                const { data } = await axios.get(endpoints['get-user-role']);
-                setAllbox(data);
-            } catch (error) {
-                console.log("Lỗi get teacher", error);
+    const getData = async (pageNumber) => {
+        try {
+            const { data } = await axios.get(endpoints['get-user-role'](pageNumber));
+
+            // console.log(data.results)
+            setPage(pageNumber)
+            setAllbox((prevPostSurveyList) => [...prevPostSurveyList, ...data.results]);
+            setPageSize(data.count)
+            return data.results
+        } catch (error) {
+            console.log("Lỗi get user", error);
+        }
+    };
+    const handleScroll = async (event) => {
+
+        event.persist();
+        const { layoutMeasurement, contentOffset, contentSize } = event?.nativeEvent || {};
+        // layoutMeasurement(kthuoc hiện tại => nd được hiển thị) + contentOffset(vtri hiện tại) contentSize(kthuoc toàn bộ)
+        //    cao của nội dung trừ chiều cao của vùng hiển thị
+        const isEndOfScrollView = contentOffset.y >= (contentSize.height - layoutMeasurement.height - 1);
+
+        // ktra đã scroll đến cuối chưa
+        if (!isEndOfScrollView) return;
+        try {
+            // ktra còn data để load hong
+            const hasMoreData = chatBox.length > 0 && chatBox.length < pageSize;
+
+            if (hasMoreData) {
+                const nextPage = page + 1;
+                // lấy data từ page tiếp theo
+                getData(nextPage);
             }
-        };
-        fetchDataAsync();
-    }, []);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
 
     const searchName = (text) => {
         const filterName = chatBox.filter((item) =>
@@ -41,19 +69,25 @@ const HomeChat = () => {
         );
         setFilter(filterName)
     };
-
+    useEffect(() => {
+        getData(1)
+    }, [])
 
     return (
         <View style={{ backgroundColor: color.background }}>
+
             <View style={[mess.banner]}>
-                <Fontisto name='hipchat' size={25} color='white' />
-                <Text style={[mess.title]}>Messager </Text>
+                <Text style={[mess.nameApp]}>ThesisApp</Text>
+                <View>
+                    <Text style={[mess.title]}>Messager </Text>
+                </View>
+
             </View>
             <View style={[styles.container]}>
                 <View>
                     <Search onSearch={searchName} />
                 </View>
-                <ScrollView style={[mess.container]}>
+                <ScrollView style={[mess.container]} onScroll={handleScroll} scrollEventThrottle={16}>
                     {chatBox.length < 1 ? (
                         // <Text>Chưa có dữ liệu</Text>
                         <ActivityIndicator />

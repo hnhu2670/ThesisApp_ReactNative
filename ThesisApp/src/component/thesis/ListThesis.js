@@ -13,16 +13,15 @@ const ListThesis = ({ navigation }) => {
     // const { name } = route.params;
     const [list, setList] = useState('')
     const [filter, setFilter] = useState([])
-    const getListThesis = async () => {
-        const res = await axios.get(endpoints["list-thesis"])
+    const [page, setPage] = useState(1)
+    const [pageSize, setPageSize] = useState(null)
+    const getListThesis = async (pageNumber) => {
+        const { data } = await axios.get(endpoints["list-thesis"](pageNumber))
+        setPage(pageNumber)
+        setList((prevPostSurveyList) => [...prevPostSurveyList, ...data.results]);
+        setPageSize(data.count)
+        return data.results
 
-        if (res.status === 200) {
-            const result = await res.data;
-            setList(result);
-
-        } else {
-            throw new Error(res.statusText);
-        }
     }
     const update = async (id, name) => {
         navigation.navigate('Cập nhật khóa luận', { id, name })
@@ -43,18 +42,7 @@ const ListThesis = ({ navigation }) => {
 
                     </View>
                 </TouchableOpacity>
-                {/* <TouchableOpacity key={item.id} onPress={() => { createPdf(item.id) }}>
-                    <View style={list_thesis.row}>
-                        <View style={list_thesis.left}>
-                            <Text style={list_thesis.text}>{item.id}</Text>
-                        </View>
-                        <View style={list_thesis.right}>
-                            <Text style={list_thesis.name}>{item.name}</Text>
-                        </View>
 
-
-                    </View>
-                </TouchableOpacity> */}
             </>
         );
     }
@@ -68,8 +56,31 @@ const ListThesis = ({ navigation }) => {
         console.log('Search text:', text);
 
     };
+    const handleScroll = async (event) => {
+
+        event.persist();
+        const { layoutMeasurement, contentOffset, contentSize } = event?.nativeEvent || {};
+        // layoutMeasurement(kthuoc hiện tại => nd được hiển thị) + contentOffset(vtri hiện tại) contentSize(kthuoc toàn bộ)
+        //    cao của nội dung trừ chiều cao của vùng hiển thị
+        const isEndOfScrollView = contentOffset.y >= (contentSize.height - layoutMeasurement.height - 1);
+
+        // ktra đã scroll đến cuối chưa
+        if (!isEndOfScrollView) return;
+        try {
+            // ktra còn data để load hong
+            const hasMoreData = list.length > 0 && list.length < pageSize;
+
+            if (hasMoreData) {
+                const nextPage = page + 1;
+                // lấy data từ page tiếp theo
+                getListThesis(nextPage);
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
     useEffect(() => {
-        getListThesis();
+        getListThesis(1);
     }, []);
     return (
         <View style={[styles.container, { backgroundColor: color.background, height: '80%' }]}>
@@ -86,7 +97,7 @@ const ListThesis = ({ navigation }) => {
                     {list.length < 1 ? (
                         // <Text>ChÆ°a cÃ³ dá»¯ liá»‡u</Text>
                         <ActivityIndicator size={30} color={color.green} />
-                    ) : (<FlatList
+                    ) : (<FlatList onScroll={handleScroll} scrollEventThrottle={16}
                         data={filter.length > 0 ? filter : list}
                         keyExtractor={(item) => item.id.toString()}
                         renderItem={renderItem}

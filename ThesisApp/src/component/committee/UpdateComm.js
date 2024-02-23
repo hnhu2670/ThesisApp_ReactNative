@@ -17,7 +17,7 @@ const UpdateComm = ({ route, navigation }) => {
     const [show, setShow] = useState('')
     const [loading, setLoading] = useState(false)
     const { id, name } = route.params; //id truyền từ trang danh sách qua
-    console.log(id, name)
+    // console.log(id, name)
     // chủ tịch
     const [data1, setData1] = useState([])
     // thư ký
@@ -62,6 +62,7 @@ const UpdateComm = ({ route, navigation }) => {
         console.log('dữ liệu lấy được', formData)
 
         try {
+            setLoading(true)
             const { data } = await authApiToken(token).patch(endpoints['update-committes'](id), formData, {
                 headers: {
                     "Content-Type": "multipart/form-data"
@@ -70,6 +71,7 @@ const UpdateComm = ({ route, navigation }) => {
             console.log("thành công", data)
             setShow('success')
             setMessage('Cập nhật thành công')
+            setLoading(false)
             setTimeout(() => {
                 navigation.navigate('ThesisApp')
             }, 300)
@@ -77,6 +79,7 @@ const UpdateComm = ({ route, navigation }) => {
             console.log("updateCommittee lỗi rồi", error)
             setShow('error')
             setMessage('Cập nhật thất bại')
+            setLoading(true)
         }
     }
 
@@ -97,7 +100,7 @@ const UpdateComm = ({ route, navigation }) => {
         try {
             const token = await AsyncStorage.getItem('token')
 
-            const { data } = await authApiToken(token).get(endpoints['get-user-role'] + '?role=lecturer');
+            const { data } = await authApiToken(token).get(`${endpoints["get-user-role"]("all")}&role=lecturer`);
             return data
 
         } catch (error) {
@@ -110,7 +113,7 @@ const UpdateComm = ({ route, navigation }) => {
 
         let data = await getTeacher()//callback gọi lại hàm lấy ds gv
         let memb = await getThisComm()
-        var count = 0
+
 
         data.map(c => {
             setDataNew(pre => [...pre, { value: c.id, label: `${c.last_name} ${c.first_name}` }])
@@ -158,33 +161,17 @@ const UpdateComm = ({ route, navigation }) => {
                     break;
 
                 case 4:
-                    count++
-                    if (count === 1) {
-                        // console.log('tv1 --- ', i)
-                        change4.value = memb[i].user.id
-                        // console.log("tv1 id", change4.value)
-                        data.map(c => {
+                    change4.value = memb[i].user.id
+                    // console.log("tv1 id", change4.value)
+                    data.map(c => {
 
-                            setData4(pre => [...pre, { value: c.id, label: `${c.last_name} ${c.first_name}` }])
-                            if (c.id === memb[i]?.user.id) {
-                                setGetDefault4(c.id)
-                            }
-                        })
-                        break;
-                    }
-                    else {
-                        // console.log('tv2 --- ', i)
-                        change5.value = memb[i].user.id
-                        // console.log("tv2 id", change5.value)
-                        data.map(c => {
+                        setData4(pre => [...pre, { value: c.id, label: `${c.last_name} ${c.first_name}` }])
+                        if (c.id === memb[i]?.user.id) {
+                            setGetDefault4(c.id)
+                        }
+                    })
+                    break;
 
-                            setData5(pre => [...pre, { value: c.id, label: `${c.last_name} ${c.first_name}` }])
-                            if (c.id === memb[i]?.user.id) {
-                                setGetDefault5(c.id)
-                            }
-                        })
-                        break;
-                    }
 
                 case 5:
                     // console.log('tv2 --- ', i)
@@ -372,14 +359,14 @@ const UpdateComm = ({ route, navigation }) => {
 
             </ScrollView>
 
-            <View style={[login.text_input]}>
-                <TouchableOpacity onPress={updateCommittee}>
-                    <Text style={login.button}
-                    >CẬP NHẬT</Text>
-                </TouchableOpacity>
-            </View>
-
-
+            {loading === true ? <><ActivityIndicator /></> : <>
+                <View style={[login.text_input]}>
+                    <TouchableOpacity onPress={updateCommittee}>
+                        <Text style={login.button}
+                        >CẬP NHẬT</Text>
+                    </TouchableOpacity>
+                </View>
+            </>}
             {show === 'error' && (
                 <ToastifyMessage
                     type="danger"

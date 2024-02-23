@@ -25,9 +25,9 @@ const GetStudent = (props) => {
         const token = await AsyncStorage.getItem('token')
         // console.log("token", token)
         try {
-            const { data } = await authApiToken(token).get(endpoints['get-user-role'] + '?role=student')
+            const { data } = await authApiToken(token).get(`${endpoints["get-user-role"]("all")}&role=student`)
             const result = await data;
-            // console.log("result", result)
+            // console.log("géttudent", result)
 
             setStudent(result);
 
