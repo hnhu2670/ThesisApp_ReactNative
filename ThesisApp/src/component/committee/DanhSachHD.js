@@ -9,6 +9,7 @@ import { MyUserContext } from '../../../App';
 import ToastifyMessage from '../layout/ToastifyMessage';
 import hoidong from './style';
 import { AntDesign, Entypo } from '@expo/vector-icons';
+import list_thesis from '../thesis/style_list';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
@@ -19,16 +20,17 @@ const DanhSachHD = ({ navigation }) => {
     const [filter, setFilter] = useState([])
     const [page, setPage] = useState(1)
     const [pageSize, setPageSize] = useState(null)
+    const [lazy, setLazy] = useState(false)
     const getCommittees = async (pageNumber) => {
         try {
-
+            setLazy(true)
             const { data } = await axios.get(endpoints['list-committes'](pageNumber));
             setPage(pageNumber)
             console.log('trabf', pageNumber)
             console.log("ds hội đồng", data.results);
             setCommittees((prevPostSurveyList) => [...prevPostSurveyList, ...data.results]);
             setPageSize(data.count)
-            // setPostSurveyList((prevPostSurveyList) => [...prevPostSurveyList, ...res.data.results]);
+            setLazy(false)
             return data.results
         } catch (error) {
             console.log("Lỗi rồi trang listcom", error.message);
@@ -137,12 +139,19 @@ const DanhSachHD = ({ navigation }) => {
                     // <Text>Chưa có dữ liệu</Text>
                     <ActivityIndicator size={30} color={color.green} />
                 ) : (
-
-                    <FlatList onScroll={handleScroll} scrollEventThrottle={16}
-                        data={filter.length > 0 ? filter : committees}
-                        keyExtractor={(item) => item.id.toString()}
-                        renderItem={renderData}
-                    />
+                    <>
+                        <FlatList onScroll={handleScroll} scrollEventThrottle={16}
+                            data={filter.length > 0 ? filter : committees}
+                            keyExtractor={(item) => item.id.toString()}
+                            renderItem={renderData}
+                        />
+                        {lazy && (
+                            <View style={list_thesis.lazy}>
+                                <ActivityIndicator size={30} color={color.green} />
+                                <Text style={{ fontSize: 16, color: color.green }}>Loading...</Text>
+                            </View>
+                        )}
+                    </>
                 )}
             </View>
             {show == true && (

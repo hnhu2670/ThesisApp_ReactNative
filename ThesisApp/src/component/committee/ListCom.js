@@ -10,6 +10,7 @@ import styles from '../../assets/js/style';
 import { Root, Popup } from 'react-native-popup-confirm-toast'
 import hoidong from './style';
 import ToastifyMessage from '../layout/ToastifyMessage';
+import list_thesis from '../thesis/style_list';
 
 
 const ListCom = ({ navigation }) => {
@@ -18,16 +19,17 @@ const ListCom = ({ navigation }) => {
     const [filter, setFilter] = useState([])
     const [page, setPage] = useState(1)
     const [pageSize, setPageSize] = useState(null)
+    const [lazy, setLazy] = useState(false)
     const getCommittees = async (pageNumber) => {
         try {
-
+            setLazy(true)
             const { data } = await axios.get(endpoints['list-committes'](pageNumber));
             setPage(pageNumber)
             console.log('trabf', pageNumber)
             console.log("ds hội đồng", data.results);
             setCommittees((prevPostSurveyList) => [...prevPostSurveyList, ...data.results]);
             setPageSize(data.count)
-            // setPostSurveyList((prevPostSurveyList) => [...prevPostSurveyList, ...res.data.results]);
+            setLazy(false)
             return data.results
         } catch (error) {
             console.log("Lỗi rồi trang listcom", error.message);
@@ -149,12 +151,19 @@ const ListCom = ({ navigation }) => {
                 {committees.length < 1 ? (
                     <ActivityIndicator size={30} color={color.green} />
                 ) : (
-
-                    <FlatList onScroll={handleScroll} scrollEventThrottle={16}
-                        data={filter.length > 0 ? filter : committees}
-                        keyExtractor={(item) => item.id.toString()}
-                        renderItem={renderData}
-                    />
+                    <>
+                        <FlatList onScroll={handleScroll} scrollEventThrottle={16}
+                            data={filter.length > 0 ? filter : committees}
+                            keyExtractor={(item) => item.id.toString()}
+                            renderItem={renderData}
+                        />
+                        {lazy && (
+                            <View style={list_thesis.lazy}>
+                                <ActivityIndicator size={30} color={color.green} />
+                                <Text style={{ fontSize: 16, color: color.green }}>Loading...</Text>
+                            </View>
+                        )}
+                    </>
 
                 )}
             </View>

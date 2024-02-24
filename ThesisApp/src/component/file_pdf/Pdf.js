@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { ActivityIndicator, Dimensions, FlatList, Linking, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, ActivityIndicatorBase, Dimensions, FlatList, Linking, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { endpoints } from '../../configs/Apis'
 import Search from '../layout/Search'
 import color from '../../assets/js/color'
@@ -8,19 +8,25 @@ import styles from '../../assets/js/style'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Popup } from 'react-native-popup-confirm-toast';
 import { Ionicons } from '@expo/vector-icons'
+import list_thesis from '../thesis/style_list'
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 const Pdf = ({ navigation }) => {
     const [list, setList] = useState('')
+
     const [filter, setFilter] = useState([])
     const [page, setPage] = useState(1)
     const [pageSize, setPageSize] = useState(null)
+    const [lazy, setLazy] = useState(false)
     const getListThesis = async (pageNumber) => {
+        setLazy(true)
         const { data } = await axios.get(endpoints["list-thesis"](pageNumber))
         setPage(pageNumber)
+
         setList((prevPostSurveyList) => [...prevPostSurveyList, ...data.results]);
         setPageSize(data.count)
+        setLazy(false)
         return data.results
 
     }
@@ -79,7 +85,6 @@ const Pdf = ({ navigation }) => {
 
     };
     const handleScroll = async (event) => {
-
         event.persist();
         const { layoutMeasurement, contentOffset, contentSize } = event?.nativeEvent || {};
         // layoutMeasurement(kthuoc hiện tại => nd được hiển thị) + contentOffset(vtri hiện tại) contentSize(kthuoc toàn bộ)
@@ -95,9 +100,14 @@ const Pdf = ({ navigation }) => {
             if (hasMoreData) {
                 const nextPage = page + 1;
                 // lấy data từ page tiếp theo
+                // setLazy(true)
+                // console.log("1", lazy)
                 getListThesis(nextPage);
+                // setLazy(false)
+                // console.log("2", lazy)
             }
         } catch (error) {
+            // setLazy(true)
             console.error(error);
         }
     };
@@ -115,15 +125,27 @@ const Pdf = ({ navigation }) => {
                 {/* onSearch truyền từ search qua */}
                 <Search onSearch={searchName} />
             </View>
+
             <View style={list_thesis.bottom}>
                 {list.length < 1 ? (
-                    // <Text>Chưa có dữ liệu</Text>
                     <ActivityIndicator size={30} color={color.green} />
-                ) : (<FlatList onScroll={handleScroll} scrollEventThrottle={16}
-                    data={filter.length > 0 ? filter : list}
-                    keyExtractor={(item) => item.id.toString()}
-                    renderItem={renderItem}
-                />
+
+                ) : (
+                    <>
+                        <FlatList
+                            onScroll={handleScroll}
+                            scrollEventThrottle={16}
+                            data={filter.length > 0 ? filter : list}
+                            keyExtractor={(item) => item.id.toString()}
+                            renderItem={renderItem}
+                        />
+                        {lazy && (
+                            <View style={list_thesis.lazy}>
+                                <ActivityIndicator size={30} color={color.green} />
+                                <Text style={{ fontSize: 16, color: color.green }}>Loading...</Text>
+                            </View>
+                        )}
+                    </>
                 )}
             </View>
         </View>
@@ -131,74 +153,81 @@ const Pdf = ({ navigation }) => {
     )
 
 }
-const list_thesis = StyleSheet.create({
-    // container: {
-    //     margin: 10,
-    // },
-    top: {
-        height: 'auto',
-        marginBottom: '3%'
-    },
-    bottom: {
-        height: windowHeight * 0.7,
-        marginVertical: '3%'
-    },
-    row: {
-        flexDirection: "row",
-        marginBottom: 10,
-        marginTop: 10,
-        justifyContent: "center",
-        alignItems: "center",
-    },
-    right: {
-        flexDirection: "row",
-        width: windowWidth * 0.8,
-        height: 'auto',
-        borderWidth: 1,
-        borderColor: '#d0eacef5',
-        // backgroundColor: '#e1eee0e8',
-        backgroundColor: '#dde8dcfc',
-        padding: 20,
-        borderRadius: 5,
-        justifyContent: 'center',
-        alignItems: 'center',
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 5,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
-    },
-    left: {
-        width: windowWidth * 0.1,
-        height: 80,
-        marginRight: -15,
-        position: 'relative',
-        zIndex: 99
-    },
-    text: {
-        height: 40,
-        width: 40,
-        borderRadius: 50,
-        backgroundColor: "#2d665f",
-        color: "#FFFF",
-        textAlign: "center",
-        textAlignVertical: "center",
-        padding: 10,
+// const list_thesis = StyleSheet.create({
+//     // container: {
+//     //     margin: 10,
+//     // },
+//     top: {
+//         height: 'auto',
+//         marginBottom: '3%'
+//     },
+//     bottom: {
+//         height: windowHeight * 0.75,
+//         marginVertical: '3%'
+//     },
+//     row: {
+//         flexDirection: "row",
+//         marginBottom: 10,
+//         marginTop: 10,
+//         justifyContent: "center",
+//         alignItems: "center",
+//     },
+//     right: {
+//         flexDirection: "row",
+//         width: windowWidth * 0.8,
+//         height: 'auto',
+//         borderWidth: 1,
+//         borderColor: '#d0eacef5',
+//         // backgroundColor: '#e1eee0e8',
+//         backgroundColor: '#dde8dcfc',
+//         padding: 20,
+//         borderRadius: 5,
+//         justifyContent: 'center',
+//         alignItems: 'center',
+//         shadowColor: '#000',
+//         shadowOffset: {
+//             width: 0,
+//             height: 5,
+//         },
+//         shadowOpacity: 0.25,
+//         shadowRadius: 3.84,
+//         elevation: 5,
+//     },
+//     left: {
+//         width: windowWidth * 0.1,
+//         height: 80,
+//         marginRight: -15,
+//         position: 'relative',
+//         zIndex: 99
+//     },
+//     text: {
+//         height: 40,
+//         width: 40,
+//         borderRadius: 50,
+//         backgroundColor: "#2d665f",
+//         color: "#FFFF",
+//         textAlign: "center",
+//         textAlignVertical: "center",
+//         padding: 10,
 
-    },
-    name: {
-        width: "90%",
-        height: 'auto',
-        color: "#2d665f",
-        // color: "black",
-        fontSize: 16
-    },
-    edit: {
-        textAlign: "right",
-        justifyContent: "center",
-    }
-})
+//     },
+//     name: {
+//         width: "90%",
+//         height: 'auto',
+//         color: "#2d665f",
+//         // color: "black",
+//         fontSize: 16
+//     },
+//     edit: {
+//         textAlign: "right",
+//         justifyContent: "center",
+//     },
+//     lazy: {
+//         flexDirection: 'row',
+//         justifyContent: 'center',
+//         alignItems: 'center',
+//         height: 70,
+//         backgroundColor: 'transparent'
+//     }
+// })
 export default Pdf

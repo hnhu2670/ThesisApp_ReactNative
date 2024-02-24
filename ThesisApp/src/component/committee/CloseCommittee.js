@@ -17,15 +17,17 @@ const CloseCommittee = () => {
     const [committees, setCommittees] = useState([]);
     const [page, setPage] = useState(1)
     const [pageSize, setPageSize] = useState(null)
+    const [lazy, setLazy] = useState(false)
     const getCommittees = async (pageNumber) => {
         try {
+            setLazy(true)
             const { data } = await axios.get(endpoints['list-committes'](pageNumber));
             setPage(pageNumber)
-            // nối dữ liệu của page 1 và page 2 ....
-            // prevPostSurveyList: mãng hiện tại
-            //...data.results: dữ liệu tiếp theo
+            console.log('trabf', pageNumber)
+            console.log("ds hội đồng", data.results);
             setCommittees((prevPostSurveyList) => [...prevPostSurveyList, ...data.results]);
             setPageSize(data.count)
+            setLazy(false)
             return data.results
         } catch (error) {
             console.log("Lỗi rồi trang listcom", error.message);
@@ -198,13 +200,19 @@ const CloseCommittee = () => {
                     // <Text>Chưa có dữ liệu</Text>
                     <ActivityIndicator size={30} color={color.green} />
                 ) : (
-
-                    <FlatList onScroll={handleScroll} scrollEventThrottle={16}
-                        // data={committees}
-                        data={filter.length > 0 ? filter : committees}
-                        keyExtractor={(item) => item.id.toString()}
-                        renderItem={renderData}
-                    />
+                    <>
+                        <FlatList onScroll={handleScroll} scrollEventThrottle={16}
+                            data={filter.length > 0 ? filter : committees}
+                            keyExtractor={(item) => item.id.toString()}
+                            renderItem={renderData}
+                        />
+                        {lazy && (
+                            <View style={list_thesis.lazy}>
+                                <ActivityIndicator size={30} color={color.green} />
+                                <Text style={{ fontSize: 16, color: color.green }}>Loading...</Text>
+                            </View>
+                        )}
+                    </>
                 )}
             </View>
             {show == 'warning' && (

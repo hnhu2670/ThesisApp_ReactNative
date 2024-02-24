@@ -15,18 +15,19 @@ const ListThesisForScore = () => {
 
     const nav = useNavigation();
 
-    const getListThesis = async () => {
-        const token = await AsyncStorage.getItem('token')
+    const [page, setPage] = useState(1)
+    const [pageSize, setPageSize] = useState(null)
+    const [lazy, setLazy] = useState(false)
+    const getListThesis = async (pageNumber) => {
+        setLazy(true)
+        const { data } = await axios.get(endpoints["list-thesis"](pageNumber))
+        setPage(pageNumber)
 
-        const res = await authApiToken(token).get(endpoints["list-thesis"])
-        // console.log('danh sách khóa luận được chấm điểm', res.data.length)
-        if (res.status === 200) {
-            const result = await res.data;
-            setList(result);
+        setList((prevPostSurveyList) => [...prevPostSurveyList, ...data.results]);
+        setPageSize(data.count)
+        setLazy(false)
+        return data.results
 
-        } else {
-            throw new Error(res.statusText);
-        }
     }
     const searchName = (text) => {
         const filterName = list.filter((item) =>
@@ -62,9 +63,36 @@ const ListThesisForScore = () => {
             </>
         );
     }
+    const handleScroll = async (event) => {
+        event.persist();
+        const { layoutMeasurement, contentOffset, contentSize } = event?.nativeEvent || {};
+        // layoutMeasurement(kthuoc hiện tại => nd được hiển thị) + contentOffset(vtri hiện tại) contentSize(kthuoc toàn bộ)
+        //    cao của nội dung trừ chiều cao của vùng hiển thị
+        const isEndOfScrollView = contentOffset.y >= (contentSize.height - layoutMeasurement.height - 1);
+
+        // ktra đã scroll đến cuối chưa
+        if (!isEndOfScrollView) return;
+        try {
+            // ktra còn data để load hong
+            const hasMoreData = list.length > 0 && list.length < pageSize;
+
+            if (hasMoreData) {
+                const nextPage = page + 1;
+                // lấy data từ page tiếp theo
+                // setLazy(true)
+                // console.log("1", lazy)
+                getListThesis(nextPage);
+                // setLazy(false)
+                // console.log("2", lazy)
+            }
+        } catch (error) {
+            // setLazy(true)
+            console.error(error);
+        }
+    };
     useEffect(() => {
-        getListThesis();
-    }, [])
+        getListThesis(1);
+    }, []);
     return (
         <View style={[styles.container, { backgroundColor: color.background, height: '80%' }]}>
             <View style={list_thesis.container}>
@@ -87,83 +115,104 @@ const ListThesisForScore = () => {
                     />
                     )}
                 </View>
+                <View style={list_thesis.bottom}>
+                    {list.length < 1 ? (
+                        <ActivityIndicator size={30} color={color.green} />
 
+                    ) : (
+                        <>
+                            <FlatList
+                                onScroll={handleScroll}
+                                scrollEventThrottle={16}
+                                data={filter.length > 0 ? filter : list}
+                                keyExtractor={(item) => item.id.toString()}
+                                renderItem={renderItem}
+                            />
+                            {lazy && (
+                                <View style={list_thesis.lazy}>
+                                    <ActivityIndicator size={30} color={color.green} />
+                                    <Text style={{ fontSize: 16, color: color.green }}>Loading...</Text>
+                                </View>
+                            )}
+                        </>
+                    )}
+                </View>
             </View>
 
         </View>
     )
 }
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
-const list_thesis = StyleSheet.create({
-    container: {
-        margin: 10,
-    },
-    top: {
-        height: 'auto',
-        marginBottom: '3%',
-        // marginHorizontal: 20
-    },
-    bottom: {
-        height: windowHeight * 0.7,
-        marginVertical: '3%'
-    },
-    row: {
-        flexDirection: "row",
-        marginBottom: 10,
-        marginTop: 10,
-        justifyContent: "center",
-        alignItems: "center",
-        width: windowWidth * 0.85,
-    },
-    right: {
-        flexDirection: 'row',
-        width: '90%',
-        height: 'auto',
-        borderWidth: 1,
-        borderColor: '#d0eacef5',
-        // backgroundColor: '#e1eee0e8',
-        backgroundColor: '#dde8dcfc',
-        padding: 20,
-        borderRadius: 5,
-        justifyContent: 'center',
-        alignItems: 'center',
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
-    },
-    left: {
-        width: "13%",
-        height: 80,
-        marginRight: -15,
-        position: 'relative',
-        zIndex: 99
-    },
-    text: {
-        height: 40,
-        width: 40,
-        borderRadius: 50,
-        backgroundColor: "#2d665f",
-        color: "#FFFF",
-        textAlign: "center",
-        textAlignVertical: "center",
-        padding: 10,
+// const windowWidth = Dimensions.get('window').width;
+// const windowHeight = Dimensions.get('window').height;
+// const list_thesis = StyleSheet.create({
+//     container: {
+//         margin: 10,
+//     },
+//     top: {
+//         height: 'auto',
+//         marginBottom: '3%',
+//         // marginHorizontal: 20
+//     },
+//     bottom: {
+//         height: windowHeight * 0.7,
+//         marginVertical: '3%'
+//     },
+//     row: {
+//         flexDirection: "row",
+//         marginBottom: 10,
+//         marginTop: 10,
+//         justifyContent: "center",
+//         alignItems: "center",
+//         width: windowWidth * 0.85,
+//     },
+//     right: {
+//         flexDirection: 'row',
+//         width: '90%',
+//         height: 'auto',
+//         borderWidth: 1,
+//         borderColor: '#d0eacef5',
+//         // backgroundColor: '#e1eee0e8',
+//         backgroundColor: '#dde8dcfc',
+//         padding: 20,
+//         borderRadius: 5,
+//         justifyContent: 'center',
+//         alignItems: 'center',
+//         shadowColor: '#000',
+//         shadowOffset: {
+//             width: 0,
+//             height: 2,
+//         },
+//         shadowOpacity: 0.25,
+//         shadowRadius: 3.84,
+//         elevation: 5,
+//     },
+//     left: {
+//         width: "13%",
+//         height: 80,
+//         marginRight: -15,
+//         position: 'relative',
+//         zIndex: 99
+//     },
+//     text: {
+//         height: 40,
+//         width: 40,
+//         borderRadius: 50,
+//         backgroundColor: "#2d665f",
+//         color: "#FFFF",
+//         textAlign: "center",
+//         textAlignVertical: "center",
+//         padding: 10,
 
-    },
-    name: {
-        width: "90%",
-        color: "#2d665f",
-        // color: "black",
-        fontSize: 16
-    },
-    edit: {
-        textAlign: "right",
-        justifyContent: "center",
-    }
-})
+//     },
+//     name: {
+//         width: "90%",
+//         color: "#2d665f",
+//         // color: "black",
+//         fontSize: 16
+//     },
+//     edit: {
+//         textAlign: "right",
+//         justifyContent: "center",
+//     }
+// })
 export default ListThesisForScore;

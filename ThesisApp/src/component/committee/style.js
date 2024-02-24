@@ -16,7 +16,7 @@ const hoidong = StyleSheet.create({
         marginBottom: '3%',
     },
     contain_bottom: {
-        height: windowHeight * 0.7,
+        height: windowHeight * 0.75,
         marginVertical: '3%'
     },
     row: {

@@ -5,13 +5,13 @@ import styles from '../../assets/js/style'
 import { MyUserContext } from '../../../App'
 import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import login from '../../login/style'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import hoidong from './style'
 
 const MyCommittee = ({ navigation }) => {
     const [current_user, dispatch] = useContext(MyUserContext)
     const [thisComm, setThisComm] = useState([])
     console.log('id của gv', current_user.id)
+
     const getThisComm = async () => {
         const { data } = await axios.get(endpoints['committee-of-user'](current_user.id))
         console.log('thông tin user', data)

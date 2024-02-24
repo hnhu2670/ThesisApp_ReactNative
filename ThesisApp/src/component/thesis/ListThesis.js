@@ -7,19 +7,23 @@ import Search from '../layout/Search'
 import color from '../../assets/js/color'
 import { MyUserContext } from '../../../App'
 import styles from '../../assets/js/style'
+import list_thesis from './style_list'
 
 const ListThesis = ({ navigation }) => {
-    const [current_user, dispatch] = useContext(MyUserContext);
     // const { name } = route.params;
     const [list, setList] = useState('')
     const [filter, setFilter] = useState([])
     const [page, setPage] = useState(1)
     const [pageSize, setPageSize] = useState(null)
+    const [lazy, setLazy] = useState(false)
     const getListThesis = async (pageNumber) => {
+        setLazy(true)
         const { data } = await axios.get(endpoints["list-thesis"](pageNumber))
         setPage(pageNumber)
+
         setList((prevPostSurveyList) => [...prevPostSurveyList, ...data.results]);
         setPageSize(data.count)
+        setLazy(false)
         return data.results
 
     }
@@ -95,13 +99,24 @@ const ListThesis = ({ navigation }) => {
                 </View>
                 <View style={list_thesis.bottom}>
                     {list.length < 1 ? (
-                        // <Text>ChÆ°a cÃ³ dá»¯ liá»‡u</Text>
                         <ActivityIndicator size={30} color={color.green} />
-                    ) : (<FlatList onScroll={handleScroll} scrollEventThrottle={16}
-                        data={filter.length > 0 ? filter : list}
-                        keyExtractor={(item) => item.id.toString()}
-                        renderItem={renderItem}
-                    />
+
+                    ) : (
+                        <>
+                            <FlatList
+                                onScroll={handleScroll}
+                                scrollEventThrottle={16}
+                                data={filter.length > 0 ? filter : list}
+                                keyExtractor={(item) => item.id.toString()}
+                                renderItem={renderItem}
+                            />
+                            {lazy && (
+                                <View style={list_thesis.lazy}>
+                                    <ActivityIndicator size={30} color={color.green} />
+                                    <Text style={{ fontSize: 16, color: color.green }}>Loading...</Text>
+                                </View>
+                            )}
+                        </>
                     )}
                 </View>
 
@@ -112,77 +127,5 @@ const ListThesis = ({ navigation }) => {
     )
 
 }
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
-const list_thesis = StyleSheet.create({
-    container: {
-        margin: 10,
-    },
-    top: {
-        height: 'auto',
-        marginBottom: '3%',
-        // marginHorizontal: 20
-    },
-    bottom: {
-        height: windowHeight * 0.7,
-        marginVertical: '3%'
-    },
-    row: {
-        flexDirection: "row",
-        marginBottom: 10,
-        marginTop: 10,
-        justifyContent: "center",
-        alignItems: "center",
-        width: windowWidth * 0.85,
-    },
-    right: {
-        flexDirection: 'row',
-        width: '90%',
-        height: 'auto',
-        borderWidth: 1,
-        borderColor: '#d0eacef5',
-        // backgroundColor: '#e1eee0e8',
-        backgroundColor: '#dde8dcfc',
-        padding: 20,
-        borderRadius: 5,
-        justifyContent: 'center',
-        alignItems: 'center',
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
-    },
-    left: {
-        width: "13%",
-        height: 80,
-        marginRight: -15,
-        position: 'relative',
-        zIndex: 99
-    },
-    text: {
-        height: 40,
-        width: 40,
-        borderRadius: 50,
-        backgroundColor: "#2d665f",
-        color: "#FFFF",
-        textAlign: "center",
-        textAlignVertical: "center",
-        padding: 10,
 
-    },
-    name: {
-        width: "90%",
-        color: "#2d665f",
-        // color: "black",
-        fontSize: 16
-    },
-    edit: {
-        textAlign: "right",
-        justifyContent: "center",
-    }
-})
 export default ListThesis

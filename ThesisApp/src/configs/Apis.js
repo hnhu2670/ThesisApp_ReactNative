@@ -1,8 +1,8 @@
 import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const SERVER_URL = 'http:///192.168.1.11:8000';
-const SERVER = "http://192.168.1.11";
+const SERVER_URL = 'http:///192.168.1.2:8000';
+const SERVER = "http://192.168.1.2";
 // const SERVER_URL = 'http://192.168.1.19:8000';
 // const SERVER = "http://192.168.1.19";
 // const SERVER_URL = 'http://172.16.17.180:8000';
