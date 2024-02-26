@@ -32,16 +32,16 @@ export default function Chat() {
     const [messages, setMessages] = useState([]);
     const route = useRoute();
     const { id, username } = route.params;
-    console.log('thông tin user', id, username)
+    console.log('thông tin user', user.id)
     const [url_collection, setURL] = useState('Chat/Chat/Chat');
 
-
+    // lấy đường dẫn tin nhắn
     const getURLChat = (id) => {
         // ktra mình là người nhắn hay người nhận tin
         if (id > user.id)
-            setURL("ThesisApp/" + username + "/" + user.username);
+            setURL("newchat/" + username + "/" + user.username);
         else {
-            setURL("ThesisApp/" + user.username + "/" + username);
+            setURL("newchat/" + user.username + "/" + username);
         }
     };
     useEffect(() => {
@@ -52,11 +52,11 @@ export default function Chat() {
 
     useEffect(() => {
         const collectionRef = collection(database, url_collection);
-        // console.log('thông tin chat', collectionRef)
+        console.log('thông tin chat', collectionRef)
         const q = query(collectionRef, orderBy('createdAt', 'desc'));//sắp xếp theo thời gian
-
+        // console.log('thông tin chat.........', q)
         const unsubscribe = onSnapshot(q, querySnapshot => {
-            console.log('querySnapshot unsusbscribe');
+            console.log('============', unsubscribe);
             // lưu tin nhắn
             setMessages(
                 querySnapshot.docs.map(doc => ({

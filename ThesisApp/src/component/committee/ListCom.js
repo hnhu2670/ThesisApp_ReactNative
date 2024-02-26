@@ -7,10 +7,11 @@ import Search from '../layout/Search';
 import color from '../../assets/js/color';
 import { MyUserContext } from '../../../App';
 import styles from '../../assets/js/style';
-import { Root, Popup } from 'react-native-popup-confirm-toast'
+import { Popup } from 'react-native-popup-confirm-toast'
 import hoidong from './style';
 import ToastifyMessage from '../layout/ToastifyMessage';
 import list_thesis from '../thesis/style_list';
+import { Root, Popup } from 'react-native-popup-confirm-toast'
 
 
 const ListCom = ({ navigation }) => {
@@ -63,7 +64,16 @@ const ListCom = ({ navigation }) => {
             }
         }
     }
-
+    const updateName = async (id, name) => {
+        Popup.show({
+            type: 'confirm',
+            textBody: 'Đổi tên',
+            bodyComponent: (bodyProps) => bodyComponent({ ...props, bodyProps, Popup }),
+            confirmText: 'Cancel',
+            iconEnabled: false,
+            buttonEnabled: false,
+        });
+    }
     const renderData = ({ item, index }) => {
         return (
             <>
@@ -73,7 +83,7 @@ const ListCom = ({ navigation }) => {
                             {index + 1}
                         </Text>
                         <TouchableOpacity style={[hoidong.name]}
-                            onPress={() => changeName(item.id, item.name)}>
+                            onPress={() => updateName(item.id, item.name)}>
                             <Text style={{ color: color.green, fontSize: 16 }}>{item.name}</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
