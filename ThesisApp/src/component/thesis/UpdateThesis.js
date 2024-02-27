@@ -201,7 +201,7 @@ const UpdateThesis = ({ route, navigation }) => {
             setMessager("Cập nhật thành công")
             setLoading(false)
             setTimeout(() => {
-                navigation.navigate('Danh sách khóa luận');
+                navigation.navigate('ThesisApp');
             }, 800);
             // console.log('Cập nhật thành công nhe', data)
             await getList()

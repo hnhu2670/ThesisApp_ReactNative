@@ -61,11 +61,15 @@ const AddThesis = ({ navigation }) => {
 
 
         if (listthesis) {
+            if (comm === null) {
+                setShow('error')
+                setError('Chọn hội đồng bảo vệ')
+            }
             if (student === null) {
                 // alert("Chọn sinh viên thực hiện khóa luận")
                 setShow('error')
                 setError('Chọn sinh viên thực hiện khóa luận')
-            } else if (teacher1 === null) {
+            } else if (teacher1 === null || teacher2 === null) {
                 // alert("Phải chọn giảng viên hướng dẫn")
                 setShow('error')
                 setError('Phải chọn giảng viên hướng dẫn')
@@ -139,6 +143,11 @@ const AddThesis = ({ navigation }) => {
                         <GetStudent getIdStudents={getIdStudent}
                         />
                     </View>
+                    <View style={[thesis.text_input, { paddingBottom: 20 }]}>
+                        <Text style={login.text}>Hội đồng bảo vệ </Text>
+
+                        <GetCom getTecher={getIdCommittee} />
+                    </View>
                     <View style={thesis.text_input}>
                         <Text style={login.text}>Giảng viên hướng dẫn 1 </Text>
 
@@ -149,11 +158,7 @@ const AddThesis = ({ navigation }) => {
 
                         <GetTeacher getTecher={getIdTeacher2} />
                     </View>
-                    <View style={[thesis.text_input, { paddingBottom: 20 }]}>
-                        <Text style={login.text}>Hội đồng bảo vệ </Text>
 
-                        <GetCom getTecher={getIdCommittee} />
-                    </View>
 
                 </ScrollView>
                 {loading === true ? <><ActivityIndicator /></> : <>

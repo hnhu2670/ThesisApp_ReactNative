@@ -13,11 +13,7 @@ const GetStudent = (props) => {
     const [selected, setSelected] = useState([]);
 
     const sendIdStudent = (id) => {
-
-        // console.log("Danh sách data", id);
-        // setSelected(item.id); // Lưu giá trị id vào selectedTeacher
-        // console.log(".................", item.id)
-        // console.log('22222')
+        // truyền thông tin sinh viên
         props.getIdStudents(id)
         // console.log('22222')
     }
@@ -37,15 +33,9 @@ const GetStudent = (props) => {
     }
     const chageMultipleSelect = (values) => {
         setSelected(values);
-        // console.log('ngộ ha', selected)
-
-        // sendIdStudent(values)
-        // console.log(selected)
     };
     useEffect(() => {
         getStudent()
-        // console.log(selected);
-        // sendIdStudent(item)
     }, [])
 
     return (

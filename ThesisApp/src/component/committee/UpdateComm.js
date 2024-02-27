@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { ScrollView, Text, TextInput, TouchableOpacity, View, Dimensions } from 'react-native';
+import { ScrollView, Text, TextInput, TouchableOpacity, View, Dimensions, Alert } from 'react-native';
 import login from '../../login/style';
 import styles from '../thesis/style';
 import { Dropdown } from 'react-native-element-dropdown';

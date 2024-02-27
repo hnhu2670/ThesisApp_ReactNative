@@ -17,8 +17,9 @@ const GetCom = (props) => {
 
     const getCommittee = async () => {
         try {
-            const { data } = await axios.get(endpoints["list-committes"] + '?status=Open');
-            console.log('data', data)
+            const { data } = await axios.get(`${endpoints["list-committes"]("all")}&status=Open`);
+
+            // console.log('data', data)
             setCommittee(data)
         } catch (error) {
             console.log("Lỗi trang getcom:", error);
@@ -56,8 +57,8 @@ const GetCom = (props) => {
                 label: `${c.name}`,
                 id: `${c.id}`
             }))}
-            placeholder="Chọn giảng viên"
-            searchPlaceholder="Tìm tên giảng viên..."
+            placeholder="Chọn hội đồng"
+            searchPlaceholder="Tìm tên hội đồng..."
             value={selectedCommittee} // Giá trị được lưu
             onChange={(item) => {
                 sendIdCommittee(item); // Gọi hàm sendIdTeacher với giá trị id

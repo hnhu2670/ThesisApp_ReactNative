@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, FlatList, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import axios from 'axios';
 import { endpoints } from '../../configs/Apis';
 import { AntDesign } from '@expo/vector-icons';
@@ -11,7 +11,6 @@ import { Popup } from 'react-native-popup-confirm-toast'
 import hoidong from './style';
 import ToastifyMessage from '../layout/ToastifyMessage';
 import list_thesis from '../thesis/style_list';
-import { Root, Popup } from 'react-native-popup-confirm-toast'
 
 
 const ListCom = ({ navigation }) => {
@@ -21,6 +20,7 @@ const ListCom = ({ navigation }) => {
     const [page, setPage] = useState(1)
     const [pageSize, setPageSize] = useState(null)
     const [lazy, setLazy] = useState(false)
+    const [nameComm, setNameComm] = useState('')
     const getCommittees = async (pageNumber) => {
         try {
             setLazy(true)
@@ -64,16 +64,59 @@ const ListCom = ({ navigation }) => {
             }
         }
     }
-    const updateName = async (id, name) => {
-        Popup.show({
-            type: 'confirm',
-            textBody: 'Đổi tên',
-            bodyComponent: (bodyProps) => bodyComponent({ ...props, bodyProps, Popup }),
-            confirmText: 'Cancel',
-            iconEnabled: false,
-            buttonEnabled: false,
-        });
-    }
+    // const BodyComponent = ({ name, onChange }) => {
+    //     return (
+    //         <View>
+    //             <TextInput
+    //                 style={{ borderWidth: 1, borderColor: 'gray' }}
+    //                 value={name}
+    //                 onChangeText={onChange}
+    //             />
+    //         </View>
+    //     );
+    // }
+
+    // const updateName = async (id, name) => {
+    //     const popup = Popup;
+    //     popup.show({
+    //         type: 'confirm',
+    //         textBody: 'hello',
+    //         bodyComponent: (bodyProps) => (
+    //             <BodyComponent
+    //                 name={name}
+    //                 onChange={(e) => name = e.target.value}
+    //                 {...bodyProps}
+    //             />
+    //         ),
+    //         confirmText: 'Cancel',
+    //         iconEnabled: false,
+    //         buttonEnabled: false,
+    //     });
+
+
+    //     async function changeName() {
+    //         const token = await AsyncStorage.getItem('token')
+    //         const formData = new FormData()
+    //         for (let field in nameComm) {
+    //             formData.append(field, nameComm[field]);
+    //             // console.log(nameComm[field])
+    //         }
+    //         try {
+    //             Popup.hide();
+    //             const data = authApiToken(token).patch(endpoints['update-name-committes'](id), formData, {
+    //                 headers: {
+    //                     "Content-Type": "multipart/form-data"
+    //                 }
+    //             })
+    //             console.log('update tên thành công', (await data).data)
+
+
+
+    //         } catch (error) {
+    //             console.log('lỗi nhe', error)
+    //         }
+    //     }
+    // }
     const renderData = ({ item, index }) => {
         return (
             <>
@@ -83,7 +126,7 @@ const ListCom = ({ navigation }) => {
                             {index + 1}
                         </Text>
                         <TouchableOpacity style={[hoidong.name]}
-                            onPress={() => updateName(item.id, item.name)}>
+                            onPress={() => changeName(item.id, item.name)}>
                             <Text style={{ color: color.green, fontSize: 16 }}>{item.name}</Text>
                         </TouchableOpacity>
                         <TouchableOpacity

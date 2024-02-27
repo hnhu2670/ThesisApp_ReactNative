@@ -31,7 +31,7 @@ const UpdateName = ({ route, navigation }) => {
                 }
             })
             console.log('update tên thành công', (await data).data)
-            navigation.navigate('Danh sách hội đồng')
+            navigation.navigate('ThesisApp')
 
 
         } catch (error) {

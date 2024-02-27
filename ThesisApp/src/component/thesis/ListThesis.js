@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useContext, useEffect, useState } from 'react'
-import { ActivityIndicator, Dimensions, FlatList, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, Alert, Dimensions, FlatList, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { endpoints } from '../../configs/Apis'
 import { AntDesign } from '@expo/vector-icons'
 import Search from '../layout/Search'
@@ -8,9 +8,11 @@ import color from '../../assets/js/color'
 import { MyUserContext } from '../../../App'
 import styles from '../../assets/js/style'
 import list_thesis from './style_list'
+import thesis from './style'
+import { Popup } from 'react-native-popup-confirm-toast'
 
 const ListThesis = ({ navigation }) => {
-    // const { name } = route.params;
+
     const [list, setList] = useState('')
     const [filter, setFilter] = useState([])
     const [page, setPage] = useState(1)
@@ -30,6 +32,31 @@ const ListThesis = ({ navigation }) => {
     const update = async (id, name) => {
         navigation.navigate('Cập nhật khóa luận', { id, name })
     }
+    // const changeName = (id, name) => {
+    //     const popup = Popup;
+    //     const [newName, setNewName] = useState(name);
+
+    //     const handleInputChange = (text) => {
+    //         setNewName(text);
+    //     };
+
+    //     popup.show({
+    //         type: 'confirm',
+    //         textBody: `Bạn có muốn xóa thành viên "${name}" này không?`,
+    //         bodyComponent: (bodyProps) => (
+    //             <TextInput
+    //                 value={newName}
+    //                 onChangeText={handleInputChange}
+    //                 placeholder="Nhập tên mới"
+    //             />
+    //         ),
+    //         confirmText: 'Cancel',
+    //         iconEnabled: false,
+    //         buttonEnabled: false,
+    //     });
+    // };
+
+
 
     const renderItem = ({ item }) => {
         return (
@@ -52,9 +79,8 @@ const ListThesis = ({ navigation }) => {
     }
     const searchName = (text) => {
         const filterName = list.filter((item) =>
-            // toLowerCase() chuyá»ƒn chá»¯ hoa thÃ nh thÆ°á»ng
-            item.name.toLowerCase().includes(text.toLowerCase())
-        );
+            // toLowerCase() chứ hoa thành thường
+            item.name.toLowerCase().includes(text.trim().toLowerCase()));
         // setCommittees(filterName);
         setFilter(filterName)
         console.log('Search text:', text);
@@ -85,6 +111,7 @@ const ListThesis = ({ navigation }) => {
     };
     useEffect(() => {
         getListThesis(1);
+        console.log('tên.......................', list)
     }, []);
     return (
         <View style={[styles.container, { backgroundColor: color.background, height: '80%' }]}>
