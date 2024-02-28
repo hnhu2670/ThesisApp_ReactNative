@@ -9,11 +9,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import hoidong from './style';
 import ToastifyMessage from '../layout/ToastifyMessage';
 import Search from '../layout/Search';
+import list_thesis from '../thesis/style_list';
 const CloseCommittee = () => {
     const [show, setShow] = useState('')
     const [messager, setMessager] = useState('')
     const [filter, setFilter] = useState([])
-
+    const [loading, setLoading] = useState(false)
     const [committees, setCommittees] = useState([]);
     const [page, setPage] = useState(1)
     const [pageSize, setPageSize] = useState(null)
@@ -21,16 +22,18 @@ const CloseCommittee = () => {
     const getCommittees = async (pageNumber) => {
         try {
             setLazy(true)
+
             const { data } = await axios.get(endpoints['list-committes'](pageNumber));
             setPage(pageNumber)
-            console.log('trabf', pageNumber)
-            console.log("ds hội đồng", data.results);
+            // console.log('trabf', pageNumber)
+            // console.log("ds hội đồng", data.results);
             setCommittees((prevPostSurveyList) => [...prevPostSurveyList, ...data.results]);
             setPageSize(data.count)
             setLazy(false)
             return data.results
         } catch (error) {
             console.log("Lỗi rồi trang listcom", error.message);
+
         }
     };
 
@@ -60,7 +63,7 @@ const CloseCommittee = () => {
                     setMessager('Hội đồng đã được khóa')
                 } else {
                     // 2: hội đồng chưa khóa ==> gọi hàm khóa hội đồng
-                    console.log('Hội đồng mở', item.status.name);
+                    // console.log('Hội đồng mở', item.status.name);
                     await closeCommittee()
                 }
             }
@@ -72,6 +75,7 @@ const CloseCommittee = () => {
             try {
                 Popup.hide();
                 try {
+                    setLoading(true)
                     const data = await authApiToken(token).patch(endpoints['close-committes'](id));
                     console.log("khóa hội đồng thành công", data.status);
                     // Cập nhật dữ liệu mới vào state committees
@@ -91,12 +95,14 @@ const CloseCommittee = () => {
                         return item;
                     });
                     // lưu mới vào setCommittees
+                    setLoading(false)
                     setCommittees(updatedCommittees);
                     setShow('success')
                     setMessager('Khóa hội đồng thành công')
+
                 } catch (error) {
                     console.log("Lỗi rồi trang listcom", error.message);
-
+                    setLoading(false)
                     setShow('error')
                     setMessager('Khóa hội đồng thất bại')
                 }
@@ -113,6 +119,7 @@ const CloseCommittee = () => {
     const renderData = ({ item, index }) => {
         return (
             <>
+
                 <View key={item.id} >
                     <View style={hoidong.row}>
                         <Text style={[hoidong.first,]}>
@@ -126,18 +133,23 @@ const CloseCommittee = () => {
                             <TouchableOpacity onPress={() => closeComm(item.id, item.name)}
                                 style={[hoidong.edit]}
                             >
+
                                 <Text>
                                     <Entypo color="gray" name="lock" size={20} />
                                 </Text>
+
+
                             </TouchableOpacity>
                         </> : <>
                             {/* hội đồng chưa khóa */}
                             <TouchableOpacity onPress={() => closeComm(item.id, item.name)}
                                 style={[hoidong.edit]}
                             >
+
                                 <Text>
                                     <Entypo color="gray" name="lock-open" size={20} />
                                 </Text>
+
                             </TouchableOpacity>
                         </>}
                     </View>
@@ -201,6 +213,7 @@ const CloseCommittee = () => {
                     <ActivityIndicator size={30} color={color.green} />
                 ) : (
                     <>
+                        {loading === true ? <><ActivityIndicator /></> : <></>}
                         <FlatList onScroll={handleScroll} scrollEventThrottle={16}
                             data={filter.length > 0 ? filter : committees}
                             keyExtractor={(item) => item.id.toString()}

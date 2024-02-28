@@ -64,7 +64,8 @@ const AddScore = ({ route, navigation }) => {
         const token = await AsyncStorage.getItem('token')
         if (list_Score.length > 0) {
             try {
-                console.log('list_Score', list_Score)//không có sự thay đổi điểm
+                //không có sự thay đổi điểm
+                // console.log('list_Score', list_Score)
 
                 Popup.show({
 
@@ -87,7 +88,7 @@ const AddScore = ({ route, navigation }) => {
                         let res = await authApiToken(token).post(endpoints['add-or-update-score'], {
                             "score": list_Score
                         })
-                        console.log('danh sách điểm', res.data)
+                        // console.log('danh sách điểm', res.data)
 
                         if (res.status == 200) {
                             setShow('success')
@@ -99,13 +100,13 @@ const AddScore = ({ route, navigation }) => {
                         } else {
                             setShow('danger')
                             setError('Chấm điểm thất bại')
-                            alert('error!!!')
+                            // alert('error!!!')
                         }
                     } catch (error) {
                         // Xử lý khi xảy ra lỗi
                         console.error('Lỗi sendScore ', error);
                         setShow('error')
-                        setError("Xóa thành viên thất bại")
+                        setError("Chấm điểm thất bại")
                     }
                 }
             }
@@ -120,7 +121,9 @@ const AddScore = ({ route, navigation }) => {
             }
         }
         else {
-            alert('list_Score null')
+            setShow('error')
+            setError('Bạn chưa nhập điểm')
+            // alert("Bạn chưa nhập điểm")
 
         }
     }

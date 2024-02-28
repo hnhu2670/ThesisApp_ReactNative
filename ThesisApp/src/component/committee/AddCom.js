@@ -27,7 +27,7 @@ const AddCom = ({ navigation }) => {
         const token = await AsyncStorage.getItem('token')
 
         try {
-            const { data } = await authApiToken(token).get(endpoints['get-user-role'] + '?role=lecturer');
+            const { data } = await authApiToken(token).get(`${endpoints["get-user-role"]("all")}&role=lecturer`);
             setMember(data);
             // console.log('danh sách thành viên', data[0])
 

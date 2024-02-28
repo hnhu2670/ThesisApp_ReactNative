@@ -202,7 +202,7 @@ const UpdateThesis = ({ route, navigation }) => {
             setLoading(false)
             setTimeout(() => {
                 navigation.navigate('ThesisApp');
-            }, 800);
+            }, 1000);
             // console.log('Cập nhật thành công nhe', data)
             await getList()
 

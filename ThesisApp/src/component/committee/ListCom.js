@@ -26,8 +26,8 @@ const ListCom = ({ navigation }) => {
             setLazy(true)
             const { data } = await axios.get(endpoints['list-committes'](pageNumber));
             setPage(pageNumber)
-            console.log('trabf', pageNumber)
-            console.log("ds hội đồng", data.results);
+            // console.log('trabf', pageNumber)
+            // console.log("ds hội đồng", data.results);
             setCommittees((prevPostSurveyList) => [...prevPostSurveyList, ...data.results]);
             setPageSize(data.count)
             setLazy(false)
